@@ -27,6 +27,32 @@ export default function CoursesPage() {
       />
 
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
+        {/* Featured interactive course */}
+        <Link
+          href="/learn/agentic-ai"
+          className="mb-12 block rounded-3xl bg-gradient-to-r from-brand-800 via-brand-700 to-slate-900 p-8 text-white transition hover:shadow-2xl sm:p-10"
+        >
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="rounded-full bg-accent-500 px-3 py-1 text-xs font-bold uppercase tracking-wide text-slate-900">
+              ⚡ New · Interactive
+            </span>
+            <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold">
+              Free Preview
+            </span>
+          </div>
+          <h2 className="mt-4 text-2xl font-bold sm:text-3xl">
+            Agentic AI &amp; Autonomous Agents
+          </h2>
+          <p className="mt-2 max-w-2xl text-brand-100/90">
+            Our first fully interactive course — 8 modules of lessons, hands-on
+            labs, and quizzes with live progress tracking. Build and
+            orchestrate AI agents with LangGraph, AutoGen, and CrewAI.
+          </p>
+          <span className="mt-5 inline-block rounded-lg bg-white px-6 py-3 font-semibold text-brand-700">
+            Start Learning Now →
+          </span>
+        </Link>
+
         {/* Category quick nav */}
         <nav className="flex flex-wrap gap-2">
           {courseCategories.map((category) => (
@@ -80,10 +106,10 @@ export default function CoursesPage() {
                       ⏱ {course.duration}
                     </span>
                     <Link
-                      href="/register"
+                      href={course.href ?? "/register"}
                       className="text-sm font-semibold text-brand-600 hover:text-brand-700 dark:text-brand-400"
                     >
-                      Enroll →
+                      {course.href ? "Start Learning →" : "Enroll →"}
                     </Link>
                   </div>
                 </div>

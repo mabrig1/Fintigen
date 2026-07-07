@@ -86,6 +86,30 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Featured interactive course */}
+      <section className="mx-auto max-w-7xl px-4 pt-10 sm:px-6">
+        <Link
+          href="/learn/agentic-ai"
+          className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-brand-300 bg-brand-50 px-6 py-5 transition hover:shadow-lg dark:border-brand-700 dark:bg-brand-900/20"
+        >
+          <div className="flex items-center gap-4">
+            <span className="text-3xl">🤖</span>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wide text-brand-600 dark:text-brand-400">
+                ⚡ New — Our First Interactive Course
+              </p>
+              <p className="font-bold">
+                Agentic AI &amp; Autonomous Agents · 8 modules with labs,
+                quizzes &amp; progress tracking
+              </p>
+            </div>
+          </div>
+          <span className="rounded-lg bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white">
+            Start Free →
+          </span>
+        </Link>
+      </section>
+
       {/* Intro */}
       <section className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6">
         <h2 className="text-3xl font-bold tracking-tight">

@@ -40,6 +40,8 @@ export interface Course {
   level: "Beginner" | "Intermediate" | "Advanced";
   duration: string;
   price: "Free" | "Premium";
+  /** Route to an interactive course player, when the course is live. */
+  href?: string;
 }
 
 export interface CourseCategory {
@@ -122,6 +124,16 @@ export const courseCategories: CourseCategory[] = [
     name: "Artificial Intelligence",
     icon: "🤖",
     courses: [
+      {
+        slug: "agentic-ai",
+        title: "Agentic AI & Autonomous Agents",
+        description:
+          "Build and orchestrate AI agents that perform complex tasks independently — beyond simple chatbots. Master LangGraph, AutoGen, and CrewAI.",
+        level: "Advanced",
+        duration: "8 weeks",
+        price: "Free",
+        href: "/learn/agentic-ai",
+      },
       {
         slug: "prompt-engineering",
         title: "Prompt Engineering",

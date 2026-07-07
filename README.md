@@ -23,6 +23,7 @@ Router) and [Tailwind CSS](https://tailwindcss.com).
 | `/dashboard` | Learning dashboard preview (lessons, progress, assignments, forums) |
 | `/contact` | Contact channels and form |
 | `/login`, `/register` | Authentication pages |
+| `/learn/agentic-ai` | **Interactive course player** — Agentic AI & Autonomous Agents (8 modules of lessons, labs, and quizzes with a persistent progress bar) |
 
 Site-wide features: responsive layout, dark mode with persistence, sticky
 navigation with mobile menu, SEO metadata per page.
