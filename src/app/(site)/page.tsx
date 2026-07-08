@@ -117,6 +117,12 @@ export default function Home() {
               title: "Data Science, Analytics & Engineering",
               blurb: "8 modules · SQL, Spark, Databricks & BI dashboards",
             },
+            {
+              href: "/learn/green-tech-edge-computing",
+              icon: "🌱",
+              title: "Sustainable/Green Technology & Edge Computing",
+              blurb: "8 modules · Carbon-aware systems, TinyML & Green Ops",
+            },
           ].map((course) => (
             <Link
               key={course.href}

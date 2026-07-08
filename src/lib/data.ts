@@ -118,6 +118,16 @@ export const courseCategories: CourseCategory[] = [
         duration: "16 weeks",
         price: "Premium",
       },
+      {
+        slug: "green-tech-edge-computing",
+        title: "Sustainable/Green Technology & Edge Computing",
+        description:
+          "Carbon-aware software design, power profiling, energy-efficient IoT, and TinyML at the extreme edge — building next-generation green technical infrastructure.",
+        level: "Intermediate",
+        duration: "8 modules",
+        price: "Free",
+        href: "/learn/green-tech-edge-computing",
+      },
     ],
   },
   {

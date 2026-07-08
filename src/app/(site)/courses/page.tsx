@@ -73,6 +73,14 @@ export default function CoursesPage() {
                 level: "Beginner → Intermediate",
                 weeks: "8 modules",
               },
+              {
+                href: "/learn/green-tech-edge-computing",
+                title: "Sustainable/Green Technology & Edge Computing",
+                blurb:
+                  "Carbon-aware software design, power profiling and Green Ops, energy-efficient IoT, and TinyML model deployment at the extreme edge.",
+                level: "Intermediate",
+                weeks: "8 modules",
+              },
             ].map((course) => (
               <Link
                 key={course.href}
