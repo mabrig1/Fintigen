@@ -111,6 +111,12 @@ export default function Home() {
               title: "AI & Machine Learning Engineering",
               blurb: "9 modules · Deep learning, optimization & MLOps",
             },
+            {
+              href: "/learn/data-science-analytics-engineering",
+              icon: "📊",
+              title: "Data Science, Analytics & Engineering",
+              blurb: "8 modules · SQL, Spark, Databricks & BI dashboards",
+            },
           ].map((course) => (
             <Link
               key={course.href}

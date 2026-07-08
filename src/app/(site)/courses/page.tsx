@@ -65,6 +65,14 @@ export default function CoursesPage() {
                 level: "Intermediate → Advanced",
                 weeks: "9 modules",
               },
+              {
+                href: "/learn/data-science-analytics-engineering",
+                title: "Data Science, Analytics & Engineering",
+                blurb:
+                  "SQL, Python data wrangling, big data pipelines with Apache Spark and Databricks/Delta Lake, and executive dashboards in Power BI and Tableau.",
+                level: "Beginner → Intermediate",
+                weeks: "8 modules",
+              },
             ].map((course) => (
               <Link
                 key={course.href}
