@@ -65,6 +65,14 @@ export default function CoursesPage() {
                 level: "Intermediate → Advanced",
                 weeks: "9 modules",
               },
+              {
+                href: "/learn/cybersecurity-ai-cloud",
+                title: "Cybersecurity with AI & Cloud Focus",
+                blurb:
+                  "Zero-Trust architecture, DevSecOps, cloud-native defense, AI-powered threat detection, and securing AI/LLM systems — with a hybrid defensive capstone.",
+                level: "Intermediate → Advanced",
+                weeks: "8 modules",
+              },
             ].map((course) => (
               <Link
                 key={course.href}

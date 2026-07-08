@@ -111,6 +111,12 @@ export default function Home() {
               title: "AI & Machine Learning Engineering",
               blurb: "9 modules · Deep learning, optimization & MLOps",
             },
+            {
+              href: "/learn/cybersecurity-ai-cloud",
+              icon: "🛡️",
+              title: "Cybersecurity with AI & Cloud Focus",
+              blurb: "8 modules · Zero-Trust, DevSecOps & AI security",
+            },
           ].map((course) => (
             <Link
               key={course.href}

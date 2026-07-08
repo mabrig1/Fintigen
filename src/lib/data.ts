@@ -192,6 +192,16 @@ export const courseCategories: CourseCategory[] = [
         duration: "3 weeks",
         price: "Free",
       },
+      {
+        slug: "cybersecurity-ai-cloud",
+        title: "Cybersecurity with AI & Cloud Focus",
+        description:
+          "Zero-Trust architecture, DevSecOps, cloud-native defense, AI-powered threat detection, and securing AI/LLM systems against prompt injection and data poisoning.",
+        level: "Advanced",
+        duration: "8 modules",
+        price: "Free",
+        href: "/learn/cybersecurity-ai-cloud",
+      },
     ],
   },
   {
