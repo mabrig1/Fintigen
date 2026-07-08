@@ -23,7 +23,10 @@ Router) and [Tailwind CSS](https://tailwindcss.com).
 | `/dashboard` | Learning dashboard preview (lessons, progress, assignments, forums) |
 | `/contact` | Contact channels and form |
 | `/login`, `/register` | Authentication pages |
-| `/learn/agentic-ai` | **Interactive course player** — Agentic AI & Autonomous Agents (8 modules of lessons, labs, and quizzes with a persistent progress bar) |
+| `/learn/generative-ai` | **Interactive course** — Generative AI, Prompt Engineering & Enterprise AI Literacy (8 modules) |
+| `/learn/agentic-ai` | **Interactive course** — Agentic AI & Autonomous Agents (8 modules) |
+
+Both courses use the same reusable `CoursePlayer` component (lessons, labs, quizzes, a persistent progress bar, and a completion certificate). Adding another course is just a new data file in `src/lib/courses/` plus a small page under `src/app/learn/`.
 
 Site-wide features: responsive layout, dark mode with persistence, sticky
 navigation with mobile menu, SEO metadata per page.

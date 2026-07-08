@@ -135,6 +135,16 @@ export const courseCategories: CourseCategory[] = [
         href: "/learn/agentic-ai",
       },
       {
+        slug: "generative-ai",
+        title: "Generative AI, Prompt Engineering & Enterprise AI Literacy",
+        description:
+          "Master advanced LLMs, multimodal systems, fine-tuning, and AI governance — from Transformers to enterprise policy.",
+        level: "Beginner",
+        duration: "8 weeks",
+        price: "Free",
+        href: "/learn/generative-ai",
+      },
+      {
         slug: "prompt-engineering",
         title: "Prompt Engineering",
         description:
@@ -142,6 +152,7 @@ export const courseCategories: CourseCategory[] = [
         level: "Beginner",
         duration: "4 weeks",
         price: "Free",
+        href: "/learn/generative-ai",
       },
       {
         slug: "ai-tools",

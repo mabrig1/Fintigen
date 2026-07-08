@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import CoursePlayer from "@/components/course/CoursePlayer";
+import { courseMeta, courseModules } from "@/lib/courses/agentic-ai";
 
 export const metadata: Metadata = {
   title: "Agentic AI & Autonomous Agents — Interactive Course",
@@ -8,5 +9,12 @@ export const metadata: Metadata = {
 };
 
 export default function AgenticAiCoursePage() {
-  return <CoursePlayer />;
+  return (
+    <CoursePlayer
+      meta={courseMeta}
+      modules={courseModules}
+      storageKey="fintigen-course-agentic-ai"
+      certificateId="FTG-AGENT-001"
+    />
+  );
 }

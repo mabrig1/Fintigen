@@ -27,31 +27,56 @@ export default function CoursesPage() {
       />
 
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
-        {/* Featured interactive course */}
-        <Link
-          href="/learn/agentic-ai"
-          className="mb-12 block rounded-3xl bg-gradient-to-r from-brand-800 via-brand-700 to-slate-900 p-8 text-white transition hover:shadow-2xl sm:p-10"
-        >
+        {/* Featured interactive courses */}
+        <section className="mb-12">
           <div className="flex flex-wrap items-center gap-3">
             <span className="rounded-full bg-accent-500 px-3 py-1 text-xs font-bold uppercase tracking-wide text-slate-900">
               ⚡ New · Interactive
             </span>
-            <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold">
-              Free Preview
+            <span className="text-sm font-semibold text-slate-500">
+              Full lessons, labs &amp; quizzes with live progress tracking —
+              free to start
             </span>
           </div>
-          <h2 className="mt-4 text-2xl font-bold sm:text-3xl">
-            Agentic AI &amp; Autonomous Agents
-          </h2>
-          <p className="mt-2 max-w-2xl text-brand-100/90">
-            Our first fully interactive course — 8 modules of lessons, hands-on
-            labs, and quizzes with live progress tracking. Build and
-            orchestrate AI agents with LangGraph, AutoGen, and CrewAI.
-          </p>
-          <span className="mt-5 inline-block rounded-lg bg-white px-6 py-3 font-semibold text-brand-700">
-            Start Learning Now →
-          </span>
-        </Link>
+          <div className="mt-4 grid gap-6 lg:grid-cols-2">
+            {[
+              {
+                href: "/learn/generative-ai",
+                title:
+                  "Generative AI, Prompt Engineering & Enterprise AI Literacy",
+                blurb:
+                  "Master advanced LLMs, multimodal creative pipelines, RAG vs. fine-tuning, safety, and enterprise AI governance across 8 hands-on modules.",
+                level: "Beginner → Intermediate",
+              },
+              {
+                href: "/learn/agentic-ai",
+                title: "Agentic AI & Autonomous Agents",
+                blurb:
+                  "Build and orchestrate single- and multi-agent systems with LangGraph, AutoGen, and CrewAI — from ReAct loops to production deployment.",
+                level: "Intermediate → Advanced",
+              },
+            ].map((course) => (
+              <Link
+                key={course.href}
+                href={course.href}
+                className="flex flex-col rounded-3xl bg-gradient-to-br from-brand-800 via-brand-700 to-slate-900 p-8 text-white transition hover:shadow-2xl"
+              >
+                <span className="text-xs font-semibold uppercase tracking-wide text-brand-200">
+                  {course.level} · 8 weeks
+                </span>
+                <h2 className="mt-3 text-xl font-bold sm:text-2xl">
+                  {course.title}
+                </h2>
+                <p className="mt-2 flex-1 text-sm text-brand-100/90">
+                  {course.blurb}
+                </p>
+                <span className="mt-5 inline-block self-start rounded-lg bg-white px-6 py-3 font-semibold text-brand-700">
+                  Start Learning Now →
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
 
         {/* Category quick nav */}
         <nav className="flex flex-wrap gap-2">

@@ -86,28 +86,46 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured interactive course */}
+      {/* Featured interactive courses */}
       <section className="mx-auto max-w-7xl px-4 pt-10 sm:px-6">
-        <Link
-          href="/learn/agentic-ai"
-          className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-brand-300 bg-brand-50 px-6 py-5 transition hover:shadow-lg dark:border-brand-700 dark:bg-brand-900/20"
-        >
-          <div className="flex items-center gap-4">
-            <span className="text-3xl">🤖</span>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-wide text-brand-600 dark:text-brand-400">
-                ⚡ New — Our First Interactive Course
-              </p>
-              <p className="font-bold">
-                Agentic AI &amp; Autonomous Agents · 8 modules with labs,
-                quizzes &amp; progress tracking
-              </p>
-            </div>
-          </div>
-          <span className="rounded-lg bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white">
-            Start Free →
-          </span>
-        </Link>
+        <p className="text-xs font-bold uppercase tracking-wide text-brand-600 dark:text-brand-400">
+          ⚡ New — Interactive Courses with Progress Tracking
+        </p>
+        <div className="mt-3 grid gap-4 sm:grid-cols-2">
+          {[
+            {
+              href: "/learn/generative-ai",
+              icon: "✨",
+              title: "Generative AI, Prompt Engineering & Enterprise AI Literacy",
+              blurb: "8 modules · LLMs, multimodal, fine-tuning & governance",
+            },
+            {
+              href: "/learn/agentic-ai",
+              icon: "🤖",
+              title: "Agentic AI & Autonomous Agents",
+              blurb: "8 modules · LangGraph, AutoGen & CrewAI",
+            },
+          ].map((course) => (
+            <Link
+              key={course.href}
+              href={course.href}
+              className="flex items-center justify-between gap-4 rounded-2xl border border-brand-300 bg-brand-50 px-6 py-5 transition hover:shadow-lg dark:border-brand-700 dark:bg-brand-900/20"
+            >
+              <div className="flex items-center gap-4">
+                <span className="text-3xl">{course.icon}</span>
+                <div>
+                  <p className="font-bold leading-snug">{course.title}</p>
+                  <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+                    {course.blurb}
+                  </p>
+                </div>
+              </div>
+              <span className="shrink-0 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white">
+                Start Free →
+              </span>
+            </Link>
+          ))}
+        </div>
       </section>
 
       {/* Intro */}

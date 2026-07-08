@@ -3,16 +3,22 @@
 import Link from "next/link";
 import { useMemo, useState, useSyncExternalStore } from "react";
 import ThemeToggle from "@/components/ThemeToggle";
-import {
-  courseMeta,
-  courseModules,
-  type CourseModule,
-  type Lesson,
-  type QuizQuestion,
-} from "@/lib/courses/agentic-ai";
+import type {
+  CourseMeta,
+  CourseModule,
+  Lesson,
+  QuizQuestion,
+} from "@/lib/courses/types";
 import { createProgressStore } from "@/lib/courses/progress-store";
 
-const STORAGE_KEY = "fintigen-course-agentic-ai";
+export interface CoursePlayerProps {
+  meta: CourseMeta;
+  modules: CourseModule[];
+  /** localStorage key under which this course's progress is saved. */
+  storageKey: string;
+  /** Verification ID shown on the completion certificate. */
+  certificateId: string;
+}
 
 type ItemKind = "lesson" | "lab" | "quiz";
 
@@ -28,9 +34,9 @@ interface View {
   itemIndex: number;
 }
 
-function buildItems(): CourseItem[] {
+function buildItems(modules: CourseModule[]): CourseItem[] {
   const items: CourseItem[] = [];
-  courseModules.forEach((module, moduleIndex) => {
+  modules.forEach((module, moduleIndex) => {
     module.lessons.forEach((lesson) => {
       items.push({
         key: lesson.id,
@@ -61,13 +67,15 @@ const kindIcon: Record<ItemKind, string> = {
   quiz: "❓",
 };
 
-const COURSE_ITEMS = buildItems();
-// Module-level singleton: localStorage is only touched lazily on the client.
-const progressStore = createProgressStore(STORAGE_KEY);
-
-export default function CoursePlayer() {
-  const items = COURSE_ITEMS;
-  const store = progressStore;
+export default function CoursePlayer({
+  meta,
+  modules,
+  storageKey,
+  certificateId,
+}: CoursePlayerProps) {
+  const items = useMemo(() => buildItems(modules), [modules]);
+  // The store touches localStorage only lazily on the client.
+  const store = useMemo(() => createProgressStore(storageKey), [storageKey]);
   const saved = useSyncExternalStore(
     store.subscribe,
     store.getSnapshot,
@@ -155,7 +163,7 @@ export default function CoursePlayer() {
               onClick={() => setView({ type: "overview", itemIndex: 0 })}
               className="block w-full truncate text-left font-bold hover:text-brand-600"
             >
-              {courseMeta.title}
+              {meta.title}
             </button>
             <div className="mt-1 flex items-center gap-3">
               <div
@@ -203,7 +211,7 @@ export default function CoursePlayer() {
               🏠 Course Overview
             </button>
 
-            {courseModules.map((module, moduleIndex) => {
+            {modules.map((module, moduleIndex) => {
               const { done, total } = moduleProgress(moduleIndex);
               const isOpen = openModules.has(moduleIndex);
               return (
@@ -294,6 +302,9 @@ export default function CoursePlayer() {
           <div className="mx-auto max-w-3xl">
             {view.type === "overview" && (
               <CourseOverview
+                meta={meta}
+                moduleCount={modules.length}
+                itemCount={items.length}
                 progress={progress}
                 courseComplete={courseComplete}
                 onStart={() => goToItem(courseComplete ? 0 : savedItemIndex)}
@@ -309,7 +320,7 @@ export default function CoursePlayer() {
                 item={items[view.itemIndex]}
                 itemIndex={view.itemIndex}
                 totalItems={items.length}
-                module={courseModules[items[view.itemIndex].moduleIndex]}
+                module={modules[items[view.itemIndex].moduleIndex]}
                 isCompleted={completed.has(items[view.itemIndex].key)}
                 onPrev={
                   view.itemIndex > 0
@@ -324,6 +335,8 @@ export default function CoursePlayer() {
 
             {view.type === "certificate" && (
               <CertificateView
+                meta={meta}
+                certificateId={certificateId}
                 courseComplete={courseComplete}
                 onBackToCourse={() =>
                   goToItem(firstIncomplete === -1 ? 0 : firstIncomplete)
@@ -340,12 +353,18 @@ export default function CoursePlayer() {
 /* ------------------------------ Overview ------------------------------ */
 
 function CourseOverview({
+  meta,
+  moduleCount,
+  itemCount,
   progress,
   courseComplete,
   started,
   onStart,
   onViewCertificate,
 }: {
+  meta: CourseMeta;
+  moduleCount: number;
+  itemCount: number;
   progress: number;
   courseComplete: boolean;
   started: boolean;
@@ -359,18 +378,18 @@ function CourseOverview({
           FINTIGEN Academy · Featured Course
         </p>
         <h1 className="mt-3 text-3xl font-bold sm:text-4xl">
-          {courseMeta.title}
+          {meta.title}
         </h1>
-        <p className="mt-3 text-brand-100/90">{courseMeta.tagline}</p>
+        <p className="mt-3 text-brand-100/90">{meta.tagline}</p>
         <div className="mt-6 flex flex-wrap gap-3 text-sm">
           <span className="rounded-full bg-white/10 px-4 py-1.5">
-            ⏱ {courseMeta.duration} · {courseMeta.pace}
+            ⏱ {meta.duration} · {meta.pace}
           </span>
           <span className="rounded-full bg-white/10 px-4 py-1.5">
-            📊 {courseMeta.level}
+            📊 {meta.level}
           </span>
           <span className="rounded-full bg-white/10 px-4 py-1.5">
-            🧩 8 modules · 27 lessons, labs & quizzes
+            🧩 {moduleCount} modules · {itemCount} lessons, labs & quizzes
           </span>
         </div>
         <div className="mt-8 flex flex-wrap gap-3">
@@ -399,7 +418,7 @@ function CourseOverview({
 
       <section className="mt-10">
         <h2 className="text-xl font-bold">Course Overview</h2>
-        {courseMeta.overview.map((paragraph) => (
+        {meta.overview.map((paragraph) => (
           <p
             key={paragraph.slice(0, 40)}
             className="mt-3 text-slate-600 dark:text-slate-400"
@@ -412,7 +431,7 @@ function CourseOverview({
       <section className="mt-10">
         <h2 className="text-xl font-bold">What You&apos;ll Learn</h2>
         <ul className="mt-4 grid gap-3 sm:grid-cols-2">
-          {courseMeta.objectives.map((objective) => (
+          {meta.objectives.map((objective) => (
             <li
               key={objective.slice(0, 40)}
               className="flex gap-3 rounded-xl border border-slate-200 p-4 text-sm dark:border-slate-800"
@@ -427,7 +446,7 @@ function CourseOverview({
       <section className="mt-10">
         <h2 className="text-xl font-bold">Prerequisites</h2>
         <ul className="mt-3 space-y-2">
-          {courseMeta.prerequisites.map((prerequisite) => (
+          {meta.prerequisites.map((prerequisite) => (
             <li
               key={prerequisite}
               className="flex gap-3 text-sm text-slate-600 dark:text-slate-400"
@@ -442,7 +461,7 @@ function CourseOverview({
       <section className="mt-10">
         <h2 className="text-xl font-bold">Tools & Technologies Covered</h2>
         <div className="mt-4 space-y-3">
-          {courseMeta.tools.map((tool) => (
+          {meta.tools.map((tool) => (
             <div
               key={tool.category}
               className="rounded-xl border border-slate-200 p-4 dark:border-slate-800"
@@ -459,7 +478,7 @@ function CourseOverview({
       <section className="mt-10">
         <h2 className="text-xl font-bold">Grading & Assessment</h2>
         <div className="mt-4 grid gap-4 sm:grid-cols-3">
-          {courseMeta.grading.map((grade) => (
+          {meta.grading.map((grade) => (
             <div
               key={grade.component}
               className="rounded-xl border border-slate-200 p-4 dark:border-slate-800"
@@ -789,9 +808,13 @@ function QuizView({
 /* ------------------------------ Certificate ------------------------------ */
 
 function CertificateView({
+  meta,
+  certificateId,
   courseComplete,
   onBackToCourse,
 }: {
+  meta: CourseMeta;
+  certificateId: string;
   courseComplete: boolean;
   onBackToCourse: () => void;
 }) {
@@ -820,7 +843,7 @@ function CertificateView({
       <p className="text-6xl">🎉</p>
       <h1 className="mt-4 text-3xl font-bold">Congratulations!</h1>
       <p className="mx-auto mt-2 max-w-md text-slate-600 dark:text-slate-400">
-        You&apos;ve completed <strong>{courseMeta.title}</strong> — every
+        You&apos;ve completed <strong>{meta.title}</strong> — every
         lesson, lab, and quiz.
       </p>
 
@@ -837,12 +860,12 @@ function CertificateView({
         <p className="mt-6 text-sm text-slate-500">
           This certifies successful completion of
         </p>
-        <p className="mt-1 text-lg font-semibold">{courseMeta.title}</p>
-        <p className="mt-1 text-sm text-slate-500">{courseMeta.tagline}</p>
+        <p className="mt-1 text-lg font-semibold">{meta.title}</p>
+        <p className="mt-1 text-sm text-slate-500">{meta.tagline}</p>
         <div className="mt-8 flex items-end justify-between text-left text-xs text-slate-500">
           <div>
             <p className="font-semibold">Verification ID</p>
-            <p>FTG-AGENT-001</p>
+            <p>{certificateId}</p>
           </div>
           <div className="text-right">
             <p className="font-semibold">Completed</p>
