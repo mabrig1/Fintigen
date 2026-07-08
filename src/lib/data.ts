@@ -234,6 +234,16 @@ export const courseCategories: CourseCategory[] = [
         duration: "20 weeks",
         price: "Premium",
       },
+      {
+        slug: "data-science-analytics-engineering",
+        title: "Data Science, Analytics & Engineering",
+        description:
+          "SQL, Python wrangling, big data pipelines with Spark and Databricks/Delta Lake, and executive dashboards in Power BI and Tableau.",
+        level: "Beginner",
+        duration: "8 modules",
+        price: "Free",
+        href: "/learn/data-science-analytics-engineering",
+      },
     ],
   },
   {
