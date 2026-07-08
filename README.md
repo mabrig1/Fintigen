@@ -25,6 +25,7 @@ Router) and [Tailwind CSS](https://tailwindcss.com).
 | `/login`, `/register` | Authentication pages |
 | `/learn/generative-ai` | **Interactive course** — Generative AI, Prompt Engineering & Enterprise AI Literacy (8 modules) |
 | `/learn/agentic-ai` | **Interactive course** — Agentic AI & Autonomous Agents (8 modules) |
+| `/learn/ml-engineering` | **Interactive course** — AI & Machine Learning Engineering: Production-Scale Architectures & MLOps (9 modules) |
 
 Both courses use the same reusable `CoursePlayer` component (lessons, labs, quizzes, a persistent progress bar, and a completion certificate). Adding another course is just a new data file in `src/lib/courses/` plus a small page under `src/app/learn/`.
 

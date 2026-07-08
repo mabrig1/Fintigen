@@ -38,7 +38,7 @@ export default function CoursesPage() {
               free to start
             </span>
           </div>
-          <div className="mt-4 grid gap-6 lg:grid-cols-2">
+          <div className="mt-4 grid gap-6 lg:grid-cols-3">
             {[
               {
                 href: "/learn/generative-ai",
@@ -47,6 +47,7 @@ export default function CoursesPage() {
                 blurb:
                   "Master advanced LLMs, multimodal creative pipelines, RAG vs. fine-tuning, safety, and enterprise AI governance across 8 hands-on modules.",
                 level: "Beginner → Intermediate",
+                weeks: "8 modules",
               },
               {
                 href: "/learn/agentic-ai",
@@ -54,6 +55,15 @@ export default function CoursesPage() {
                 blurb:
                   "Build and orchestrate single- and multi-agent systems with LangGraph, AutoGen, and CrewAI — from ReAct loops to production deployment.",
                 level: "Intermediate → Advanced",
+                weeks: "8 modules",
+              },
+              {
+                href: "/learn/ml-engineering",
+                title: "AI & Machine Learning Engineering",
+                blurb:
+                  "Design, train, optimize, deploy, monitor, and scale production ML systems — classical ML, deep learning, model optimization, and the full MLOps lifecycle.",
+                level: "Intermediate → Advanced",
+                weeks: "9 modules",
               },
             ].map((course) => (
               <Link
@@ -62,7 +72,7 @@ export default function CoursesPage() {
                 className="flex flex-col rounded-3xl bg-gradient-to-br from-brand-800 via-brand-700 to-slate-900 p-8 text-white transition hover:shadow-2xl"
               >
                 <span className="text-xs font-semibold uppercase tracking-wide text-brand-200">
-                  {course.level} · 8 weeks
+                  {course.level} · {course.weeks}
                 </span>
                 <h2 className="mt-3 text-xl font-bold sm:text-2xl">
                   {course.title}

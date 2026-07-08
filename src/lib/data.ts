@@ -164,6 +164,16 @@ export const courseCategories: CourseCategory[] = [
         price: "Free",
       },
       {
+        slug: "ml-engineering",
+        title: "AI & Machine Learning Engineering",
+        description:
+          "Design, train, optimize, deploy, monitor, and scale production ML systems — classical ML, deep learning, and the full MLOps lifecycle.",
+        level: "Advanced",
+        duration: "9 modules",
+        price: "Free",
+        href: "/learn/ml-engineering",
+      },
+      {
         slug: "machine-learning",
         title: "Machine Learning",
         description:
@@ -171,6 +181,7 @@ export const courseCategories: CourseCategory[] = [
         level: "Advanced",
         duration: "16 weeks",
         price: "Premium",
+        href: "/learn/ml-engineering",
       },
       {
         slug: "chatgpt-for-productivity",

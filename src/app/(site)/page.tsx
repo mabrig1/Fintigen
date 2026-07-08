@@ -91,7 +91,7 @@ export default function Home() {
         <p className="text-xs font-bold uppercase tracking-wide text-brand-600 dark:text-brand-400">
           ⚡ New — Interactive Courses with Progress Tracking
         </p>
-        <div className="mt-3 grid gap-4 sm:grid-cols-2">
+        <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {[
             {
               href: "/learn/generative-ai",
@@ -104,6 +104,12 @@ export default function Home() {
               icon: "🤖",
               title: "Agentic AI & Autonomous Agents",
               blurb: "8 modules · LangGraph, AutoGen & CrewAI",
+            },
+            {
+              href: "/learn/ml-engineering",
+              icon: "⚙️",
+              title: "AI & Machine Learning Engineering",
+              blurb: "9 modules · Deep learning, optimization & MLOps",
             },
           ].map((course) => (
             <Link
