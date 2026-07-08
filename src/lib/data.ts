@@ -118,6 +118,16 @@ export const courseCategories: CourseCategory[] = [
         duration: "16 weeks",
         price: "Premium",
       },
+      {
+        slug: "quantum-computing-basics",
+        title: "Quantum Computing Basics",
+        description:
+          "Superposition, entanglement, and quantum gates through Grover's search and Shor's algorithm, built hands-on with IBM's Qiskit framework.",
+        level: "Beginner",
+        duration: "8 modules",
+        price: "Free",
+        href: "/learn/quantum-computing-basics",
+      },
     ],
   },
   {

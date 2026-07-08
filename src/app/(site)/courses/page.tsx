@@ -65,6 +65,14 @@ export default function CoursesPage() {
                 level: "Intermediate → Advanced",
                 weeks: "9 modules",
               },
+              {
+                href: "/learn/quantum-computing-basics",
+                title: "Quantum Computing Basics",
+                blurb:
+                  "Superposition, entanglement, and quantum gates through Deutsch-Jozsa, Grover's search, and Shor's algorithm — built hands-on with IBM's Qiskit framework.",
+                level: "Beginner → Intermediate",
+                weeks: "8 modules",
+              },
             ].map((course) => (
               <Link
                 key={course.href}

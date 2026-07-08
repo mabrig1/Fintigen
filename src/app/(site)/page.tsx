@@ -111,6 +111,12 @@ export default function Home() {
               title: "AI & Machine Learning Engineering",
               blurb: "9 modules · Deep learning, optimization & MLOps",
             },
+            {
+              href: "/learn/quantum-computing-basics",
+              icon: "⚛️",
+              title: "Quantum Computing Basics",
+              blurb: "8 modules · Qubits, Qiskit & Grover's/Shor's algorithms",
+            },
           ].map((course) => (
             <Link
               key={course.href}
