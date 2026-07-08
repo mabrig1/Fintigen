@@ -27,6 +27,7 @@ Router) and [Tailwind CSS](https://tailwindcss.com).
 | `/learn/agentic-ai` | **Interactive course** — Agentic AI & Autonomous Agents (8 modules) |
 | `/learn/ml-engineering` | **Interactive course** — AI & Machine Learning Engineering: Production-Scale Architectures & MLOps (9 modules) |
 | `/learn/data-science-analytics-engineering` | **Interactive course** — Data Science, Analytics & Engineering: Big Data Pipelines & Corporate Visualization (8 modules) |
+| `/learn/blockchain-web3-decentralized-tech` | **Interactive course** — Blockchain, Web3 & Decentralized Tech: Smart Contracts & Cryptographic Innovation (9 modules) |
 
 All courses use the same reusable `CoursePlayer` component (lessons, labs, quizzes, a persistent progress bar, and a completion certificate). Adding another course is just a new data file in `src/lib/courses/` plus a small page under `src/app/learn/`.
 

@@ -118,6 +118,16 @@ export const courseCategories: CourseCategory[] = [
         duration: "16 weeks",
         price: "Premium",
       },
+      {
+        slug: "blockchain-web3-decentralized-tech",
+        title: "Blockchain, Web3 & Decentralized Tech",
+        description:
+          "Solidity smart contracts, Foundry/Hardhat testing, security auditing, dApp frontends, IPFS storage, and Zero-Knowledge Proofs with Circom.",
+        level: "Advanced",
+        duration: "9 modules",
+        price: "Free",
+        href: "/learn/blockchain-web3-decentralized-tech",
+      },
     ],
   },
   {

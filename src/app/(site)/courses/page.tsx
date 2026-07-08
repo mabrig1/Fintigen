@@ -73,6 +73,14 @@ export default function CoursesPage() {
                 level: "Beginner → Intermediate",
                 weeks: "8 modules",
               },
+              {
+                href: "/learn/blockchain-web3-decentralized-tech",
+                title: "Blockchain, Web3 & Decentralized Tech",
+                blurb:
+                  "Write secure Solidity smart contracts, test with Foundry, audit for DeFi attack vectors, build dApp frontends, and implement Zero-Knowledge Proofs with Circom.",
+                level: "Intermediate → Advanced",
+                weeks: "9 modules",
+              },
             ].map((course) => (
               <Link
                 key={course.href}

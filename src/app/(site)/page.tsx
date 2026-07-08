@@ -117,6 +117,12 @@ export default function Home() {
               title: "Data Science, Analytics & Engineering",
               blurb: "8 modules · SQL, Spark, Databricks & BI dashboards",
             },
+            {
+              href: "/learn/blockchain-web3-decentralized-tech",
+              icon: "⛓️",
+              title: "Blockchain, Web3 & Decentralized Tech",
+              blurb: "9 modules · Solidity, security auditing & ZK proofs",
+            },
           ].map((course) => (
             <Link
               key={course.href}
