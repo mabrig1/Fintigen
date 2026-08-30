@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { saveAuthSession, type AuthUser } from "@/lib/auth-client";
+import { getLearningSessionId, setLearningSessionId } from "@/lib/learning-session";
 
 type Mode = "login" | "register";
 
@@ -26,6 +27,21 @@ export default function AuthForm({ mode }: { mode: Mode }) {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  async function linkLearningMemory(token: string) {
+    const sessionId = getLearningSessionId();
+    const response = await fetch(`${apiBase}/learning/account/link`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ sessionId }),
+    });
+    if (!response.ok) return;
+    const data = (await response.json().catch(() => ({}))) as { canonicalSessionId?: string };
+    if (data.canonicalSessionId) setLearningSessionId(data.canonicalSessionId);
+  }
 
   async function submit(event: FormEvent) {
     event.preventDefault();
@@ -67,6 +83,11 @@ export default function AuthForm({ mode }: { mode: Mode }) {
       if (!token || !user) throw new Error("The server did not return a valid sign-in session.");
 
       saveAuthSession(token, user);
+      try {
+        await linkLearningMemory(token);
+      } catch {
+        // Authentication should still succeed if memory sync is temporarily unavailable.
+      }
       router.push("/dashboard");
       router.refresh();
     } catch (err) {
