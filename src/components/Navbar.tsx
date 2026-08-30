@@ -10,8 +10,9 @@ export default function Navbar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const digitalSkillsLink = { label: "Digital Skills", href: "/digital-skills" };
+  const futureSkillsLink = { label: "Future Skills", href: "/future-skills" };
   const businessLink = { label: "Business Operations", href: "/business-operations" };
-  const links = [...navLinks, digitalSkillsLink, businessLink];
+  const links = [...navLinks, digitalSkillsLink, futureSkillsLink, businessLink];
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">
@@ -23,7 +24,7 @@ export default function Navbar() {
         <ul className="hidden items-center gap-1 lg:flex">
           {links.map((link) => (
             <li key={link.href}>
-              <Link href={link.href} className={`rounded-md px-3 py-2 text-sm font-medium transition ${pathname === link.href ? "bg-brand-50 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300" : link.href === digitalSkillsLink.href ? "bg-indigo-50 text-indigo-700 hover:bg-indigo-100 dark:bg-indigo-950/40 dark:text-indigo-300" : link.href === businessLink.href ? "bg-emerald-50 text-emerald-700 hover:bg-emerald-100 dark:bg-emerald-950/40 dark:text-emerald-300" : "text-slate-600 hover:text-brand-600 dark:text-slate-300 dark:hover:text-brand-400"}`}>{link.label}</Link>
+              <Link href={link.href} className={`rounded-md px-3 py-2 text-sm font-medium transition ${pathname === link.href ? "bg-brand-50 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300" : link.href === digitalSkillsLink.href ? "bg-indigo-50 text-indigo-700 hover:bg-indigo-100 dark:bg-indigo-950/40 dark:text-indigo-300" : link.href === futureSkillsLink.href ? "bg-violet-50 text-violet-700 hover:bg-violet-100 dark:bg-violet-950/40 dark:text-violet-300" : link.href === businessLink.href ? "bg-emerald-50 text-emerald-700 hover:bg-emerald-100 dark:bg-emerald-950/40 dark:text-emerald-300" : "text-slate-600 hover:text-brand-600 dark:text-slate-300 dark:hover:text-brand-400"}`}>{link.label}</Link>
             </li>
           ))}
         </ul>
@@ -38,7 +39,7 @@ export default function Navbar() {
         <div className="border-t border-slate-200 px-4 pb-4 lg:hidden dark:border-slate-800">
           <ul className="flex flex-col gap-1 pt-3">
             {links.map((link) => (
-              <li key={link.href}><Link href={link.href} onClick={() => setMenuOpen(false)} className={`block rounded-md px-3 py-2 text-sm font-medium ${pathname === link.href ? "bg-brand-50 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300" : link.href === digitalSkillsLink.href ? "bg-indigo-50 font-semibold text-indigo-700 dark:bg-indigo-950/40 dark:text-indigo-300" : link.href === businessLink.href ? "bg-emerald-50 font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300" : "text-slate-600 dark:text-slate-300"}`}>{link.label}</Link></li>
+              <li key={link.href}><Link href={link.href} onClick={() => setMenuOpen(false)} className={`block rounded-md px-3 py-2 text-sm font-medium ${pathname === link.href ? "bg-brand-50 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300" : link.href === digitalSkillsLink.href ? "bg-indigo-50 font-semibold text-indigo-700 dark:bg-indigo-950/40 dark:text-indigo-300" : link.href === futureSkillsLink.href ? "bg-violet-50 font-semibold text-violet-700 dark:bg-violet-950/40 dark:text-violet-300" : link.href === businessLink.href ? "bg-emerald-50 font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300" : "text-slate-600 dark:text-slate-300"}`}>{link.label}</Link></li>
             ))}
             <li className="mt-2 flex gap-2"><Link href="/login" onClick={() => setMenuOpen(false)} className="flex-1 rounded-md border border-slate-300 px-4 py-2 text-center text-sm font-medium dark:border-slate-700">Log in</Link><Link href="/register" onClick={() => setMenuOpen(false)} className="flex-1 rounded-md bg-brand-600 px-4 py-2 text-center text-sm font-semibold text-white">Enroll Now</Link></li>
           </ul>
