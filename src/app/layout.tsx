@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import AgenticCoachLauncher from "@/components/AgenticCoachLauncher";
+import AccountLearningSync from "@/components/AccountLearningSync";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -31,6 +32,7 @@ export default function RootLayout({
       <body className="flex min-h-full flex-col">
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         {children}
+        <AccountLearningSync />
         <AgenticCoachLauncher />
       </body>
     </html>
