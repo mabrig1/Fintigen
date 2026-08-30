@@ -1,7 +1,6 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
 
 type Mode = "tutor" | "quiz" | "project" | "career" | "study" | "mission";
 
@@ -20,10 +19,8 @@ const tools: Array<{ mode: Mode; label: string; icon: string; description: strin
 ];
 
 export default function AiLabPage() {
-  const params = useSearchParams();
-  const initialCourse = params.get("course") || "";
   const [mode, setMode] = useState<Mode>("tutor");
-  const [courseTitle, setCourseTitle] = useState(initialCourse);
+  const [courseTitle, setCourseTitle] = useState("");
   const [moduleTitle, setModuleTitle] = useState("");
   const [level, setLevel] = useState("Beginner");
   const [goal, setGoal] = useState("");
@@ -64,7 +61,7 @@ export default function AiLabPage() {
       });
 
       const data = await response.json().catch(() => ({}));
-      if (!response.ok) throw new Error(data.error || "AI service request failed.");
+      if (!response.ok) throw new Error(data.error || data.message || "AI service request failed.");
       setMessages((prev) => [...prev, { role: "assistant", content: data.content || "No response returned." }]);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unable to reach the AI learning service.");
@@ -123,9 +120,9 @@ export default function AiLabPage() {
           <div className="mt-5 border-t border-slate-200 pt-4 dark:border-slate-800">
             <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Quick starts</p>
             <div className="mt-2 flex flex-col gap-2">
-              <button onClick={() => startPrompt("Explain this topic with a simple analogy, then test me with one question.")} className="rounded-lg bg-slate-100 px-3 py-2 text-left text-xs hover:bg-slate-200 dark:bg-slate-900">Explain + test me</button>
-              <button onClick={() => startPrompt("Find my likely prerequisite gaps and give me the fastest way to close them.")} className="rounded-lg bg-slate-100 px-3 py-2 text-left text-xs hover:bg-slate-200 dark:bg-slate-900">Find my skill gaps</button>
-              <button onClick={() => startPrompt("Give me a small real-world project I can finish and show in my portfolio.")} className="rounded-lg bg-slate-100 px-3 py-2 text-left text-xs hover:bg-slate-200 dark:bg-slate-900">Build portfolio proof</button>
+              <button type="button" onClick={() => startPrompt("Explain this topic with a simple analogy, then test me with one question.")} className="rounded-lg bg-slate-100 px-3 py-2 text-left text-xs hover:bg-slate-200 dark:bg-slate-900">Explain + test me</button>
+              <button type="button" onClick={() => startPrompt("Find my likely prerequisite gaps and give me the fastest way to close them.")} className="rounded-lg bg-slate-100 px-3 py-2 text-left text-xs hover:bg-slate-200 dark:bg-slate-900">Find my skill gaps</button>
+              <button type="button" onClick={() => startPrompt("Give me a small real-world project I can finish and show in my portfolio.")} className="rounded-lg bg-slate-100 px-3 py-2 text-left text-xs hover:bg-slate-200 dark:bg-slate-900">Build portfolio proof</button>
             </div>
           </div>
         </aside>
@@ -151,7 +148,7 @@ export default function AiLabPage() {
           <form onSubmit={submit} className="border-t border-slate-200 p-4 dark:border-slate-800">
             <div className="flex gap-3">
               <textarea value={message} onChange={(e) => setMessage(e.target.value)} rows={3} placeholder={`Ask the ${selected.label}…`} className="min-h-[84px] flex-1 resize-none rounded-xl border border-slate-300 bg-transparent px-4 py-3 text-sm outline-none focus:border-violet-500 dark:border-slate-700" />
-              <button disabled={loading || !message.trim()} className="self-end rounded-xl bg-violet-600 px-5 py-3 font-bold text-white transition hover:bg-violet-500 disabled:cursor-not-allowed disabled:opacity-50">Send</button>
+              <button type="submit" disabled={loading || !message.trim()} className="self-end rounded-xl bg-violet-600 px-5 py-3 font-bold text-white transition hover:bg-violet-500 disabled:cursor-not-allowed disabled:opacity-50">Send</button>
             </div>
             <p className="mt-2 text-xs text-slate-500">AI can make mistakes. Verify important technical, financial, legal, or career information before acting on it.</p>
           </form>
