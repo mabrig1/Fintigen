@@ -86,6 +86,33 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Flagship premium program */}
+      <section className="mx-auto max-w-7xl px-4 pt-10 sm:px-6">
+        <Link
+          href="/courses/mabrig-full-stack-founder-pro"
+          className="group grid gap-7 overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-900 p-7 text-white shadow-xl transition hover:-translate-y-0.5 hover:shadow-2xl sm:p-9 lg:grid-cols-[1fr_auto] lg:items-center"
+        >
+          <div>
+            <div className="flex flex-wrap gap-2 text-xs font-bold uppercase tracking-[0.14em]">
+              <span className="rounded-full bg-amber-400 px-3 py-1.5 text-slate-950">New flagship course</span>
+              <span className="rounded-full border border-white/15 px-3 py-1.5 text-emerald-200">12 weeks · production capstone</span>
+            </div>
+            <h2 className="mt-5 text-2xl font-black sm:text-4xl">Mabrig Full-Stack Founder Pro</h2>
+            <p className="mt-2 text-lg font-semibold text-emerald-200">Build, Deploy &amp; Scale Real Apps</p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300">
+              Master Next.js, Node.js, MongoDB, Vercel, Cloudflare, payments, security, and agentic AI through one real product launch.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-5 lg:min-w-64">
+            <p className="text-sm text-slate-300">Nigeria</p>
+            <p className="text-3xl font-black">₦100,000</p>
+            <p className="mt-3 text-sm text-slate-300">International</p>
+            <p className="text-3xl font-black">$199</p>
+            <span className="mt-5 inline-block font-bold text-amber-300 group-hover:text-amber-200">View program →</span>
+          </div>
+        </Link>
+      </section>
+
       {/* Featured interactive courses */}
       <section className="mx-auto max-w-7xl px-4 pt-10 sm:px-6">
         <p className="text-xs font-bold uppercase tracking-wide text-brand-600 dark:text-brand-400">

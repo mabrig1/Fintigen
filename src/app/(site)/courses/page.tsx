@@ -27,6 +27,25 @@ export default function CoursesPage() {
       />
 
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
+        <Link
+          href="/courses/mabrig-full-stack-founder-pro"
+          className="mb-12 grid gap-6 rounded-3xl bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-900 p-8 text-white shadow-xl transition hover:shadow-2xl lg:grid-cols-[1fr_auto] lg:items-center"
+        >
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-amber-300">Flagship premium program</p>
+            <h2 className="mt-3 text-3xl font-black">Mabrig Full-Stack Founder Pro</h2>
+            <p className="mt-2 font-semibold text-emerald-200">Build, Deploy &amp; Scale Real Apps</p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300">
+              A 12-week founder-engineer pathway covering full-stack product development, deployment, security, AI features, operations, and monetization through one production capstone.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-white/10 bg-white/5 px-6 py-5 lg:text-right">
+            <p className="text-2xl font-black">₦100,000 <span className="text-sm font-medium text-slate-400">Nigeria</span></p>
+            <p className="mt-1 text-2xl font-black">$199 <span className="text-sm font-medium text-slate-400">International</span></p>
+            <span className="mt-4 inline-block rounded-xl bg-amber-400 px-5 py-3 text-sm font-bold text-slate-950">View Course →</span>
+          </div>
+        </Link>
+
         {/* Featured interactive courses */}
         <section className="mb-12">
           <div className="flex flex-wrap items-center gap-3">

@@ -56,6 +56,16 @@ export const courseCategories: CourseCategory[] = [
     icon: "💻",
     courses: [
       {
+        slug: "mabrig-full-stack-founder-pro",
+        title: "Mabrig Full-Stack Founder Pro",
+        description:
+          "Build, deploy, secure, and monetize a production-ready full-stack application using the same lean founder system behind 13 real products.",
+        level: "Advanced",
+        duration: "12 weeks",
+        price: "Premium",
+        href: "/courses/mabrig-full-stack-founder-pro",
+      },
+      {
         slug: "web-development",
         title: "Web Development",
         description:
