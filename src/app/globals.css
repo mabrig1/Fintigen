@@ -36,3 +36,55 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
 }
+
+.course-content {
+  color: color-mix(in srgb, currentColor 88%, transparent);
+  line-height: 1.8;
+}
+
+.course-content h2,
+.course-content h3 {
+  color: var(--foreground);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-top: 2rem;
+}
+
+.course-content h2 {
+  font-size: 1.5rem;
+}
+
+.course-content h3 {
+  font-size: 1.2rem;
+}
+
+.course-content p,
+.course-content ul,
+.course-content ol {
+  margin-top: 1rem;
+}
+
+.course-content ul,
+.course-content ol {
+  padding-left: 1.4rem;
+}
+
+.course-content li {
+  margin-top: 0.5rem;
+}
+
+.course-content ul {
+  list-style: disc;
+}
+
+.course-content ol {
+  list-style: decimal;
+}
+
+.course-content code {
+  border-radius: 0.35rem;
+  background: color-mix(in srgb, var(--foreground) 8%, transparent);
+  padding: 0.15rem 0.35rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.9em;
+}
