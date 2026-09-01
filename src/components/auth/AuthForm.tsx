@@ -19,7 +19,15 @@ type AuthPayload = {
   errors?: Array<{ field?: string; message?: string }>;
 };
 
-export default function AuthForm({ mode }: { mode: Mode }) {
+export default function AuthForm({
+  mode,
+  nextPath = "/dashboard",
+  contextLabel,
+}: {
+  mode: Mode;
+  nextPath?: string;
+  contextLabel?: string;
+}) {
   const router = useRouter();
   const apiBase = process.env.NEXT_PUBLIC_API_URL || "";
   const [name, setName] = useState("");
@@ -88,7 +96,7 @@ export default function AuthForm({ mode }: { mode: Mode }) {
       } catch {
         // Authentication should still succeed if memory sync is temporarily unavailable.
       }
-      router.push("/dashboard");
+      router.push(nextPath);
       router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Authentication failed.");
@@ -108,6 +116,11 @@ export default function AuthForm({ mode }: { mode: Mode }) {
           <p className="mt-1 text-sm text-slate-500">
             {isRegister ? "Create an account so your learning memory follows you across devices." : "Log in to restore your courses, mastery memory, and review queue."}
           </p>
+          {contextLabel && (
+            <p className="mt-3 rounded-lg bg-brand-50 px-3 py-2 text-xs font-semibold text-brand-800 dark:bg-brand-900/30 dark:text-brand-200">
+              Continue to {contextLabel}
+            </p>
+          )}
         </div>
 
         <form onSubmit={submit} className="mt-8 space-y-4">
