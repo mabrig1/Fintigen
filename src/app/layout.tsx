@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import AgenticCoachLauncher from "@/components/AgenticCoachLauncher";
 import AccountLearningSync from "@/components/AccountLearningSync";
+import PromoterReferralCapture from "@/components/PromoterReferralCapture";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -31,6 +32,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className="h-full antialiased">
       <body className="flex min-h-full flex-col">
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <PromoterReferralCapture />
         {children}
         <AccountLearningSync />
         <AgenticCoachLauncher />
