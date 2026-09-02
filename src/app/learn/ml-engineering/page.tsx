@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import CourseAccessGate from "@/components/course/CourseAccessGate";
 import CoursePlayer from "@/components/course/CoursePlayer";
 import { courseMeta, courseModules } from "@/lib/courses/ml-engineering";
 
@@ -10,11 +11,13 @@ export const metadata: Metadata = {
 
 export default function MlEngineeringCoursePage() {
   return (
-    <CoursePlayer
-      meta={courseMeta}
-      modules={courseModules}
-      storageKey="fintigen-course-ml-engineering"
-      certificateId="FTG-MLENG-001"
-    />
+    <CourseAccessGate courseSlug="ml-engineering" courseTitle={courseMeta.title}>
+      <CoursePlayer
+        meta={courseMeta}
+        modules={courseModules}
+        storageKey="fintigen-course-ml-engineering"
+        certificateId="FTG-MLENG-001"
+      />
+    </CourseAccessGate>
   );
 }
