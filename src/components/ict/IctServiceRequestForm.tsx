@@ -28,6 +28,8 @@ const initialForm = {
   consent: false,
 };
 
+const fieldClass = "w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 disabled:bg-slate-100 disabled:text-slate-400";
+
 export default function IctServiceRequestForm() {
   const apiBase = process.env.NEXT_PUBLIC_API_URL || "";
   const [services, setServices] = useState<Service[]>([]);
@@ -112,28 +114,20 @@ export default function IctServiceRequestForm() {
       {error && <div className="mt-5 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-semibold text-rose-800">{error}</div>}
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
-        <Field label="Full name">
-          <input required value={form.customerName} onChange={(event) => setForm({ ...form, customerName: event.target.value })} className="field" placeholder="Your name" />
-        </Field>
-        <Field label="Phone / WhatsApp">
-          <input required value={form.phone} onChange={(event) => setForm({ ...form, phone: event.target.value })} className="field" placeholder="080..." />
-        </Field>
-        <Field label="Email (optional)">
-          <input type="email" value={form.email} onChange={(event) => setForm({ ...form, email: event.target.value })} className="field" placeholder="you@example.com" />
-        </Field>
-        <Field label="State / location">
-          <input value={form.state} onChange={(event) => setForm({ ...form, state: event.target.value })} className="field" placeholder="Enugu" />
-        </Field>
+        <Field label="Full name"><input required value={form.customerName} onChange={(event) => setForm({ ...form, customerName: event.target.value })} className={fieldClass} placeholder="Your name" /></Field>
+        <Field label="Phone / WhatsApp"><input required value={form.phone} onChange={(event) => setForm({ ...form, phone: event.target.value })} className={fieldClass} placeholder="080..." /></Field>
+        <Field label="Email (optional)"><input type="email" value={form.email} onChange={(event) => setForm({ ...form, email: event.target.value })} className={fieldClass} placeholder="you@example.com" /></Field>
+        <Field label="State / location"><input value={form.state} onChange={(event) => setForm({ ...form, state: event.target.value })} className={fieldClass} placeholder="Enugu" /></Field>
       </div>
 
       <Field label="Service" className="mt-4">
-        <select required disabled={loading || !services.length} value={form.serviceCode} onChange={(event) => setForm({ ...form, serviceCode: event.target.value })} className="field">
+        <select required disabled={loading || !services.length} value={form.serviceCode} onChange={(event) => setForm({ ...form, serviceCode: event.target.value })} className={fieldClass}>
           {services.map((service) => <option key={service.code} value={service.code}>{service.name}</option>)}
         </select>
       </Field>
 
       <Field label="What do you need help with?" className="mt-4">
-        <textarea rows={4} value={form.notes} onChange={(event) => setForm({ ...form, notes: event.target.value })} className="field resize-y" placeholder="Example: I need help preparing for NYSC online registration. Do not include passwords or sensitive identity numbers." />
+        <textarea rows={4} value={form.notes} onChange={(event) => setForm({ ...form, notes: event.target.value })} className={`${fieldClass} resize-y`} placeholder="Example: I need help preparing for NYSC online registration. Do not include passwords or sensitive identity numbers." />
       </Field>
 
       <label className="mt-5 flex items-start gap-3 rounded-2xl bg-slate-50 p-4 text-sm leading-6 text-slate-600">
