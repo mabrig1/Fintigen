@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import CourseAccessGate from "@/components/course/CourseAccessGate";
 import CoursePlayer from "@/components/course/CoursePlayer";
 import { futureSkillCourses, futureSkillsBySlug } from "@/lib/courses/future-skills";
 
@@ -28,11 +29,13 @@ export default async function FutureSkillsCoursePage({ params }: PageProps) {
   if (!course) notFound();
 
   return (
-    <CoursePlayer
-      meta={course.meta}
-      modules={course.modules}
-      storageKey={`fintigen-future-${course.slug}`}
-      certificateId={`FTG-FUTURE-${course.slug.toUpperCase().replace(/[^A-Z0-9]+/g, "-")}`}
-    />
+    <CourseAccessGate courseSlug={course.slug} courseTitle={course.title}>
+      <CoursePlayer
+        meta={course.meta}
+        modules={course.modules}
+        storageKey={`fintigen-future-${course.slug}`}
+        certificateId={`FTG-FUTURE-${course.slug.toUpperCase().replace(/[^A-Z0-9]+/g, "-")}`}
+      />
+    </CourseAccessGate>
   );
 }
