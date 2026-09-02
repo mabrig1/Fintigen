@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import CourseAccessGate from "@/components/course/CourseAccessGate";
 import CoursePlayer from "@/components/course/CoursePlayer";
 import {
   courseMeta,
@@ -13,11 +14,13 @@ export const metadata: Metadata = {
 
 export default function DataScienceAnalyticsEngineeringCoursePage() {
   return (
-    <CoursePlayer
-      meta={courseMeta}
-      modules={courseModules}
-      storageKey="fintigen-course-data-science-analytics-engineering"
-      certificateId="FTG-DATA-001"
-    />
+    <CourseAccessGate courseSlug="data-science-analytics-engineering" courseTitle={courseMeta.title}>
+      <CoursePlayer
+        meta={courseMeta}
+        modules={courseModules}
+        storageKey="fintigen-course-data-science-analytics-engineering"
+        certificateId="FTG-DATA-001"
+      />
+    </CourseAccessGate>
   );
 }
