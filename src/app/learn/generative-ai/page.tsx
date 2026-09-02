@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import CourseAccessGate from "@/components/course/CourseAccessGate";
 import CoursePlayer from "@/components/course/CoursePlayer";
 import { courseMeta, courseModules } from "@/lib/courses/generative-ai";
 
@@ -11,11 +12,13 @@ export const metadata: Metadata = {
 
 export default function GenerativeAiCoursePage() {
   return (
-    <CoursePlayer
-      meta={courseMeta}
-      modules={courseModules}
-      storageKey="fintigen-course-generative-ai"
-      certificateId="FTG-GENAI-001"
-    />
+    <CourseAccessGate courseSlug="generative-ai" courseTitle={courseMeta.title}>
+      <CoursePlayer
+        meta={courseMeta}
+        modules={courseModules}
+        storageKey="fintigen-course-generative-ai"
+        certificateId="FTG-GENAI-001"
+      />
+    </CourseAccessGate>
   );
 }
