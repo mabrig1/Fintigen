@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import IctBusinessPortal from "@/components/admin/IctBusinessPortal";
+import IctBusinessPortalV2 from "@/components/admin/IctBusinessPortalV2";
 
 export const metadata: Metadata = {
   title: "Nigeria ICT Business Services | Fintigen Admin",
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function IctBusinessPage() {
-  return <IctBusinessPortal />;
+  return <IctBusinessPortalV2 />;
 }
