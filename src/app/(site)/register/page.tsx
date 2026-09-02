@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 import AuthForm from "@/components/auth/AuthForm";
 
 export const metadata: Metadata = {
@@ -7,25 +8,18 @@ export const metadata: Metadata = {
 };
 
 type RegisterPageProps = {
-  searchParams: Promise<{ course?: string; next?: string }>;
+  searchParams: Promise<{ course?: string; next?: string; ref?: string }>;
 };
 
 export default async function RegisterPage({ searchParams }: RegisterPageProps) {
   const params = await searchParams;
   const flagship = params.course === "mabrig-full-stack-founder-pro";
-  const requestedNext = params.next;
-  const nextPath =
-    requestedNext?.startsWith("/") && !requestedNext.startsWith("//")
-      ? requestedNext
-      : flagship
-        ? "/courses/mabrig-full-stack-founder-pro"
-        : "/dashboard";
+  if (flagship) {
+    const ref = String(params.ref || "").trim().replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 64);
+    redirect(`/checkout/mabrig-full-stack-founder-pro${ref ? `?ref=${encodeURIComponent(ref)}` : ""}`);
+  }
 
-  return (
-    <AuthForm
-      mode="register"
-      nextPath={nextPath}
-      contextLabel={flagship ? "Mabrig Full-Stack Founder Pro enrollment" : undefined}
-    />
-  );
+  const requestedNext = params.next;
+  const nextPath = requestedNext?.startsWith("/") && !requestedNext.startsWith("//") ? requestedNext : "/dashboard";
+  return <AuthForm mode="register" nextPath={nextPath} />;
 }
