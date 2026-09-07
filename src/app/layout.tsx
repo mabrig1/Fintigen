@@ -1,16 +1,26 @@
 import type { Metadata } from "next";
+import { brand } from "@/lib/brand";
 import AgenticCoachLauncher from "@/components/AgenticCoachLauncher";
 import AccountLearningSync from "@/components/AccountLearningSync";
 import PromoterReferralCapture from "@/components/PromoterReferralCapture";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(brand.url),
+  applicationName: brand.name,
+  creator: brand.company,
+  publisher: brand.company,
   title: {
-    default: "FINTIGEN Academy – Building Africa's Digital Future",
-    template: "%s | FINTIGEN Academy",
+    default: `${brand.domain} | Digital Skills & ICT Services`,
+    template: `%s | ${brand.domain}`,
   },
   description:
-    "Master digital skills, technology, and innovation from anywhere in the world. Learn from experts, earn certificates, and launch your tech career with FINTIGEN Academy.",
+    `${brand.domain}, a subsidiary of ${brand.company}, offers practical digital skills training and ICT business services. ${brand.credit}.`,
+  openGraph: {
+    siteName: brand.domain,
+    type: "website",
+    locale: "en_NG",
+  },
 };
 
 const themeInitScript = `

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { brand } from "@/lib/brand";
 import PageHeader from "@/components/PageHeader";
 import { coreValues } from "@/lib/data";
 
@@ -29,6 +30,16 @@ export default function AboutPage() {
           practical, career-focused technology education to learners across
           the continent and beyond.
         </p>
+
+        <div className="mt-8 rounded-2xl border border-slate-200 p-6 dark:border-slate-800">
+          <h3 className="text-xl font-bold">{brand.domain}</h3>
+          <p className="mt-2 font-semibold">{brand.ownership}.</p>
+          <p className="mt-2 text-slate-600 dark:text-slate-400">{brand.credit}. We bring practical digital education and ICT business services together to help people learn, build, and create opportunities.</p>
+          <div className="mt-4 flex flex-wrap gap-4 text-sm font-semibold text-brand-600 dark:text-brand-400">
+            <a href={brand.whatsappUrl} target="_blank" rel="noopener noreferrer">WhatsApp {brand.whatsappNumber}</a>
+            <a href={brand.facebookUrl} target="_blank" rel="noopener noreferrer">Connect on Facebook</a>
+          </div>
+        </div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-2">
           <div className="rounded-2xl border border-brand-200 bg-brand-50 p-8 dark:border-brand-800 dark:bg-brand-900/20">

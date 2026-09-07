@@ -1,5 +1,7 @@
 "use client";
 
+import { brand } from "@/lib/brand";
+
 import Link from "next/link";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { clearAuthSession, getAuthSession } from "@/lib/auth-client";
@@ -153,7 +155,7 @@ export default function IctBusinessPortalV2() {
       <header className="bg-slate-950 text-white">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-6 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
           <div><p className="text-xs font-black uppercase tracking-[.18em] text-emerald-400">Fintigen Admin · MABRIG Technologies</p><h1 className="mt-2 text-3xl font-black">Nigeria ICT Business Portal</h1><p className="mt-2 text-sm text-slate-400">NYSC, NIN/NIMC, CAC business registration and other legitimate ICT support services.</p></div>
-          <div className="flex gap-2"><Link href="/admin" className="rounded-xl border border-slate-700 px-4 py-2.5 text-sm font-bold">← Admin</Link><a href="https://wa.me/2347065342818" target="_blank" rel="noreferrer" className="rounded-xl bg-emerald-500 px-4 py-2.5 text-sm font-black text-slate-950">WhatsApp</a></div>
+          <div className="flex gap-2"><Link href="/admin" className="rounded-xl border border-slate-700 px-4 py-2.5 text-sm font-bold">← Admin</Link><a href={brand.whatsappUrl} target="_blank" rel="noreferrer" className="rounded-xl bg-emerald-500 px-4 py-2.5 text-sm font-black text-slate-950">WhatsApp</a></div>
         </div>
       </header>
 
@@ -211,7 +213,7 @@ export default function IctBusinessPortalV2() {
           </div>
         </section>
 
-        <footer className="rounded-2xl bg-slate-950 p-5 text-sm text-slate-400"><p className="font-black text-white">Fintigen.com · Nigeria ICT Business Services</p><p className="mt-1">A subsidiary of MABRIG Technologies · Developed by MABRIG Technologies · MABRIG Korie · WhatsApp 07065342818</p></footer>
+        <footer className="rounded-2xl bg-slate-950 p-5 text-sm text-slate-400"><p className="font-black text-white">Fintigen.com · Nigeria ICT Business Services</p><p className="mt-1">A subsidiary of MABRIG Technologies · Developed and maintained by MABRIG Technologies · MABRIG Korie · WhatsApp 07065342818</p></footer>
       </div>
       <style jsx global>{`.field{width:100%;border:1px solid rgb(203 213 225);border-radius:.75rem;background:white;padding:.7rem .85rem;outline:none}.field:focus{border-color:rgb(16 185 129);box-shadow:0 0 0 3px rgb(16 185 129/.12)}`}</style>
     </main>

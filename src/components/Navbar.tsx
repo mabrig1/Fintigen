@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { brand } from "@/lib/brand";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { navLinks } from "@/lib/data";
@@ -47,9 +48,9 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">
       <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <Link href="/" className="flex items-center gap-2 font-bold">
+        <Link href="/" className="flex shrink-0 items-center gap-2 font-bold">
           <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600 text-white">F</span>
-          <span className="text-lg tracking-tight">FINTIGEN <span className="text-brand-600">Academy</span></span>
+          <span className="text-lg tracking-tight">{brand.domain}</span>
         </Link>
         <ul className="hidden items-center gap-1 lg:flex">
           {links.map((link) => (

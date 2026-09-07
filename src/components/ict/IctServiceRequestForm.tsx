@@ -1,5 +1,7 @@
 "use client";
 
+import { brand } from "@/lib/brand";
+
 import { FormEvent, useEffect, useState } from "react";
 
 type Service = {
@@ -98,7 +100,7 @@ export default function IctServiceRequestForm() {
         <p className="mt-3 rounded-xl bg-slate-950 px-4 py-3 text-center text-xl font-black tracking-wide text-white">{caseNumber}</p>
         <p className="mt-4 text-sm leading-6">Keep this reference. Our ICT desk can use it to find your request. No government application has been submitted merely by creating this Fintigen case.</p>
         <div className="mt-5 flex flex-wrap gap-3">
-          <a href={`https://wa.me/2347065342818?text=${encodeURIComponent(`Hello Fintigen, I submitted ICT service request ${caseNumber}.`)}`} target="_blank" rel="noreferrer" className="rounded-xl bg-emerald-600 px-5 py-3 text-sm font-black text-white">Continue on WhatsApp</a>
+          <a href={`${brand.whatsappUrl}?text=${encodeURIComponent(`Hello Fintigen, I submitted ICT service request ${caseNumber}.`)}`} target="_blank" rel="noreferrer" className="rounded-xl bg-emerald-600 px-5 py-3 text-sm font-black text-white">Continue on WhatsApp</a>
           <button onClick={() => setCaseNumber("")} className="rounded-xl border border-emerald-300 px-5 py-3 text-sm font-bold">Submit another request</button>
         </div>
       </div>

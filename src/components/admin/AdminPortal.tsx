@@ -1,5 +1,7 @@
 "use client";
 
+import { brand } from "@/lib/brand";
+
 import Link from "next/link";
 import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 import {
@@ -84,7 +86,7 @@ type ApiEnvelope<T> = {
 };
 
 const ADMIN_EMAIL = "victoryonline1@gmail.com";
-const WHATSAPP = "https://wa.me/2347065342818";
+const WHATSAPP = brand.whatsappUrl;
 
 function formatMoney(amount: number, currency = "NGN") {
   try {
@@ -312,7 +314,7 @@ export default function AdminPortal() {
               </div>
               <div className="space-y-2 text-sm text-emerald-50/80">
                 <p className="font-semibold text-white">A subsidiary of MABRIG Technologies</p>
-                <p>Developed by MABRIG Technologies · MABRIG Korie</p>
+                <p>Developed and maintained by MABRIG Technologies · MABRIG Korie</p>
                 <p>WhatsApp: 07065342818</p>
               </div>
             </div>
@@ -591,13 +593,14 @@ export default function AdminPortal() {
                   <dl className="mt-5 space-y-4 text-sm">
                     <InfoRow label="Website" value="Fintigen.com" />
                     <InfoRow label="Company" value="Subsidiary of MABRIG Technologies" />
-                    <InfoRow label="Developer" value="MABRIG Technologies · MABRIG Korie" />
+                    <InfoRow label="Development & maintenance" value={brand.company} />
                     <InfoRow label="Admin email" value={session.user.email} />
                     <InfoRow label="WhatsApp" value="07065342818" />
                     <InfoRow label="API configured" value={apiBase ? "Yes" : "No"} />
                   </dl>
                   <div className="mt-6 flex flex-wrap gap-3">
                     <a href={WHATSAPP} target="_blank" rel="noreferrer" className="rounded-lg bg-emerald-500 px-4 py-2 text-sm font-bold text-slate-950">Open WhatsApp</a>
+                    <a href={brand.facebookUrl} target="_blank" rel="noopener noreferrer" className="rounded-lg border border-slate-200 px-4 py-2 text-sm font-semibold">Facebook</a>
                     <Link href="/" className="rounded-lg border border-slate-200 px-4 py-2 text-sm font-semibold">View Fintigen website</Link>
                   </div>
                 </div>
@@ -620,7 +623,7 @@ export default function AdminPortal() {
 
             <footer className="mt-10 border-t border-slate-200 py-6 text-center text-xs leading-6 text-slate-500">
               <p className="font-semibold text-slate-700">Fintigen.com — A subsidiary of MABRIG Technologies</p>
-              <p>Developed by MABRIG Technologies · MABRIG Korie · WhatsApp 07065342818</p>
+              <p>Developed and maintained by MABRIG Technologies · MABRIG Korie · WhatsApp 07065342818</p>
             </footer>
           </div>
         </section>
