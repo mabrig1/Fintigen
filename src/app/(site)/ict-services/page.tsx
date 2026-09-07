@@ -1,3 +1,4 @@
+import { brand } from "@/lib/brand";
 import type { Metadata } from "next";
 import Link from "next/link";
 import IctServiceRequestForm from "@/components/ict/IctServiceRequestForm";
@@ -52,7 +53,7 @@ export default function IctServicesPage() {
             <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">NYSC, NIN/NIMC, CAC, Remita/RRR, document services and business ICT support — with a Fintigen case number to keep your request organized from intake to completion.</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href="#request" className="rounded-xl bg-emerald-500 px-6 py-3.5 font-black text-slate-950">Request a Service</a>
-              <a href="https://wa.me/2347065342818" target="_blank" rel="noreferrer" className="rounded-xl border border-slate-700 px-6 py-3.5 font-bold hover:bg-slate-900">WhatsApp 07065342818</a>
+              <a href={brand.whatsappUrl} target="_blank" rel="noreferrer" className="rounded-xl border border-slate-700 px-6 py-3.5 font-bold hover:bg-slate-900">WhatsApp 07065342818</a>
             </div>
             <p className="mt-6 max-w-2xl text-xs leading-5 text-slate-500">Fintigen is an independent ICT assistance provider and is not NIMC, NYSC, CAC, Remita or another government agency. Official approvals and authority-controlled processes remain with the relevant organization.</p>
           </div>
@@ -113,7 +114,7 @@ export default function IctServicesPage() {
           <div className="mt-6 rounded-2xl bg-slate-950 p-5 text-white">
             <p className="font-black">Need immediate assistance?</p>
             <p className="mt-2 text-sm text-slate-400">WhatsApp the Fintigen ICT desk and mention your case number if you already submitted a request.</p>
-            <a href="https://wa.me/2347065342818" target="_blank" rel="noreferrer" className="mt-4 inline-block font-black text-emerald-400">07065342818 →</a>
+            <a href={brand.whatsappUrl} target="_blank" rel="noreferrer" className="mt-4 inline-block font-black text-emerald-400">07065342818 →</a>
           </div>
         </div>
         <IctServiceRequestForm />

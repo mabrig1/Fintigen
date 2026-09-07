@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { brand } from "@/lib/brand";
 
 const footerColumns = [
   {
@@ -38,18 +39,17 @@ export default function Footer() {
             <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600 text-white">
               F
             </span>
-            <span className="text-lg">
-              FINTIGEN <span className="text-brand-600">Academy</span>
-            </span>
+            <Link href="/" className="text-lg">{brand.domain}</Link>
           </div>
           <p className="mt-3 text-sm text-slate-600 dark:text-slate-400">
             Building Africa&apos;s Digital Future. Learn. Innovate. Transform.
           </p>
-          <p className="mt-3 text-sm text-slate-600 dark:text-slate-400">
-            📧 hello@fintigen.com
-            <br />
-            💬 WhatsApp: +234 800 000 0000
-          </p>
+          <p className="mt-3 text-sm font-semibold text-slate-700 dark:text-slate-300">{brand.ownership}</p>
+          <ul className="mt-4 space-y-3 text-sm text-slate-600 dark:text-slate-400">
+            <li><a href={`mailto:${brand.email}`} className="hover:text-brand-600">{brand.email}</a></li>
+            <li><a href={brand.whatsappUrl} target="_blank" rel="noopener noreferrer" className="hover:text-brand-600">WhatsApp: {brand.whatsappNumber}</a></li>
+            <li><a href={brand.facebookUrl} target="_blank" rel="noopener noreferrer" className="hover:text-brand-600">Facebook</a></li>
+          </ul>
         </div>
         {footerColumns.map((column) => (
           <div key={column.heading}>
@@ -72,8 +72,8 @@ export default function Footer() {
         ))}
       </div>
       <div className="border-t border-slate-200 py-4 text-center text-sm text-slate-500 dark:border-slate-800">
-        © {new Date().getFullYear()} FINTIGEN Academy. Empowering Tomorrow&apos;s
-        Tech Leaders.
+        <p className="px-4">© {new Date().getFullYear()} {brand.domain}. All rights reserved.</p>
+        <p className="mt-1 px-4">{brand.credit}.</p>
       </div>
     </footer>
   );

@@ -1,5 +1,7 @@
 "use client";
 
+import { brand } from "@/lib/brand";
+
 import Link from "next/link";
 import { ReactNode, useEffect, useState } from "react";
 import { authHeaders, clearAuthSession, getAuthSession } from "@/lib/auth-client";
@@ -116,7 +118,7 @@ export default function CourseAccessGate({
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link href="/pricing" className="rounded-xl bg-brand-600 px-6 py-3 font-bold text-white hover:bg-brand-700">View Paid Plans</Link>
-            <a href="https://wa.me/2347065342818" className="rounded-xl border border-slate-300 px-6 py-3 font-bold dark:border-slate-700">WhatsApp Support</a>
+            <a href={brand.whatsappUrl} className="rounded-xl border border-slate-300 px-6 py-3 font-bold dark:border-slate-700">WhatsApp Support</a>
           </div>
         </div>
       </main>

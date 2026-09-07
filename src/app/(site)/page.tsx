@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { brand } from "@/lib/brand";
 import { courseCategories, stats, testimonials } from "@/lib/data";
 
 const features = [
@@ -41,8 +42,9 @@ export default function Home() {
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:items-center lg:py-28">
           <div>
             <p className="inline-block rounded-full bg-white/10 px-4 py-1 text-sm font-medium text-brand-200">
-              FINTIGEN Academy — Learn. Innovate. Transform.
+              {brand.domain} · {brand.tagline}
             </p>
+            <p className="mt-3 text-sm text-brand-100">{brand.ownership}</p>
             <h1 className="mt-6 text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
               Start With Free Digital Foundations. Grow Into{" "}
               <span className="text-brand-300">High-Value Specialist Skills</span>

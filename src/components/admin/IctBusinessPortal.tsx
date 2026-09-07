@@ -1,5 +1,7 @@
 "use client";
 
+import { brand } from "@/lib/brand";
+
 import Link from "next/link";
 import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { clearAuthSession, getAuthSession } from "@/lib/auth-client";
@@ -283,7 +285,7 @@ export default function IctBusinessPortal() {
           </div>
           <div className="flex flex-wrap gap-2">
             <Link href="/admin" className="rounded-xl border border-slate-700 px-4 py-2.5 text-sm font-bold hover:bg-slate-900">← Admin Dashboard</Link>
-            <a href="https://wa.me/2347065342818" target="_blank" rel="noreferrer" className="rounded-xl bg-emerald-500 px-4 py-2.5 text-sm font-black text-slate-950">WhatsApp Desk</a>
+            <a href={brand.whatsappUrl} target="_blank" rel="noreferrer" className="rounded-xl bg-emerald-500 px-4 py-2.5 text-sm font-black text-slate-950">WhatsApp Desk</a>
           </div>
         </div>
       </header>
@@ -473,7 +475,7 @@ export default function IctBusinessPortal() {
         <footer className="rounded-2xl bg-slate-950 p-5 text-sm text-slate-400 sm:flex sm:items-center sm:justify-between">
           <div>
             <p className="font-bold text-white">Fintigen.com · Nigeria ICT Business Services</p>
-            <p className="mt-1">A subsidiary of MABRIG Technologies · Developed by MABRIG Technologies · MABRIG Korie</p>
+            <p className="mt-1">A subsidiary of MABRIG Technologies · Developed and maintained by MABRIG Technologies · MABRIG Korie</p>
           </div>
           <p className="mt-3 sm:mt-0">WhatsApp: 07065342818</p>
         </footer>
