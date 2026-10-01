@@ -126,20 +126,20 @@ export default function CoursesPage() {
           <section key={category.name} id={category.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")} className="mt-14 scroll-mt-24">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <h2 className="text-2xl font-bold">{category.icon} {category.name}</h2>
-              <span className="text-xs font-black uppercase tracking-[0.14em] text-amber-600 dark:text-amber-400">Paid specialist courses</span>
+              <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">Courses &amp; learning paths</span>
             </div>
             <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {category.courses.map((course) => (
                 <div key={course.slug} className="flex flex-col rounded-2xl border border-slate-200 bg-white p-6 transition hover:border-brand-400 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900">
                   <div className="flex items-center justify-between gap-2">
                     <span className={`rounded-full px-3 py-1 text-xs font-semibold ${levelStyles[course.level]}`}>{course.level}</span>
-                    <span className="text-xs font-black uppercase text-amber-600 dark:text-amber-400">Paid</span>
+                    <span className={`text-xs font-black uppercase ${course.price === "Free" ? "text-emerald-600 dark:text-emerald-400" : "text-amber-600 dark:text-amber-400"}`}>{course.price}</span>
                   </div>
                   <h3 className="mt-3 text-lg font-semibold">{course.title}</h3>
                   <p className="mt-2 flex-1 text-sm text-slate-600 dark:text-slate-400">{course.description}</p>
                   <div className="mt-4 flex items-center justify-between gap-3">
                     <span className="text-sm text-slate-500">⏱ {course.duration}</span>
-                    <Link href={course.href ?? "/pricing"} className="text-sm font-semibold text-brand-600 hover:text-brand-700 dark:text-brand-400">View Paid Course →</Link>
+                    <Link href={course.href ?? "/pricing"} className="text-sm font-semibold text-brand-600 hover:text-brand-700 dark:text-brand-400">{course.price === "Free" ? "Start Free Course →" : "View Paid Course →"}</Link>
                   </div>
                 </div>
               ))}
