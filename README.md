@@ -25,10 +25,14 @@ Router) and [Tailwind CSS](https://tailwindcss.com).
 | `/login`, `/register` | Authentication pages |
 | `/learn/generative-ai` | **Interactive course** — Generative AI, Prompt Engineering & Enterprise AI Literacy (8 modules) |
 | `/learn/agentic-ai` | **Interactive course** — Agentic AI & Autonomous Agents (8 modules) |
+| `/learn/ai-safety-security` | **Free public-interest course** — AI Safety & Security for Agentic Systems (6 modules) |
+| `/ai-safety-fellowship` | **Pilot program page** — Africa AI Safety & Security Builder Fellowship |
 | `/learn/ml-engineering` | **Interactive course** — AI & Machine Learning Engineering: Production-Scale Architectures & MLOps (9 modules) |
 | `/learn/data-science-analytics-engineering` | **Interactive course** — Data Science, Analytics & Engineering: Big Data Pipelines & Corporate Visualization (8 modules) |
 
 All courses use the same reusable `CoursePlayer` component (lessons, labs, quizzes, a persistent progress bar, and a completion certificate). Adding another course is just a new data file in `src/lib/courses/` plus a small page under `src/app/learn/`.
+
+Grant/capacity-building track: the repository now includes a free AI Safety & Security for Agentic Systems pathway focused on evaluations, defensive information security, human oversight, and reproducible assurance work. The fellowship page clearly distinguishes implemented curriculum from proposed cohort, mentor, and partnership elements.
 
 Site-wide features: responsive layout, dark mode with persistence, sticky
 navigation with mobile menu, SEO metadata per page.
