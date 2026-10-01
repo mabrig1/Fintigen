@@ -141,7 +141,7 @@ export default function FellowshipAssessment() {
         </p>
         <h2 className="mt-3 text-2xl font-black">Baseline / final technical assessment</h2>
         <p className="mt-3 max-w-3xl leading-7 text-slate-600 dark:text-slate-300">
-          This prototype stores responses only in this browser. It does not send answers to FINTIGEN or claim that a funded cohort exists. Exported records can later be submitted to an approved cohort system if one is deployed.
+Responses stay in this browser by default. They are sent to FINTIGEN only when you explicitly submit a score to an intake that the backend confirms is open. The backend stores derived scores and competency results, not raw answer selections.
         </p>
 
         <div className="mt-6 flex flex-wrap gap-3">
@@ -263,7 +263,7 @@ export default function FellowshipAssessment() {
           <p className="mt-4 rounded-xl bg-rose-50 p-4 text-sm font-semibold text-rose-800 dark:bg-rose-950/30 dark:text-rose-200">
             {liveError}
           </p>
-        </div>
+        )}
       </section>
 
       {result && (
