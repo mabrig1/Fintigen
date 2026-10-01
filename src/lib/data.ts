@@ -135,6 +135,16 @@ export const courseCategories: CourseCategory[] = [
     icon: "🤖",
     courses: [
       {
+        slug: "ai-safety-security",
+        title: "AI Safety & Security for Agentic Systems",
+        description:
+          "A free public-interest pathway into AI assurance, agent evaluation, defensive information security, and meaningful human oversight.",
+        level: "Intermediate",
+        duration: "6 weeks",
+        price: "Free",
+        href: "/learn/ai-safety-security",
+      },
+      {
         slug: "agentic-ai",
         title: "Agentic AI & Autonomous Agents",
         description:
