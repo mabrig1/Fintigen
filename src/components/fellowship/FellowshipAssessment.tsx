@@ -11,6 +11,7 @@ import {
 } from "@/lib/fellowship-evaluation";
 
 const storageKey = "fintigen-ai-safety-assessment-v1";
+const applicantCodeKey = "fintigen-ai-safety-applicant-code";
 
 type SavedAssessments = Partial<Record<AssessmentStage, FellowshipAssessmentResult>>;
 
@@ -40,7 +41,14 @@ export default function FellowshipAssessment() {
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [consent, setConsent] = useState(false);
   const [saved, setSaved] = useState<SavedAssessments>(() => loadSaved());
+  const apiBase = process.env.NEXT_PUBLIC_API_URL || "";
   const [result, setResult] = useState<FellowshipAssessmentResult | null>(null);
+  const [applicantCode, setApplicantCode] = useState(() =>
+    typeof window === "undefined" ? "" : localStorage.getItem(applicantCodeKey) || ""
+  );
+  const [liveMessage, setLiveMessage] = useState("");
+  const [liveError, setLiveError] = useState("");
+  const [liveSubmitting, setLiveSubmitting] = useState(false);
 
   const answeredCount = Object.keys(answers).length;
   const complete = answeredCount === fellowshipAssessmentQuestions.length;
@@ -63,6 +71,66 @@ export default function FellowshipAssessment() {
     setAnswers({});
     setResult(null);
     setConsent(false);
+    setLiveMessage("");
+    setLiveError("");
+  }
+
+  async function submitToLivePilot() {
+    if (!apiBase) {
+      setLiveError("The fellowship API is not configured on this deployment.");
+      return;
+    }
+    if (!applicantCode.trim()) {
+      setLiveError("Enter the applicant code issued after a live fellowship application.");
+      return;
+    }
+
+    setLiveSubmitting(true);
+    setLiveMessage("");
+    setLiveError("");
+    try {
+      const intakeResponse = await fetch(`${apiBase}/fellowship/intake`, { cache: "no-store" });
+      const intakePayload = (await intakeResponse.json().catch(() => ({}))) as {
+        data?: { intake_open?: boolean; cycle?: string };
+        message?: string;
+        error?: string;
+      };
+      if (!intakeResponse.ok) {
+        throw new Error(intakePayload.message || intakePayload.error || "Could not check intake status.");
+      }
+      if (!intakePayload.data?.intake_open) {
+        setLiveMessage(`The ${intakePayload.data?.cycle || "current"} intake is closed. Your assessment remains local.`);
+        return;
+      }
+
+      const response = await fetch(`${apiBase}/fellowship/assessments`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          applicantCode: applicantCode.trim(),
+          stage,
+          answers,
+          consentForAnonymizedProgramMetrics: consent,
+        }),
+      });
+      const payload = (await response.json().catch(() => ({}))) as {
+        data?: { score_percent?: number; raw_answers_retained?: boolean };
+        message?: string;
+        error?: string;
+      };
+      if (!response.ok || !payload.data) {
+        throw new Error(payload.message || payload.error || "Could not store the assessment.");
+      }
+
+      localStorage.setItem(applicantCodeKey, applicantCode.trim());
+      setLiveMessage(
+        `Server-side score stored: ${payload.data.score_percent ?? "—"}%. Raw answer selections retained: ${payload.data.raw_answers_retained ? "yes" : "no"}.`
+      );
+    } catch (error) {
+      setLiveError(error instanceof Error ? error.message : "Could not store the assessment.");
+    } finally {
+      setLiveSubmitting(false);
+    }
   }
 
   return (
@@ -149,7 +217,7 @@ export default function FellowshipAssessment() {
             className="mt-1"
           />
           <span>
-            I would allow an approved future fellowship system to include this score in anonymized aggregate program metrics. This prototype does not transmit the data.
+            I allow an approved fellowship system to include this score in anonymized aggregate program metrics. The score stays local unless I explicitly submit it to an open pilot.
           </span>
         </label>
 
@@ -165,6 +233,36 @@ export default function FellowshipAssessment() {
           <span className="text-sm text-slate-500">
             {answeredCount}/{fellowshipAssessmentQuestions.length} answered
           </span>
+        </div>
+
+        <div className="mt-6 grid gap-3 sm:grid-cols-[1fr_auto] sm:items-end">
+          <label className="text-sm font-bold">
+            Applicant code for live pilot storage
+            <input
+              value={applicantCode}
+              onChange={(event) => setApplicantCode(event.target.value)}
+              placeholder="e.g. FAS-..."
+              className="mt-2 w-full rounded-xl border border-slate-300 bg-transparent px-4 py-3 font-normal dark:border-slate-700"
+            />
+          </label>
+          <button
+            type="button"
+            disabled={!result || liveSubmitting}
+            onClick={submitToLivePilot}
+            className="rounded-xl bg-cyan-700 px-6 py-3 font-black text-white disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            {liveSubmitting ? "Checking intake…" : "Submit score to live pilot"}
+          </button>
+        </div>
+        {liveMessage && (
+          <p className="mt-4 rounded-xl bg-emerald-50 p-4 text-sm font-semibold text-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-200">
+            {liveMessage}
+          </p>
+        )}
+        {liveError && (
+          <p className="mt-4 rounded-xl bg-rose-50 p-4 text-sm font-semibold text-rose-800 dark:bg-rose-950/30 dark:text-rose-200">
+            {liveError}
+          </p>
         </div>
       </section>
 
