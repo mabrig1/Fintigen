@@ -34,6 +34,9 @@ jobs:
           "src/app/(site)/ai-safety-fellowship/page.tsx"
           "src/lib/data.ts"
           "src/app/(site)/courses/page.tsx"
+          "src/app/(site)/ai-safety-fellowship/assessment/page.tsx"
+          "src/components/fellowship/FellowshipAssessment.tsx"
+          "src/lib/fellowship-evaluation.ts"
 
       - name: Report existing repository lint debt
         continue-on-error: true
