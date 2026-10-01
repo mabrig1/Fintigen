@@ -65,6 +65,30 @@ export default function CoursesPage() {
           </div>
         </Link>
 
+        <section className="mb-12 overflow-hidden rounded-3xl border border-cyan-300/40 bg-gradient-to-br from-cyan-50 via-white to-emerald-50 p-8 shadow-sm dark:border-cyan-900/60 dark:from-cyan-950/20 dark:via-slate-950 dark:to-emerald-950/20 sm:p-10">
+          <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+            <div>
+              <div className="flex flex-wrap gap-2">
+                <span className="rounded-full bg-cyan-700 px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-white">Free public-interest track</span>
+                <span className="rounded-full border border-cyan-300 px-3 py-1 text-xs font-bold text-cyan-800 dark:border-cyan-800 dark:text-cyan-300">6 weeks · Intermediate · No formal degree required</span>
+              </div>
+              <h2 className="mt-5 text-3xl font-black sm:text-4xl">AI Safety &amp; Security for Agentic Systems</h2>
+              <p className="mt-3 max-w-3xl text-base leading-7 text-slate-600 dark:text-slate-300">
+                A practical bridge for software builders entering AI assurance, model and agent evaluations, defensive information security, and evidence-rich human oversight. This is the first implementation layer of FINTIGEN&apos;s proposed Africa AI Safety &amp; Security Builder Fellowship.
+              </p>
+              <div className="mt-5 flex flex-wrap gap-2 text-sm text-slate-600 dark:text-slate-400">
+                <span>✓ Threat modeling</span><span>✓ Agent security</span><span>✓ Evaluations</span><span>✓ Human oversight</span><span>✓ Reproducible capstone</span>
+              </div>
+              <Link href="/ai-safety-fellowship" className="mt-5 inline-block text-sm font-black text-cyan-700 hover:text-cyan-800 dark:text-cyan-300">
+                View Fellowship Pilot →
+              </Link>
+            </div>
+            <Link href="/learn/ai-safety-security" className="rounded-2xl bg-cyan-700 px-7 py-4 text-center font-black text-white transition hover:bg-cyan-800">
+              Start Free AI Safety Course →
+            </Link>
+          </div>
+        </section>
+
         <section className="mb-12">
           <div className="flex flex-wrap items-center gap-3">
             <span className="rounded-full bg-amber-400 px-3 py-1 text-xs font-bold uppercase tracking-wide text-slate-900">Premium · Interactive</span>
@@ -102,20 +126,20 @@ export default function CoursesPage() {
           <section key={category.name} id={category.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")} className="mt-14 scroll-mt-24">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <h2 className="text-2xl font-bold">{category.icon} {category.name}</h2>
-              <span className="text-xs font-black uppercase tracking-[0.14em] text-amber-600 dark:text-amber-400">Paid specialist courses</span>
+              <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">Courses &amp; learning paths</span>
             </div>
             <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {category.courses.map((course) => (
                 <div key={course.slug} className="flex flex-col rounded-2xl border border-slate-200 bg-white p-6 transition hover:border-brand-400 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900">
                   <div className="flex items-center justify-between gap-2">
                     <span className={`rounded-full px-3 py-1 text-xs font-semibold ${levelStyles[course.level]}`}>{course.level}</span>
-                    <span className="text-xs font-black uppercase text-amber-600 dark:text-amber-400">Paid</span>
+                    <span className={`text-xs font-black uppercase ${course.price === "Free" ? "text-emerald-600 dark:text-emerald-400" : "text-amber-600 dark:text-amber-400"}`}>{course.price}</span>
                   </div>
                   <h3 className="mt-3 text-lg font-semibold">{course.title}</h3>
                   <p className="mt-2 flex-1 text-sm text-slate-600 dark:text-slate-400">{course.description}</p>
                   <div className="mt-4 flex items-center justify-between gap-3">
                     <span className="text-sm text-slate-500">⏱ {course.duration}</span>
-                    <Link href={course.href ?? "/pricing"} className="text-sm font-semibold text-brand-600 hover:text-brand-700 dark:text-brand-400">View Paid Course →</Link>
+                    <Link href={course.href ?? "/pricing"} className="text-sm font-semibold text-brand-600 hover:text-brand-700 dark:text-brand-400">{course.price === "Free" ? "Start Free Course →" : "View Paid Course →"}</Link>
                   </div>
                 </div>
               ))}
