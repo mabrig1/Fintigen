@@ -46,6 +46,9 @@ export default function AiSafetyFellowshipPage() {
             <Link href="/learn/ai-safety-security" className="rounded-xl bg-emerald-400 px-6 py-3 font-black text-slate-950 hover:bg-emerald-300">
               Start the Free Course →
             </Link>
+            <Link href="/ai-safety-fellowship/assessment" className="rounded-xl border border-cyan-400/50 px-6 py-3 font-bold text-cyan-100 hover:border-cyan-300">
+              Open Assessment Lab →
+            </Link>
             <Link href="/courses" className="rounded-xl border border-slate-700 px-6 py-3 font-bold hover:border-slate-500">
               View FINTIGEN Courses
             </Link>
@@ -111,6 +114,9 @@ export default function AiSafetyFellowshipPage() {
           <h2 className="mt-3 text-3xl font-black">The public course is live in the codebase first.</h2>
           <p className="mx-auto mt-4 max-w-3xl leading-7 text-slate-300">
             Mentors, cohort size, participant support, partnerships, and outcomes will only be shown as active after they are actually secured. This keeps the fellowship useful to funders and learners without inventing traction.
+          </p>
+          <p className="mx-auto mt-4 max-w-3xl text-sm leading-6 text-slate-400">
+            The pilot now also includes a browser-local baseline/final assessment and a transparent 100-point capstone rubric so evaluation can be demonstrated before any cohort backend is deployed.
           </p>
           <Link href="/learn/ai-safety-security" className="mt-8 inline-block rounded-xl bg-white px-7 py-3 font-black text-slate-950 hover:bg-slate-200">
             Open AI Safety &amp; Security Course →
