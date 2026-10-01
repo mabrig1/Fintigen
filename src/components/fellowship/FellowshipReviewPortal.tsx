@@ -125,7 +125,7 @@ export default function FellowshipReviewPortal() {
       }>("/fellowship/reviews/queue");
       setApplications(data.applications || []);
       setNotice(
-        `Loaded ${data.total ?? data.applications?.length ?? 0} assigned review records. Direct applicant identity is redacted from the reviewer queue.`
+        `Loaded ${data.total ?? data.applications?.length ?? 0} assigned review records. Direct identity fields are redacted from the reviewer queue; free text and work-sample links may still be identifying.`
       );
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not load reviewer queue.");
@@ -168,7 +168,7 @@ export default function FellowshipReviewPortal() {
       </p>
       <h1 className="mt-3 text-4xl font-black">AI Safety Fellowship Review Queue</h1>
       <p className="mt-4 max-w-4xl leading-7 text-slate-600 dark:text-slate-300">
-        Reviewers receive the applicant&apos;s technical evidence and reasoning without direct identity fields. Scores structure the review; they do not automatically rank, select, or reject candidates.
+        Reviewers receive the applicant&apos;s technical evidence and reasoning with direct identity fields such as name, email, and country redacted. Free-text answers or work-sample links may still contain identifying information, so this interface does not claim full anonymization. Scores structure the review; they do not automatically rank, select, or reject candidates.
       </p>
 
       <button
