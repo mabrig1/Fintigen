@@ -31,6 +31,9 @@ Added in this branch:
 - `/ai-safety-fellowship` pilot page;
 - explicit no-formal-degree prerequisite for the open pathway;
 - pilot evaluation metrics;
+- browser-local baseline/final assessment lab;
+- transparent 100-point capstone review rubric;
+- consent-aware measurement schema;
 - explicit status language preventing unverified claims about cohorts, mentors, partnerships, or outcomes.
 
 ## Claims discipline
