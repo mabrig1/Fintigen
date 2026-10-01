@@ -49,6 +49,9 @@ export default function AiSafetyFellowshipPage() {
             <Link href="/ai-safety-fellowship/assessment" className="rounded-xl border border-cyan-400/50 px-6 py-3 font-bold text-cyan-100 hover:border-cyan-300">
               Open Assessment Lab →
             </Link>
+            <Link href="/ai-safety-fellowship/apply" className="rounded-xl border border-emerald-400/50 px-6 py-3 font-bold text-emerald-100 hover:border-emerald-300">
+              Prepare Application →
+            </Link>
             <Link href="/courses" className="rounded-xl border border-slate-700 px-6 py-3 font-bold hover:border-slate-500">
               View FINTIGEN Courses
             </Link>
