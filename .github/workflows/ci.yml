@@ -35,6 +35,8 @@ jobs:
           "src/lib/data.ts"
           "src/app/(site)/courses/page.tsx"
           "src/app/(site)/ai-safety-fellowship/assessment/page.tsx"
+          "src/app/(site)/ai-safety-fellowship/apply/page.tsx"
+          "src/components/fellowship/FellowshipApplicationDraft.tsx"
           "src/components/fellowship/FellowshipAssessment.tsx"
           "src/lib/fellowship-evaluation.ts"
 
