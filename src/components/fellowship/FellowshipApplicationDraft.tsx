@@ -19,7 +19,31 @@ type ApplicationDraft = {
   consentToContactIfPilotOpens: boolean;
 };
 
+type ApiEnvelope<T> = {
+  status?: string;
+  data?: T;
+  error?: string;
+  message?: string;
+};
+
+type IntakeStatus = {
+  cycle: string;
+  intake_open: boolean;
+  selection_model: string;
+  automated_admission_decisions: boolean;
+  formal_degree_required: boolean;
+};
+
+type SubmissionResult = {
+  applicant_code: string;
+  cycle: string;
+  status: string;
+  human_review_required: boolean;
+  message: string;
+};
+
 const storageKey = "fintigen-ai-safety-fellowship-application-draft-v1";
+const applicantCodeKey = "fintigen-ai-safety-applicant-code";
 
 const emptyDraft: Omit<ApplicationDraft, "schemaVersion" | "savedAt"> = {
   name: "",
@@ -61,52 +85,115 @@ function exportDraft(draft: ApplicationDraft) {
   URL.revokeObjectURL(url);
 }
 
+async function readEnvelope<T>(response: Response) {
+  const payload = (await response.json().catch(() => ({}))) as ApiEnvelope<T>;
+  if (!response.ok) {
+    throw new Error(payload.message || payload.error || `Request failed (${response.status}).`);
+  }
+  if (!payload.data) throw new Error("The server returned an empty response.");
+  return payload.data;
+}
+
 export default function FellowshipApplicationDraft() {
+  const apiBase = process.env.NEXT_PUBLIC_API_URL || "";
   const [draft, setDraft] = useState(() => loadDraft());
   const [savedAt, setSavedAt] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [liveMessage, setLiveMessage] = useState("");
+  const [liveError, setLiveError] = useState("");
+  const [applicantCode, setApplicantCode] = useState(() =>
+    typeof window === "undefined" ? "" : localStorage.getItem(applicantCodeKey) || ""
+  );
 
   function update<K extends keyof typeof draft>(key: K, value: (typeof draft)[K]) {
     setDraft((current) => ({ ...current, [key]: value }));
   }
 
-  function saveLocal() {
-    const record: ApplicationDraft = {
+  function buildRecord(): ApplicationDraft {
+    return {
       schemaVersion: 1,
       savedAt: new Date().toISOString(),
       ...draft,
     };
+  }
+
+  function saveLocal() {
+    const record = buildRecord();
     localStorage.setItem(storageKey, JSON.stringify(record));
     setSavedAt(record.savedAt);
   }
 
   function download() {
-    const record: ApplicationDraft = {
-      schemaVersion: 1,
-      savedAt: new Date().toISOString(),
-      ...draft,
-    };
-    exportDraft(record);
+    exportDraft(buildRecord());
   }
 
-  const fieldsComplete =
+  async function submitLive() {
+    if (!apiBase) {
+      setLiveError("The fellowship API is not configured on this deployment.");
+      return;
+    }
+
+    setSubmitting(true);
+    setLiveError("");
+    setLiveMessage("");
+    try {
+      const intake = await readEnvelope<IntakeStatus>(
+        await fetch(`${apiBase}/fellowship/intake`, { cache: "no-store" })
+      );
+
+      if (!intake.intake_open) {
+        setLiveMessage(
+          `The ${intake.cycle} intake is currently closed. Your draft remains only in this browser unless you export it.`
+        );
+        return;
+      }
+
+      const result = await readEnvelope<SubmissionResult>(
+        await fetch(`${apiBase}/fellowship/applications`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(draft),
+        })
+      );
+
+      localStorage.setItem(applicantCodeKey, result.applicant_code);
+      localStorage.setItem(storageKey, JSON.stringify(buildRecord()));
+      setApplicantCode(result.applicant_code);
+      setLiveMessage(
+        `Application received for human review. Applicant code: ${result.applicant_code}.`
+      );
+    } catch (error) {
+      setLiveError(error instanceof Error ? error.message : "Could not submit the application.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  const fieldsComplete = Boolean(
     draft.name.trim() &&
     draft.country.trim() &&
     draft.email.trim() &&
-    draft.technicalBackground.trim() &&
-    draft.strongestWorkSample.trim() &&
-    draft.aiSafetyMotivation.trim() &&
-    draft.evidenceReasoningExample.trim() &&
-    draft.weeklyHours.trim();
+    draft.technicalBackground.trim().length >= 40 &&
+    draft.strongestWorkSample.trim().length >= 40 &&
+    draft.aiSafetyMotivation.trim().length >= 40 &&
+    draft.evidenceReasoningExample.trim().length >= 40 &&
+    draft.weeklyHours.trim()
+  );
 
   return (
     <div className="space-y-8">
       <section className="rounded-3xl border border-amber-300 bg-amber-50 p-6 dark:border-amber-900/60 dark:bg-amber-950/20">
         <p className="text-xs font-black uppercase tracking-[0.16em] text-amber-700 dark:text-amber-300">
-          Application prototype — not an active funded intake
+          Application prototype — intake closed unless explicitly activated
         </p>
         <p className="mt-3 leading-7 text-slate-700 dark:text-slate-300">
-          This form helps demonstrate the proposed fellowship&apos;s ability-first selection process. It stores data only in this browser and can export a draft JSON file. It does not transmit an application to FINTIGEN.
+          Drafts stay in this browser unless you explicitly press the live-submission button. The backend independently checks whether a real fellowship intake has been opened and rejects submissions while intake is closed.
         </p>
+        {applicantCode && (
+          <p className="mt-3 text-sm font-black text-emerald-700 dark:text-emerald-300">
+            Saved applicant code: {applicantCode}
+          </p>
+        )}
       </section>
 
       <section className="grid gap-5 rounded-3xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950 sm:p-8">
@@ -175,7 +262,7 @@ export default function FellowshipApplicationDraft() {
 
         <label className="flex gap-3 text-sm leading-6">
           <input type="checkbox" checked={draft.consentToContactIfPilotOpens} onChange={(e) => update("consentToContactIfPilotOpens", e.target.checked)} className="mt-1" />
-          <span>I would like to be contacted if a real fellowship pilot opens. This prototype does not transmit that preference.</span>
+          <span>I would like to be contacted if a real fellowship pilot opens.</span>
         </label>
 
         <div className="flex flex-wrap gap-3">
@@ -185,15 +272,25 @@ export default function FellowshipApplicationDraft() {
           <button type="button" disabled={!fieldsComplete} onClick={download} className="rounded-xl border border-slate-300 px-6 py-3 font-black disabled:cursor-not-allowed disabled:opacity-40 dark:border-slate-700">
             Export application draft
           </button>
+          <button
+            type="button"
+            disabled={!fieldsComplete || submitting}
+            onClick={submitLive}
+            className="rounded-xl bg-emerald-600 px-6 py-3 font-black text-white disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            {submitting ? "Checking intake…" : "Check intake & submit live"}
+          </button>
         </div>
         {savedAt && <p className="text-xs text-slate-500">Saved locally at {new Date(savedAt).toLocaleString()}.</p>}
+        {liveMessage && <p className="rounded-xl bg-emerald-50 p-4 text-sm font-semibold text-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-200">{liveMessage}</p>}
+        {liveError && <p className="rounded-xl bg-rose-50 p-4 text-sm font-semibold text-rose-800 dark:bg-rose-950/30 dark:text-rose-200">{liveError}</p>}
       </section>
 
       <section className="rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-800 dark:bg-slate-900">
         <p className="text-xs font-black uppercase tracking-[0.16em] text-brand-600 dark:text-brand-400">Human reviewer rubric</p>
         <h2 className="mt-3 text-2xl font-black">Proposed selection criteria</h2>
         <p className="mt-3 leading-7 text-slate-600 dark:text-slate-300">
-          The prototype does not automatically accept, reject, or rank applicants. A funded cohort would use structured human review and record evidence for each decision.
+          The system does not automatically accept, reject, or rank applicants. A real cohort uses structured human review and records evidence for each decision.
         </p>
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           {[
