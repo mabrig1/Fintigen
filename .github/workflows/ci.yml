@@ -40,6 +40,8 @@ jobs:
           "src/components/fellowship/FellowshipAssessment.tsx"
           "src/lib/fellowship-evaluation.ts"
           "src/app/admin/page.tsx"
+          "src/app/mentor/ai-safety-fellowship/page.tsx"
+          "src/components/fellowship/FellowshipReviewPortal.tsx"
           "src/app/admin/ai-safety-fellowship/page.tsx"
           "src/components/admin/FellowshipAdminPortal.tsx"
 
