@@ -9,6 +9,13 @@ export const metadata: Metadata = {
     "Join the FINTIGEN referral program, access your dedicated referral growth workstation, and earn 15% commission on eligible successful paid-program referrals.",
 };
 
+const unlocks = [
+  { referrals: "1", title: "Starter Unlock", reward: "30 days Premium learning access" },
+  { referrals: "3", title: "Growth Unlock", reward: "3 months Premium learning access" },
+  { referrals: "5", title: "Founder Unlock", reward: "Mabrig Full-Stack Founder Pro tuition unlocked" },
+  { referrals: "10", title: "Ambassador Unlock", reward: "12 months Premium access + priority cohort status" },
+];
+
 const toolkit = [
   "Smart referral links",
   "WhatsApp conversion builder",
@@ -53,12 +60,6 @@ export default function ReferralPage() {
             >
               Existing Referrer → Workstation
             </Link>
-            <Link
-              href="/referral/workstation"
-              className="rounded-xl border-2 border-slate-950/20 bg-white/70 px-6 py-3 font-black transition hover:bg-white"
-            >
-              Open Referral Workstation
-            </Link>
             <a
               href={brand.whatsappUrl}
               target="_blank"
@@ -93,6 +94,34 @@ export default function ReferralPage() {
             </p>
           </div>
         </div>
+
+        <section className="mt-10 overflow-hidden rounded-3xl bg-slate-950 p-7 text-white sm:p-8">
+          <div className="max-w-3xl">
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-amber-300">Double Reward System</p>
+            <h2 className="mt-2 text-3xl font-black">Earn 15% cash commission — and unlock paid training.</h2>
+            <p className="mt-3 text-sm leading-7 text-slate-300">
+              Your commission does not disappear when you unlock training. Qualified rewards are cumulative, so the more verified paid referrals you build, the more FINTIGEN training you open.
+            </p>
+          </div>
+          <div className="mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {unlocks.map((tier) => (
+              <div key={tier.referrals} className="rounded-2xl border border-white/10 bg-white/5 p-5">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="rounded-full bg-amber-400 px-3 py-1 text-xs font-black text-slate-950">{tier.referrals} paid referral{tier.referrals === "1" ? "" : "s"}</span>
+                  <span className="text-xl">🔓</span>
+                </div>
+                <h3 className="mt-4 font-black">{tier.title}</h3>
+                <p className="mt-2 text-sm font-bold leading-6 text-emerald-300">{tier.reward}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-6 rounded-2xl border border-amber-300/20 bg-amber-300/10 p-4 text-sm leading-6 text-amber-100">
+            Example: reach 5 verified eligible paid referrals and the ₦100,000 Mabrig Full-Stack Founder Pro training is unlocked, while your 15% referral commission remains separate.
+          </div>
+          <p className="mt-4 text-xs leading-5 text-slate-400">
+            Only verified eligible successful payments count. Refunded, reversed, fraudulent or invalid payments do not qualify for unlocks.
+          </p>
+        </section>
 
         <section className="mt-10 rounded-3xl border border-slate-200 bg-slate-50 p-7 dark:border-slate-800 dark:bg-slate-900/50 sm:p-8">
           <p className="text-xs font-black uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-400">
