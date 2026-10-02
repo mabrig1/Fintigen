@@ -136,10 +136,11 @@ export default function PricingPage() {
           ))}
         </div>
 
-        <div className="mt-16 grid gap-6 rounded-2xl bg-slate-50 p-8 sm:grid-cols-3 dark:bg-slate-900/50">
-          <div>
-            <h3 className="font-semibold">🎁 Referral Rewards</h3>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">Invite learners and earn rewards when referred students purchase eligible paid programs.</p>
+        <div id="referral-program" className="mt-16 grid scroll-mt-24 gap-6 rounded-2xl bg-slate-50 p-8 sm:grid-cols-3 dark:bg-slate-900/50">
+          <div className="rounded-2xl border border-amber-300 bg-amber-50 p-5 dark:border-amber-800 dark:bg-amber-950/20">
+            <h3 className="text-lg font-black">🎁 Join Our Referral Program</h3>
+            <p className="mt-2 text-sm text-slate-700 dark:text-slate-300">Refer learners to eligible paid FINTIGEN programs and earn <strong>15% commission</strong> on successful qualifying payments.</p>
+            <Link href="/contact" className="mt-4 inline-block rounded-lg bg-slate-950 px-4 py-2.5 text-sm font-black text-white transition hover:bg-slate-800 dark:bg-amber-400 dark:text-slate-950 dark:hover:bg-amber-300">Join &amp; Start Earning →</Link>
           </div>
           <div>
             <h3 className="font-semibold">🤝 Affiliate Program</h3>
