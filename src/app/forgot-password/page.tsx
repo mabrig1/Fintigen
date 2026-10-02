@@ -30,7 +30,7 @@ export default function ForgotPasswordPage() {
         <button disabled={loading} className="w-full rounded-xl bg-emerald-500 px-4 py-3 font-bold text-slate-950 disabled:opacity-60">{loading?"Sending…":"Send reset link"}</button>
       </form>
       {message && <p className="mt-4 rounded-xl bg-white/10 p-3 text-sm">{message}</p>}
-      <Link href="/admin" className="mt-6 inline-block text-sm text-emerald-400 hover:underline">Back to sign in</Link>
+      <div className="mt-6 flex flex-wrap gap-4 text-sm"><Link href="/account-recovery" className="font-semibold text-amber-300 hover:underline">Use a recovery code instead</Link><Link href="/admin" className="text-emerald-400 hover:underline">Back to sign in</Link></div>
     </div>
   </main>;
 }
