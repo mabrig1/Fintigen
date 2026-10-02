@@ -34,7 +34,7 @@ const faqs = [
 export default function MabrigFullStackFounderProPage() {
   return (
     <main>
-      <section className="relative overflow-hidden bg-slate-950 text-white">
+      <section className="fintigen-aurora relative overflow-hidden bg-slate-950 text-white">\n        <div aria-hidden="true" className="fintigen-orb fintigen-orb-one" />\n        <div aria-hidden="true" className="fintigen-orb fintigen-orb-two" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.24),transparent_38%),radial-gradient(circle_at_bottom_left,rgba(245,158,11,0.18),transparent_35%)]" />
         <div className="relative mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:py-28">
           <div>
@@ -77,7 +77,7 @@ export default function MabrigFullStackFounderProPage() {
             </div>
           </div>
 
-          <aside className="rounded-3xl border border-white/10 bg-white/5 p-7 shadow-2xl backdrop-blur sm:p-9">
+          <aside className="fintigen-glass rounded-3xl border border-white/10 bg-white/5 p-7 shadow-2xl backdrop-blur sm:p-9">
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-300">
               Regional one-time pricing
             </p>
@@ -133,7 +133,7 @@ export default function MabrigFullStackFounderProPage() {
             {flagshipCourse.outcomes.map((outcome, index) => (
               <div
                 key={outcome}
-                className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950"
+                className="fintigen-lift rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950"
               >
                 <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-100 text-sm font-black text-brand-700 dark:bg-brand-900/50 dark:text-brand-300">
                   {index + 1}
@@ -159,7 +159,7 @@ export default function MabrigFullStackFounderProPage() {
             {flagshipCourse.modules.map((module) => (
               <article
                 key={module.week}
-                className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950"
+                className="fintigen-lift rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950"
               >
                 <div className="flex gap-4">
                   <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-slate-950 text-sm font-black text-white dark:bg-brand-600">
@@ -182,7 +182,7 @@ export default function MabrigFullStackFounderProPage() {
       </section>
 
       <section className="mx-auto grid max-w-7xl gap-8 px-4 py-18 sm:px-6 lg:grid-cols-2">
-        <article className="rounded-3xl bg-gradient-to-br from-brand-800 to-slate-950 p-8 text-white sm:p-10">
+        <article className="fintigen-lift rounded-3xl bg-gradient-to-br from-brand-800 to-slate-950 p-8 text-white sm:p-10">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-200">
             Premium implementation vault
           </p>
@@ -197,7 +197,7 @@ export default function MabrigFullStackFounderProPage() {
           </ul>
         </article>
 
-        <article className="rounded-3xl border border-slate-200 p-8 dark:border-slate-800 sm:p-10">
+        <article className="fintigen-lift rounded-3xl border border-slate-200 p-8 dark:border-slate-800 sm:p-10">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
             Graduation standard
           </p>
