@@ -13,6 +13,12 @@ export default function AdminPage() {
     <>
       <AdminPortal />
       <Link
+        href="/admin/referrals"
+        className="fixed bottom-5 left-5 z-50 rounded-2xl bg-emerald-500 px-5 py-3 text-sm font-black text-slate-950 shadow-2xl ring-1 ring-emerald-300 transition hover:bg-emerald-400"
+      >
+        Referrals · 15% →
+      </Link>
+      <Link
         href="/admin/ict-business"
         className="fixed bottom-5 right-5 z-50 rounded-2xl bg-amber-400 px-5 py-3 text-sm font-black text-slate-950 shadow-2xl ring-1 ring-amber-300 transition hover:bg-amber-300"
       >
