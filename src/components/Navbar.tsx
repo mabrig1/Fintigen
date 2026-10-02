@@ -18,7 +18,8 @@ export default function Navbar() {
   const aiLabLink = { label: "AI Lab", href: "/ai-lab" };
   const businessLink = { label: "Business Operations", href: "/business-operations" };
   const ictServicesLink = { label: "ICT Services", href: "/ict-services" };
-  const links = [...navLinks, digitalSkillsLink, futureSkillsLink, aiLabLink, businessLink, ictServicesLink];
+  const referralStudioLink = { label: "Referral Studio", href: "/referral/workstation" };
+  const links = [...navLinks, digitalSkillsLink, futureSkillsLink, aiLabLink, businessLink, ictServicesLink, ...(authUser ? [referralStudioLink] : [])];
 
   useEffect(() => {
     const refresh = () => setAuthUser(getAuthSession()?.user || null);
@@ -63,7 +64,7 @@ export default function Navbar() {
           <ThemeToggle />
           {authUser ? (
             <>
-              <Link href="/dashboard" className="hidden max-w-36 truncate rounded-md px-3 py-2 text-sm font-semibold text-brand-700 hover:bg-brand-50 sm:block dark:text-brand-300 dark:hover:bg-brand-900/30">{authUser.name}</Link>
+              <Link href="/referral/workstation" className="hidden rounded-md bg-amber-50 px-3 py-2 text-sm font-black text-amber-800 hover:bg-amber-100 md:block dark:bg-amber-950/30 dark:text-amber-300">Referral Tools</Link>\n              <Link href="/dashboard" className="hidden max-w-36 truncate rounded-md px-3 py-2 text-sm font-semibold text-brand-700 hover:bg-brand-50 sm:block dark:text-brand-300 dark:hover:bg-brand-900/30">{authUser.name}</Link>
               <button type="button" onClick={logout} className="hidden rounded-md border border-slate-300 px-3 py-2 text-sm font-medium text-slate-600 hover:border-rose-300 hover:text-rose-600 sm:block dark:border-slate-700 dark:text-slate-300">Log out</button>
             </>
           ) : (
@@ -82,7 +83,7 @@ export default function Navbar() {
               <li key={link.href}><Link href={link.href} onClick={() => setMenuOpen(false)} className={linkClass(link.href, true)}>{link.label}</Link></li>
             ))}
             {authUser ? (
-              <li className="mt-2 grid grid-cols-2 gap-2"><Link href="/dashboard" onClick={() => setMenuOpen(false)} className="rounded-md bg-brand-50 px-4 py-2 text-center text-sm font-semibold text-brand-700 dark:bg-brand-900/30 dark:text-brand-300">My Dashboard</Link><button type="button" onClick={logout} className="rounded-md border border-slate-300 px-4 py-2 text-center text-sm font-medium dark:border-slate-700">Log out</button></li>
+              <li className="mt-2 grid grid-cols-2 gap-2"><Link href="/referral/workstation" onClick={() => setMenuOpen(false)} className="rounded-md bg-amber-50 px-4 py-2 text-center text-sm font-black text-amber-800 dark:bg-amber-950/30 dark:text-amber-300">Referral Tools</Link><Link href="/dashboard" onClick={() => setMenuOpen(false)} className="rounded-md bg-brand-50 px-4 py-2 text-center text-sm font-semibold text-brand-700 dark:bg-brand-900/30 dark:text-brand-300">My Dashboard</Link><button type="button" onClick={logout} className="col-span-2 rounded-md border border-slate-300 px-4 py-2 text-center text-sm font-medium dark:border-slate-700">Log out</button></li>
             ) : (
               <li className="mt-2 flex gap-2"><Link href="/login" onClick={() => setMenuOpen(false)} className="flex-1 rounded-md border border-slate-300 px-4 py-2 text-center text-sm font-medium dark:border-slate-700">Log in</Link><Link href="/register" onClick={() => setMenuOpen(false)} className="flex-1 rounded-md bg-brand-600 px-4 py-2 text-center text-sm font-semibold text-white">Enroll Now</Link></li>
             )}
