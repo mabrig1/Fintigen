@@ -1,8 +1,8 @@
 export const stats = [
-  { value: "5,000+", label: "Students Trained" },
+  { value: "Project-Based", label: "Practical Learning" },
   { value: "40+", label: "Courses Available" },
-  { value: "3,200+", label: "Certificates Issued" },
-  { value: "8,000+", label: "Community Members" },
+  { value: "Verified", label: "Certificates" },
+  { value: "Supportive", label: "Learning Community" },
 ];
 
 export const coreValues = [
