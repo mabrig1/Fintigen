@@ -42,6 +42,33 @@ const PRICE = 100000;
 const SITE = "https://www.fintigen.com";
 const COURSE_PATH = "/courses/mabrig-full-stack-founder-pro";
 
+const TRAINING_UNLOCKS = [
+  {
+    referrals: 1,
+    name: "Starter Unlock",
+    reward: "30 days Premium learning access",
+    description: "Open paid specialist learning for one month while your 15% cash commission remains separate.",
+  },
+  {
+    referrals: 3,
+    name: "Growth Unlock",
+    reward: "3 months Premium learning access",
+    description: "Build deeper momentum across paid specialist pathways without losing your commission earnings.",
+  },
+  {
+    referrals: 5,
+    name: "Founder Unlock",
+    reward: "Mabrig Full-Stack Founder Pro tuition unlocked",
+    description: "Unlock the ₦100,000 flagship training after five verified eligible paid referrals.",
+  },
+  {
+    referrals: 10,
+    name: "Ambassador Unlock",
+    reward: "12 months Premium access + priority cohort status",
+    description: "Keep learning for a full year and receive priority placement in eligible FINTIGEN cohorts.",
+  },
+] as const;
+
 const tools: Array<{ id: ToolId; icon: string; title: string; description: string }> = [
   { id: "link", icon: "🔗", title: "Smart Link Studio", description: "Build campaign-tagged personal referral links." },
   { id: "whatsapp", icon: "💬", title: "WhatsApp Builder", description: "Generate conversion-focused WhatsApp messages." },
@@ -333,6 +360,12 @@ export default function ReferralWorkstation() {
   }
 
   const expectedCommission = salesGoal * PRICE * (RATE / 100);
+  const verifiedPaidReferrals = sync === "connected" ? stats.paidReferrals : 0;
+  const unlockedTraining = TRAINING_UNLOCKS.filter((tier) => verifiedPaidReferrals >= tier.referrals);
+  const nextTrainingUnlock = TRAINING_UNLOCKS.find((tier) => verifiedPaidReferrals < tier.referrals) || null;
+  const unlockProgress = nextTrainingUnlock
+    ? Math.min(100, Math.round((verifiedPaidReferrals / nextTrainingUnlock.referrals) * 100))
+    : 100;
   const leadCount = Math.max(stats.leads, leads.length);
   const clickToLead = stats.clicks ? Math.round((leadCount / stats.clicks) * 100) : 0;
   const leadToSale = leadCount ? Math.round((stats.paidReferrals / leadCount) * 100) : 0;
@@ -363,6 +396,63 @@ export default function ReferralWorkstation() {
         <Metric label="Leads" value={String(leadCount)} />
         <Metric label="Paid referrals" value={sync === "connected" ? String(stats.paidReferrals) : "—"} />
         <Metric label="Commission" value={sync === "connected" ? money(stats.commission) : "—"} />
+      </section>
+
+      <section className="mt-8 overflow-hidden rounded-3xl border border-amber-200 bg-gradient-to-br from-amber-50 via-white to-emerald-50 p-6 dark:border-amber-900 dark:from-amber-950/20 dark:via-slate-950 dark:to-emerald-950/20 sm:p-8">
+        <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-amber-700 dark:text-amber-300">Training Unlock Rewards</p>
+            <h2 className="mt-2 text-3xl font-black">Refer. Earn 15%. Unlock Paid Training.</h2>
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600 dark:text-slate-300">
+              Training rewards are cumulative and come on top of your cash commission. Only verified eligible paid referrals count toward unlocks.
+            </p>
+          </div>
+          <div className="rounded-2xl bg-slate-950 px-5 py-4 text-white">
+            <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Verified paid referrals</p>
+            <p className="mt-1 text-4xl font-black text-amber-300">{sync === "connected" ? verifiedPaidReferrals : "—"}</p>
+            <p className="mt-1 text-xs text-slate-400">{sync === "connected" ? "Synced from your referral account" : "Connect live referral stats to activate unlock tracking"}</p>
+          </div>
+        </div>
+
+        {nextTrainingUnlock ? (
+          <div className="mt-6 rounded-2xl border border-amber-200 bg-white/80 p-5 dark:border-amber-900 dark:bg-slate-950/70">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-wider text-amber-700 dark:text-amber-300">Next unlock</p>
+                <h3 className="mt-1 text-xl font-black">{nextTrainingUnlock.reward}</h3>
+                <p className="mt-1 text-sm text-slate-500">{Math.max(0, nextTrainingUnlock.referrals - verifiedPaidReferrals)} more verified paid referral{Math.max(0, nextTrainingUnlock.referrals - verifiedPaidReferrals) === 1 ? "" : "s"} needed.</p>
+              </div>
+              <span className="rounded-full bg-amber-100 px-4 py-2 text-sm font-black text-amber-900 dark:bg-amber-950 dark:text-amber-200">{verifiedPaidReferrals}/{nextTrainingUnlock.referrals}</span>
+            </div>
+            <div className="mt-4 h-3 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
+              <div className="h-full rounded-full bg-gradient-to-r from-amber-400 to-emerald-500 transition-all" style={{ width: unlockProgress + "%" }} />
+            </div>
+          </div>
+        ) : (
+          <div className="mt-6 rounded-2xl bg-emerald-100 p-5 text-emerald-950 dark:bg-emerald-950/40 dark:text-emerald-100">
+            <p className="font-black">All current training rewards unlocked.</p>
+            <p className="mt-1 text-sm">Your 15% commission continues on eligible paid referrals.</p>
+          </div>
+        )}
+
+        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {TRAINING_UNLOCKS.map((tier) => {
+            const unlocked = verifiedPaidReferrals >= tier.referrals;
+            return (
+              <div key={tier.referrals} className={"rounded-2xl border p-5 " + (unlocked ? "border-emerald-300 bg-emerald-50 dark:border-emerald-800 dark:bg-emerald-950/20" : "border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950")}>
+                <div className="flex items-center justify-between gap-3">
+                  <span className={"rounded-full px-3 py-1 text-xs font-black " + (unlocked ? "bg-emerald-600 text-white" : "bg-slate-100 text-slate-600 dark:bg-slate-900 dark:text-slate-300")}>{tier.referrals} referral{tier.referrals === 1 ? "" : "s"}</span>
+                  <span className="text-lg">{unlocked ? "🔓" : "🔒"}</span>
+                </div>
+                <h3 className="mt-4 font-black">{tier.name}</h3>
+                <p className="mt-1 text-sm font-bold text-amber-700 dark:text-amber-300">{tier.reward}</p>
+                <p className="mt-3 text-xs leading-5 text-slate-500">{tier.description}</p>
+              </div>
+            );
+          })}
+        </div>
+        {unlockedTraining.length ? <p className="mt-5 text-sm font-bold text-emerald-700 dark:text-emerald-300">Unlocked now: {unlockedTraining.map((tier) => tier.name).join(" • ")}</p> : null}
+        <p className="mt-3 text-xs leading-5 text-slate-500">Refunded, reversed, fraudulent or otherwise invalid payments do not count toward training unlocks. Final eligibility follows the verified administrator referral ledger.</p>
       </section>
 
       <section className="mt-8 grid gap-6 lg:grid-cols-[330px_1fr]">
