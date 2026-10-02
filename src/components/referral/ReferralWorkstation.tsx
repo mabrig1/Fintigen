@@ -108,13 +108,13 @@ export default function ReferralWorkstation() {
     if (!session?.user) return;
     setUser(session.user);
 
-    const storedCode = cleanCode(localStorage.getItem("fintigen-promoter-code") || "");
+    const storedCode = cleanCode(localStorage.getItem("fintigen-promoter-code:" + currentUser.id) || "");
     setReferralCode(storedCode);
 
     try {
-      setLeads(JSON.parse(localStorage.getItem("fintigen-referral-leads") || "[]"));
-      setCampaigns(JSON.parse(localStorage.getItem("fintigen-referral-campaigns") || "[]"));
-      setStats(JSON.parse(localStorage.getItem("fintigen-referral-stats") || '{"clicks":0,"leads":0,"paidReferrals":0,"commission":0}'));
+      setLeads(JSON.parse(localStorage.getItem("fintigen-referral-leads:" + currentUser.id) || "[]"));
+      setCampaigns(JSON.parse(localStorage.getItem("fintigen-referral-campaigns:" + currentUser.id) || "[]"));
+      setStats(JSON.parse(localStorage.getItem("fintigen-referral-stats:" + currentUser.id) || '{"clicks":0,"leads":0,"paidReferrals":0,"commission":0}'));
     } catch {
       // A damaged local cache should never block the promoter workspace.
     }
@@ -128,7 +128,7 @@ export default function ReferralWorkstation() {
         const serverCode = cleanCode(data.referralCode || data.code || "");
         if (serverCode) {
           setReferralCode(serverCode);
-          localStorage.setItem("fintigen-promoter-code", serverCode);
+          localStorage.setItem("fintigen-promoter-code:" + currentUser.id, serverCode);
         }
         setStats({
           clicks: Number(data.clicks || data.stats?.clicks || 0),
@@ -142,16 +142,19 @@ export default function ReferralWorkstation() {
   }, [apiBase]);
 
   useEffect(() => {
-    localStorage.setItem("fintigen-referral-leads", JSON.stringify(leads));
-  }, [leads]);
+    if (!user) return;
+    localStorage.setItem("fintigen-referral-leads:" + user.id, JSON.stringify(leads));
+  }, [leads, user]);
 
   useEffect(() => {
-    localStorage.setItem("fintigen-referral-campaigns", JSON.stringify(campaigns));
-  }, [campaigns]);
+    if (!user) return;
+    localStorage.setItem("fintigen-referral-campaigns:" + user.id, JSON.stringify(campaigns));
+  }, [campaigns, user]);
 
   useEffect(() => {
-    if (sync === "local") localStorage.setItem("fintigen-referral-stats", JSON.stringify(stats));
-  }, [stats, sync]);
+    if (!user || sync !== "local") return;
+    localStorage.setItem("fintigen-referral-stats:" + user.id, JSON.stringify(stats));
+  }, [stats, sync, user]);
 
   const referralLink = useMemo(() => {
     if (!referralCode) return SITE + "/referral";
@@ -261,8 +264,9 @@ export default function ReferralWorkstation() {
   function saveReferralCode() {
     const next = cleanCode(referralCode);
     setReferralCode(next);
-    if (next) localStorage.setItem("fintigen-promoter-code", next);
-    else localStorage.removeItem("fintigen-promoter-code");
+    if (!user) return;
+    if (next) localStorage.setItem("fintigen-promoter-code:" + user.id, next);
+    else localStorage.removeItem("fintigen-promoter-code:" + user.id);
     setCopied(next ? "code-saved" : "code-cleared");
     window.setTimeout(() => setCopied(""), 1600);
   }
