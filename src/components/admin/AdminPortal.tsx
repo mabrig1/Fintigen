@@ -338,6 +338,7 @@ export default function AdminPortal() {
                   <span className="mb-2 block text-sm font-medium text-slate-300">Password</span>
                   <input value={password} onChange={(event) => setPassword(event.target.value)} type="password" autoComplete="current-password" required className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3.5 outline-none transition focus:border-emerald-500" placeholder="Enter your Fintigen password" />
                 </label>
+                <div className="flex justify-end"><Link href="/forgot-password" className="text-sm font-semibold text-emerald-400 hover:text-emerald-300">Forgot password?</Link></div>
                 {loginError && <div className="rounded-xl border border-rose-900 bg-rose-950/40 px-4 py-3 text-sm text-rose-200">{loginError}</div>}
                 <button disabled={loginLoading} className="w-full rounded-xl bg-emerald-500 px-5 py-3.5 font-bold text-slate-950 transition hover:bg-emerald-400 disabled:opacity-60">
                   {loginLoading ? "Signing in…" : "Open Admin Dashboard"}
