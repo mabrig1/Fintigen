@@ -88,3 +88,36 @@ body {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.9em;
 }
+
+
+/* 2026 visual system: lightweight interpretations of liquid glass,
+   shader gradients and scroll-world depth without forcing WebGL on mobile. */
+.fintigen-aurora { isolation: isolate; }
+.fintigen-aurora > * { position: relative; z-index: 2; }
+.fintigen-orb {
+  position: absolute;
+  z-index: 1;
+  width: 28rem;
+  height: 28rem;
+  border-radius: 9999px;
+  filter: blur(70px);
+  opacity: .34;
+  pointer-events: none;
+  animation: fintigen-float 12s ease-in-out infinite alternate;
+}
+.fintigen-orb-one { top: -12rem; right: -7rem; background: radial-gradient(circle, #34d399 0%, #2563eb 55%, transparent 72%); }
+.fintigen-orb-two { bottom: -16rem; left: 8%; background: radial-gradient(circle, #fbbf24 0%, #7c3aed 50%, transparent 72%); animation-delay: -5s; }
+.fintigen-glass {
+  border: 1px solid rgba(255,255,255,.18);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 18px 55px rgba(2,6,23,.22);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+}
+.fintigen-lift { transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease; }
+.fintigen-lift:hover { transform: translateY(-5px); box-shadow: 0 20px 45px rgba(15,23,42,.12); }
+@keyframes fintigen-float { from { transform: translate3d(-2%, -2%, 0) scale(.96); } to { transform: translate3d(7%, 6%, 0) scale(1.08); } }
+@media (prefers-reduced-motion: reduce) {
+  .fintigen-orb { animation: none; }
+  .fintigen-lift, .fintigen-glass { transition: none; }
+  .fintigen-lift:hover { transform: none; }
+}
