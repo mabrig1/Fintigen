@@ -133,7 +133,8 @@ export default function ReferralWorkstation() {
   useEffect(() => {
     const session = getAuthSession();
     if (!session?.user) return;
-    setUser(session.user);
+    const currentUser = session.user;
+    setUser(currentUser);
 
     const storedCode = cleanCode(localStorage.getItem("fintigen-promoter-code:" + currentUser.id) || "");
     setReferralCode(storedCode);
