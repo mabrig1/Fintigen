@@ -38,7 +38,7 @@ const features = [
 export default function Home() {
   return (
     <div>
-      <section className="relative overflow-hidden bg-gradient-to-br from-brand-900 via-brand-800 to-slate-900 text-white">
+      <section className="fintigen-aurora relative overflow-hidden bg-gradient-to-br from-brand-900 via-brand-800 to-slate-900 text-white">\n        <div aria-hidden="true" className="fintigen-orb fintigen-orb-one" />\n        <div aria-hidden="true" className="fintigen-orb fintigen-orb-two" />
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:items-center lg:py-28">
           <div>
             <p className="inline-block rounded-full bg-white/10 px-4 py-1 text-sm font-medium text-brand-200">
@@ -69,7 +69,7 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             {stats.map((stat) => (
-              <div key={stat.label} className="rounded-2xl bg-white/10 p-6 text-center backdrop-blur">
+              <div key={stat.label} className="fintigen-glass rounded-2xl bg-white/10 p-6 text-center backdrop-blur transition duration-300 hover:-translate-y-1 hover:bg-white/15">
                 <div className="text-3xl font-bold text-brand-300">{stat.value}</div>
                 <div className="mt-1 text-sm text-brand-100/90">{stat.label}</div>
               </div>
@@ -175,7 +175,7 @@ export default function Home() {
           </div>
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {courseCategories.map((category) => (
-              <Link key={category.name} href="/courses" className="group rounded-2xl border border-slate-200 bg-white p-6 transition hover:border-brand-400 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900">
+              <Link key={category.name} href="/courses" className="group fintigen-lift rounded-2xl border border-slate-200 bg-white p-6 transition hover:border-brand-400 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900">
                 <div className="flex items-start justify-between gap-3">
                   <div className="text-3xl">{category.icon}</div>
                   <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-black text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">PAID</span>
@@ -195,7 +195,7 @@ export default function Home() {
         <h2 className="text-center text-3xl font-bold tracking-tight">Everything You Need to Succeed</h2>
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {features.map((feature) => (
-            <div key={feature.title} className="rounded-2xl border border-slate-200 p-6 dark:border-slate-800">
+            <div key={feature.title} className="fintigen-lift rounded-2xl border border-slate-200 p-6 dark:border-slate-800">
               <div className="text-3xl">{feature.icon}</div>
               <h3 className="mt-3 font-semibold">{feature.title}</h3>
               <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">{feature.text}</p>
