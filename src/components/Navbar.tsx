@@ -18,7 +18,8 @@ export default function Navbar() {
   const aiLabLink = { label: "AI Lab", href: "/ai-lab" };
   const businessLink = { label: "Business Operations", href: "/business-operations" };
   const ictServicesLink = { label: "ICT Services", href: "/ict-services" };
-  const links = [...navLinks, digitalSkillsLink, futureSkillsLink, aiLabLink, businessLink, ictServicesLink];
+  const referralStudioLink = { label: "Referral Studio", href: "/referral/workstation" };
+  const links = [...navLinks, digitalSkillsLink, futureSkillsLink, aiLabLink, businessLink, ictServicesLink, ...(authUser ? [referralStudioLink] : [])];
 
   useEffect(() => {
     const refresh = () => setAuthUser(getAuthSession()?.user || null);
