@@ -11,9 +11,13 @@ export default function ForgotPasswordPage() {
   async function submit(e: FormEvent) {
     e.preventDefault(); setLoading(true); setMessage("");
     try {
-      await fetch(`${apiBase}/auth/forgot-password`, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({email}) });
+      const res = await fetch(`${apiBase}/auth/forgot-password`, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({email}) });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || data.message || "Password recovery email could not be sent.");
       setMessage("If this email is registered, password reset instructions have been sent.");
-    } catch { setMessage("We could not submit the request. Please try again."); }
+    } catch (err) {
+      setMessage(err instanceof Error ? err.message : "We could not submit the request. Please try again.");
+    }
     finally { setLoading(false); }
   }
   return <main className="min-h-screen bg-slate-950 px-4 py-16 text-white">
