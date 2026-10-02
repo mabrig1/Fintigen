@@ -65,6 +65,12 @@ export default function Home() {
               >
                 Explore Paid Courses
               </Link>
+              <Link
+                href="/pricing#referral-program"
+                className="rounded-lg bg-emerald-300 px-6 py-3 font-black text-emerald-950 shadow-lg transition hover:bg-emerald-200"
+              >
+                Earn 15% Referring Learners
+              </Link>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
@@ -76,6 +82,24 @@ export default function Home() {
             ))}
           </div>
         </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pt-8 sm:px-6">
+        <Link
+          href="/pricing#referral-program"
+          className="group flex flex-col gap-5 overflow-hidden rounded-3xl border border-amber-300 bg-gradient-to-r from-amber-400 via-yellow-300 to-emerald-300 p-7 text-slate-950 shadow-xl transition hover:-translate-y-0.5 hover:shadow-2xl sm:flex-row sm:items-center sm:justify-between sm:p-8"
+        >
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.18em]">Fintigen Referral Program</p>
+            <h2 className="mt-2 text-2xl font-black sm:text-3xl">Join Our Referral Program — Start Earning</h2>
+            <p className="mt-2 max-w-3xl text-sm font-medium sm:text-base">
+              Refer learners to eligible paid Fintigen programs and earn 15% commission on successful qualifying payments.
+            </p>
+          </div>
+          <span className="shrink-0 rounded-xl bg-slate-950 px-6 py-3 text-center font-black text-white transition group-hover:bg-slate-800">
+            Join &amp; Start Earning →
+          </span>
+        </Link>
       </section>
 
       <section className="mx-auto max-w-7xl px-4 pt-10 sm:px-6">
