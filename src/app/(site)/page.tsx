@@ -66,7 +66,7 @@ export default function Home() {
                 Explore Paid Courses
               </Link>
               <Link
-                href="/pricing#referral-program"
+                href="/referral"
                 className="rounded-lg bg-emerald-300 px-6 py-3 font-black text-emerald-950 shadow-lg transition hover:bg-emerald-200"
               >
                 Earn 15% Referring Learners
@@ -86,7 +86,7 @@ export default function Home() {
 
       <section className="mx-auto max-w-7xl px-4 pt-8 sm:px-6">
         <Link
-          href="/pricing#referral-program"
+          href="/referral"
           className="group flex flex-col gap-5 overflow-hidden rounded-3xl border border-amber-300 bg-gradient-to-r from-amber-400 via-yellow-300 to-emerald-300 p-7 text-slate-950 shadow-xl transition hover:-translate-y-0.5 hover:shadow-2xl sm:flex-row sm:items-center sm:justify-between sm:p-8"
         >
           <div>
