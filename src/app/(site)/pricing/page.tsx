@@ -139,7 +139,10 @@ export default function PricingPage() {
         <div id="referral-program" className="mt-16 grid scroll-mt-24 gap-6 rounded-2xl bg-slate-50 p-8 sm:grid-cols-3 dark:bg-slate-900/50">
           <div className="rounded-2xl border border-amber-300 bg-amber-50 p-5 dark:border-amber-800 dark:bg-amber-950/20">
             <h3 className="text-lg font-black">🎁 Join Our Referral Program</h3>
-            <p className="mt-2 text-sm text-slate-700 dark:text-slate-300">Refer learners to eligible paid FINTIGEN programs and earn <strong>15% commission</strong> on successful qualifying payments.</p>
+            <p className="mt-2 text-sm text-slate-700 dark:text-slate-300">Refer learners to eligible paid FINTIGEN programs, earn <strong>15% commission</strong>, and unlock paid training as verified referrals accumulate.</p>
+            <div className="mt-3 rounded-xl bg-white/70 p-3 text-xs font-bold leading-5 text-slate-800 dark:bg-slate-950/50 dark:text-slate-200">
+              1 referral → 30 days Premium • 3 → 3 months Premium • 5 → Full-Stack Founder Pro unlocked • 10 → 12 months Premium
+            </div>
             <Link href="/referral" className="mt-4 inline-block rounded-lg bg-slate-950 px-4 py-2.5 text-sm font-black text-white transition hover:bg-slate-800 dark:bg-amber-400 dark:text-slate-950 dark:hover:bg-amber-300">Join &amp; Start Earning →</Link>
           </div>
           <div>
