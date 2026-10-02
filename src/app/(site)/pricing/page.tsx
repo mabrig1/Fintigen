@@ -140,7 +140,7 @@ export default function PricingPage() {
           <div className="rounded-2xl border border-amber-300 bg-amber-50 p-5 dark:border-amber-800 dark:bg-amber-950/20">
             <h3 className="text-lg font-black">🎁 Join Our Referral Program</h3>
             <p className="mt-2 text-sm text-slate-700 dark:text-slate-300">Refer learners to eligible paid FINTIGEN programs and earn <strong>15% commission</strong> on successful qualifying payments.</p>
-            <Link href="/contact" className="mt-4 inline-block rounded-lg bg-slate-950 px-4 py-2.5 text-sm font-black text-white transition hover:bg-slate-800 dark:bg-amber-400 dark:text-slate-950 dark:hover:bg-amber-300">Join &amp; Start Earning →</Link>
+            <Link href="/referral" className="mt-4 inline-block rounded-lg bg-slate-950 px-4 py-2.5 text-sm font-black text-white transition hover:bg-slate-800 dark:bg-amber-400 dark:text-slate-950 dark:hover:bg-amber-300">Join &amp; Start Earning →</Link>
           </div>
           <div>
             <h3 className="font-semibold">🤝 Affiliate Program</h3>
