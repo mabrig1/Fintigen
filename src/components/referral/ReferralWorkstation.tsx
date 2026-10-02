@@ -59,11 +59,6 @@ function cleanCode(value: string) {
   return value.trim().toUpperCase().replace(/[^A-Z0-9_-]/g, "").slice(0, 64);
 }
 
-function makeFallbackCode(user: AuthUser) {
-  const seed = (user.id || user.email || user.name).replace(/[^a-zA-Z0-9]/g, "").toUpperCase();
-  return "FTG-" + seed.slice(-10);
-}
-
 function money(value: number) {
   return new Intl.NumberFormat("en-NG", {
     style: "currency",
@@ -114,9 +109,7 @@ export default function ReferralWorkstation() {
     setUser(session.user);
 
     const storedCode = cleanCode(localStorage.getItem("fintigen-promoter-code") || "");
-    const code = storedCode || makeFallbackCode(session.user);
-    setReferralCode(code);
-    localStorage.setItem("fintigen-promoter-code", code);
+    setReferralCode(storedCode);
 
     try {
       setLeads(JSON.parse(localStorage.getItem("fintigen-referral-leads") || "[]"));
@@ -161,7 +154,7 @@ export default function ReferralWorkstation() {
   }, [stats, sync]);
 
   const referralLink = useMemo(() => {
-    if (!referralCode) return SITE + COURSE_PATH;
+    if (!referralCode) return SITE + "/referral";
     const params = new URLSearchParams({
       ref: referralCode,
       utm_source: "referral",
@@ -253,12 +246,25 @@ export default function ReferralWorkstation() {
   }
 
   async function shareLink() {
-    updateLocalStat("clicks");
+    if (!referralCode) {
+      setCopied("need-code");
+      window.setTimeout(() => setCopied(""), 1800);
+      return;
+    }
     if (navigator.share) {
       await navigator.share({ title: "FINTIGEN", text: "Build practical digital skills with FINTIGEN.", url: referralLink });
       return;
     }
     await copy(referralLink, "link");
+  }
+
+  function saveReferralCode() {
+    const next = cleanCode(referralCode);
+    setReferralCode(next);
+    if (next) localStorage.setItem("fintigen-promoter-code", next);
+    else localStorage.removeItem("fintigen-promoter-code");
+    setCopied(next ? "code-saved" : "code-cleared");
+    window.setTimeout(() => setCopied(""), 1600);
   }
 
   function downloadPoster() {
@@ -338,21 +344,21 @@ export default function ReferralWorkstation() {
           </div>
           <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
             <p className="text-xs uppercase tracking-wider text-slate-400">Your referral code</p>
-            <div className="mt-2 flex items-center gap-2">
-              <strong className="text-xl text-amber-300">{referralCode}</strong>
-              <button type="button" onClick={() => copy(referralCode, "code")} className="rounded-lg border border-white/15 px-3 py-2 text-xs font-bold">{copied === "code" ? "Copied" : "Copy"}</button>
+            <div className="mt-2 flex flex-col gap-2 sm:flex-row">
+              <input value={referralCode} onChange={(e) => setReferralCode(cleanCode(e.target.value))} placeholder="Enter assigned referral code" className="min-w-0 flex-1 rounded-xl border border-white/15 bg-white/10 px-3 py-2 text-sm text-white outline-none placeholder:text-slate-500" />
+              <button type="button" onClick={saveReferralCode} className="rounded-xl bg-amber-400 px-4 py-2 text-sm font-black text-slate-950">{copied === "code-saved" ? "Saved" : "Save code"}</button>
             </div>
-            <p className="mt-2 text-xs text-slate-400">{sync === "connected" ? "Live referral account connected" : "Account workspace ready • backend stats sync when available"}</p>
+            <p className="mt-2 text-xs text-slate-400">{sync === "connected" ? "Live referral account connected" : referralCode ? "Referral tools ready • live statistics sync when the referral API is available" : "Add the referral code assigned to you before sharing tracked campaign links."}</p>
           </div>
         </div>
       </section>
 
       <section className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
         <Metric label="Commission rate" value="15%" />
-        <Metric label="Tracked clicks" value={String(stats.clicks)} />
+        <Metric label="Tracked clicks" value={sync === "connected" ? String(stats.clicks) : "—"} />
         <Metric label="Leads" value={String(leadCount)} />
-        <Metric label="Paid referrals" value={String(stats.paidReferrals)} />
-        <Metric label="Commission" value={money(stats.commission)} />
+        <Metric label="Paid referrals" value={sync === "connected" ? String(stats.paidReferrals) : "—"} />
+        <Metric label="Commission" value={sync === "connected" ? money(stats.commission) : "—"} />
       </section>
 
       <section className="mt-8 grid gap-6 lg:grid-cols-[330px_1fr]">
@@ -453,8 +459,8 @@ export default function ReferralWorkstation() {
 
           {active === "analytics" && (
             <Tool title="Performance & Conversion Center" note={sync === "connected" ? "Showing live account referral signals from the referral backend." : "Showing local workstation activity until live referral stats are available."}>
-              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4"><Metric label="Clicks" value={String(stats.clicks)} /><Metric label="Leads" value={String(leadCount)} /><Metric label="Paid" value={String(stats.paidReferrals)} /><Metric label="Commission" value={money(stats.commission)} /></div>
-              <div className="mt-5 grid gap-4 sm:grid-cols-2"><div className="rounded-2xl bg-slate-50 p-5 dark:bg-slate-900"><p className="text-xs font-bold uppercase text-slate-500">Click → lead</p><p className="mt-2 text-3xl font-black">{clickToLead}%</p></div><div className="rounded-2xl bg-slate-50 p-5 dark:bg-slate-900"><p className="text-xs font-bold uppercase text-slate-500">Lead → paid</p><p className="mt-2 text-3xl font-black">{leadToSale}%</p></div></div>
+              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4"><Metric label="Clicks" value={sync === "connected" ? String(stats.clicks) : "—"} /><Metric label="Leads" value={String(leadCount)} /><Metric label="Paid" value={sync === "connected" ? String(stats.paidReferrals) : "—"} /><Metric label="Commission" value={sync === "connected" ? money(stats.commission) : "—"} /></div>
+              <div className="mt-5 grid gap-4 sm:grid-cols-2"><div className="rounded-2xl bg-slate-50 p-5 dark:bg-slate-900"><p className="text-xs font-bold uppercase text-slate-500">Click → lead</p><p className="mt-2 text-3xl font-black">{sync === "connected" ? clickToLead + "%" : "—"}</p></div><div className="rounded-2xl bg-slate-50 p-5 dark:bg-slate-900"><p className="text-xs font-bold uppercase text-slate-500">Lead → paid</p><p className="mt-2 text-3xl font-black">{sync === "connected" ? leadToSale + "%" : "—"}</p></div></div>
               <p className="mt-5 text-xs leading-5 text-slate-500">Do not treat local counts as financial records. Withdrawable commission is determined by verified eligible payments and the administrator referral ledger.</p>
             </Tool>
           )}
