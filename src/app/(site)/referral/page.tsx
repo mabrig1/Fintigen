@@ -53,6 +53,12 @@ export default function ReferralPage() {
             >
               Existing Referrer → Workstation
             </Link>
+            <Link
+              href="/referral/workstation"
+              className="rounded-xl border-2 border-slate-950/20 bg-white/70 px-6 py-3 font-black transition hover:bg-white"
+            >
+              Open Referral Workstation
+            </Link>
             <a
               href={brand.whatsappUrl}
               target="_blank"
