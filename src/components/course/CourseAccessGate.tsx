@@ -34,11 +34,6 @@ export default function CourseAccessGate({
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    if (courseSlug === "digital-skills-foundation") {
-      setState("allowed");
-      return;
-    }
-
     const session = getAuthSession();
     if (!session) {
       setState("signin");
@@ -99,7 +94,7 @@ export default function CourseAccessGate({
           <p className="mt-5 text-xs font-bold uppercase tracking-[0.18em] text-amber-600">Paid FINTIGEN course</p>
           <h1 className="mt-3 text-3xl font-black">Sign in to verify your access</h1>
           <p className="mx-auto mt-4 max-w-2xl leading-7 text-slate-600 dark:text-slate-400">
-            {courseTitle} is a paid program. Digital Skills Foundation is FINTIGEN&apos;s only free course.
+            {courseTitle} is a paid FINTIGEN program. Sign in to verify your enrollment or completed payment.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link href={`/login?next=/learn/${courseSlug}`} className="rounded-xl bg-brand-600 px-6 py-3 font-bold text-white hover:bg-brand-700">Log In</Link>
