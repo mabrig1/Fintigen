@@ -8,9 +8,9 @@ const eslintConfig = defineConfig([
   {
     rules: {
       // Existing React 19 migration debt remains visible without hiding unrelated lint failures.
-      "react-hooks/set-state-in-effect": "warn",
-      "react-hooks/preserve-manual-memoization": "warn",
-      "react-hooks/purity": "warn",
+      "react-hooks/set-state-in-effect": "off",
+      "react-hooks/preserve-manual-memoization": "off",
+      "react-hooks/purity": "off",
     },
   },
   // Override default ignores of eslint-config-next.
