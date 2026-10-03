@@ -13,7 +13,7 @@ const plans = [
     name: "Foundation",
     price: "₦5,000",
     period: "one-time",
-    description: "A complete paid entry program for learners building essential digital confidence."
+    description: "A complete paid entry program for learners building essential digital confidence.",
     features: [
       "Digital Skills Foundation & Employability Bootcamp",
       "8 weeks of practical beginner training",
