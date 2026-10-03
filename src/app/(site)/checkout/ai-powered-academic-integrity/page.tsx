@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
+import { authHeaders, getAuthSession } from "@/lib/auth-client";
 
 const COURSE_ID = "ai-powered-academic-integrity";
 
@@ -21,20 +22,26 @@ export default function AcademicIntegrityCheckoutPage() {
     const incoming = cleanCode(params.get("ref"));
     const stored = cleanCode(localStorage.getItem("mabrig-referral-code"));
     setReferralCode(incoming || stored);
+    const session = getAuthSession();
+    setEmail(session?.user?.email || "");
   }, []);
 
   async function submit(event: FormEvent) {
     event.preventDefault();
     if (!apiBase || loading) return;
+    const session = getAuthSession();
+    if (!session) {
+      setError("Sign in to your Fintigen account before starting payment.");
+      return;
+    }
     setLoading(true);
     setError("");
     try {
       const response = await fetch(`${apiBase}/payments/initialize`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: authHeaders({ "Content-Type": "application/json" }),
         body: JSON.stringify({
           courseId: COURSE_ID,
-          email: email.trim(),
           referralCode: referralCode || undefined,
         }),
       });
@@ -75,12 +82,17 @@ export default function AcademicIntegrityCheckoutPage() {
           <form onSubmit={submit} className="mt-7 space-y-4">
             <label className="block text-sm font-semibold">
               Email for payment receipt
-              <input type="email" required value={email} onChange={event => setEmail(event.target.value)} className="mt-2 w-full rounded-xl border border-white/15 bg-white/10 px-4 py-3 text-white outline-none" placeholder="you@example.com" />
+              <input type="email" required value={email} readOnly className="mt-2 w-full rounded-xl border border-white/15 bg-white/10 px-4 py-3 text-white outline-none" placeholder="you@example.com" />
             </label>
+            {!email && (
+              <Link href={"/login?next=" + encodeURIComponent(window.location.pathname + window.location.search)} className="block rounded-xl border border-amber-300/30 bg-amber-400/10 px-4 py-3 text-center text-sm font-bold text-amber-200">
+                Sign in before payment
+              </Link>
+            )}
             {error && <div className="rounded-xl border border-rose-300/30 bg-rose-400/10 px-4 py-3 text-sm text-rose-200">{error}</div>}
-            <button disabled={loading || !apiBase} className="w-full rounded-xl bg-amber-400 px-5 py-3.5 font-black text-slate-950 hover:bg-amber-300 disabled:opacity-60">{loading ? "Opening secure checkout…" : "Pay ₦35,000 & Enroll"}</button>
+            <button disabled={loading || !apiBase || !email} className="w-full rounded-xl bg-amber-400 px-5 py-3.5 font-black text-slate-950 hover:bg-amber-300 disabled:opacity-60">{loading ? "Opening secure checkout…" : "Pay ₦35,000 & Enroll"}</button>
           </form>
-          <p className="mt-5 text-xs leading-5 text-slate-400">Successful payment grants course access to the account using this email. Referral commission is recorded only after Paystack confirms payment.</p>
+          <p className="mt-5 text-xs leading-5 text-slate-400">Payment is securely bound to the signed-in FINTIGEN account shown above. Referral commission is recorded only after Paystack confirms payment.</p>
           <div className="mt-6 flex flex-wrap gap-3 text-sm">
             <Link href="/courses/ai-powered-academic-integrity" className="text-emerald-300 hover:underline">Course details</Link>
             <Link href="/contact" className="text-emerald-300 hover:underline">International / institutional enquiry</Link>
