@@ -229,19 +229,19 @@ export default function PremiumCourseArea({
           <p className="mt-5 text-xs font-bold uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
             Premium student area
           </p>
-          <h1 className="mt-3 text-3xl font-black">Log in to open Mabrig Full-Stack Founder Pro</h1>
+          <h1 className="mt-3 text-3xl font-black">Log in to open {courseTitle}</h1>
           <p className="mx-auto mt-4 max-w-2xl leading-7 text-slate-600 dark:text-slate-400">
             Course lessons are protected. Sign in with the account used for enrollment, or review the program and create your account first.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link
-              href="/login?next=/learn/mabrig-full-stack-founder-pro"
+              href={`/login?next=/learn/${courseSlug}`}
               className="rounded-xl bg-brand-600 px-6 py-3 font-bold text-white hover:bg-brand-700"
             >
               Log In
             </Link>
             <Link
-              href=`/courses/${courseSlug}`
+              href={`/courses/${courseSlug}`}
               className="rounded-xl border border-slate-300 px-6 py-3 font-bold dark:border-slate-700"
             >
               View Course & Pricing
@@ -274,7 +274,7 @@ export default function PremiumCourseArea({
     <main className="min-h-screen bg-slate-50 dark:bg-slate-950">
       <header className="border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
-          <Link href=`/courses/${courseSlug}` className="text-sm font-semibold text-brand-600 dark:text-brand-400">
+          <Link href={`/courses/${courseSlug}`} className="text-sm font-semibold text-brand-600 dark:text-brand-400">
             ← Course overview
           </Link>
           <p className="mt-5 text-xs font-bold uppercase tracking-[0.18em] text-amber-600 dark:text-amber-300">
@@ -322,7 +322,7 @@ export default function PremiumCourseArea({
               <p className="mt-3 text-sm leading-7">{error}</p>
               <div className="mt-5 flex flex-wrap gap-3">
                 <Link
-                  href=`/courses/${courseSlug}`
+                  href={`/courses/${courseSlug}`}
                   className="rounded-xl bg-slate-950 px-5 py-3 text-sm font-bold text-white dark:bg-white dark:text-slate-950"
                 >
                   View enrollment options
