@@ -5,7 +5,7 @@ import { FormEvent, useState } from "react";
 
 export default function AccountRecoveryPage() {
   const apiBase = process.env.NEXT_PUBLIC_API_URL || "";
-  const [email,setEmail]=useState("victoryonline1@gmail.com");
+  const [email,setEmail]=useState("");
   const [code,setCode]=useState("");
   const [password,setPassword]=useState("");
   const [confirm,setConfirm]=useState("");
