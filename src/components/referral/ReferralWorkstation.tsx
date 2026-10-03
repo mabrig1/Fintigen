@@ -502,7 +502,7 @@ export default function ReferralWorkstation() {
           {active === "poster" && (
             <Tool title="Personalized Poster Studio" note="Create a branded 1080×1350 SVG poster carrying your referral code.">
               <Field label="Poster headline"><input value={headline} onChange={(e) => setHeadline(e.target.value)} className={inputClass} /></Field>
-              <div className="mt-5 overflow-hidden rounded-2xl border border-slate-200 bg-slate-950 dark:border-slate-800" dangerouslySetInnerHTML={{ __html: posterSvg }} />
+              <div className="mt-5 overflow-hidden rounded-2xl border border-slate-200 bg-slate-950 dark:border-slate-800"><img src={"data:image/svg+xml;charset=utf-8," + encodeURIComponent(posterSvg)} alt="Personalized Fintigen referral poster preview" className="block h-auto w-full" /></div>
               <div className="mt-4 flex flex-wrap gap-2"><Action onClick={downloadPoster}>Download SVG poster</Action><Action onClick={() => copy(referralLink, "poster-link")}>{copied === "poster-link" ? "Link copied" : "Copy matching link"}</Action></div>
             </Tool>
           )}

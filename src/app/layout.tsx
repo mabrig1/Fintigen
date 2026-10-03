@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { brand } from "@/lib/brand";
 import AgenticCoachLauncher from "@/components/AgenticCoachLauncher";
 import AccountLearningSync from "@/components/AccountLearningSync";
@@ -41,7 +42,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="h-full antialiased">
       <body className="flex min-h-full flex-col">
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <Script id="fintigen-theme-init" strategy="beforeInteractive">{themeInitScript}</Script>
         <PromoterReferralCapture />
         {children}
         <AccountLearningSync />

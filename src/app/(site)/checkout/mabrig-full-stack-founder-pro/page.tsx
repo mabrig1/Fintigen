@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
+import { authHeaders, getAuthSession } from "@/lib/auth-client";
 
 const COURSE_ID = "mabrig-full-stack-founder-pro";
 
@@ -21,20 +22,26 @@ export default function FlagshipCheckoutPage() {
     const incoming = cleanCode(params.get("ref"));
     const stored = cleanCode(localStorage.getItem("mabrig-referral-code"));
     setReferralCode(incoming || stored);
+    const session = getAuthSession();
+    setEmail(session?.user?.email || "");
   }, []);
 
   async function submit(event: FormEvent) {
     event.preventDefault();
     if (!apiBase || loading) return;
+    const session = getAuthSession();
+    if (!session) {
+      setError("Sign in to your Fintigen account before starting payment.");
+      return;
+    }
     setLoading(true);
     setError("");
     try {
       const response = await fetch(`${apiBase}/payments/initialize`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: authHeaders({ "Content-Type": "application/json" }),
         body: JSON.stringify({
           courseId: COURSE_ID,
-          email: email.trim(),
           referralCode: referralCode || undefined,
         }),
       });
@@ -71,9 +78,14 @@ export default function FlagshipCheckoutPage() {
         <p className="mt-2 text-sm text-slate-400">One payment • secure Paystack checkout</p>
         {referralCode && <div className="mt-5 rounded-xl border border-emerald-300/20 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-100">Promoter code applied: <strong>{referralCode}</strong></div>}
         <form onSubmit={submit} className="mt-7 space-y-4">
-          <label className="block text-sm font-semibold">Email for payment receipt<input type="email" required value={email} onChange={event => setEmail(event.target.value)} className="mt-2 w-full rounded-xl border border-white/15 bg-white/10 px-4 py-3 text-white outline-none" placeholder="you@example.com" /></label>
-          {error && <div className="rounded-xl border border-rose-300/30 bg-rose-400/10 px-4 py-3 text-sm text-rose-200">{error}</div>}
-          <button disabled={loading || !apiBase} className="w-full rounded-xl bg-amber-400 px-5 py-3.5 font-black text-slate-950 hover:bg-amber-300 disabled:opacity-60">{loading ? "Opening secure checkout…" : "Pay ₦100,000 & Enroll"}</button>
+          <label className="block text-sm font-semibold">Email for payment receipt<input type="email" required value={email} readOnly className="mt-2 w-full rounded-xl border border-white/15 bg-white/10 px-4 py-3 text-white outline-none" placeholder="you@example.com" /></label>
+          {!email && (
+              <Link href="/login?next=/checkout/mabrig-full-stack-founder-pro" className="block rounded-xl border border-amber-300/30 bg-amber-400/10 px-4 py-3 text-center text-sm font-bold text-amber-200">
+                Sign in before payment
+              </Link>
+            )}
+            {error && <div className="rounded-xl border border-rose-300/30 bg-rose-400/10 px-4 py-3 text-sm text-rose-200">{error}</div>}
+          <button disabled={loading || !apiBase || !email} className="w-full rounded-xl bg-amber-400 px-5 py-3.5 font-black text-slate-950 hover:bg-amber-300 disabled:opacity-60">{loading ? "Opening secure checkout…" : "Pay ₦100,000 & Enroll"}</button>
         </form>
         <p className="mt-5 text-xs leading-5 text-slate-400">Commission is credited only after Paystack confirms a successful payment. A referral click or free registration does not count as a paid sale.</p>
         <div className="mt-6 flex flex-wrap gap-3 text-sm"><Link href="/courses/mabrig-full-stack-founder-pro" className="text-emerald-300 hover:underline">Course details</Link><Link href="/contact" className="text-emerald-300 hover:underline">International / admissions enquiry</Link></div>

@@ -1,10 +1,5 @@
 import type { Metadata } from "next";
-import CourseAccessGate from "@/components/course/CourseAccessGate";
-import CoursePlayer from "@/components/course/CoursePlayer";
-import {
-  courseMeta,
-  courseModules,
-} from "@/lib/courses/digital-skills-foundation";
+import PremiumCourseArea from "@/components/course/PremiumCourseArea";
 
 export const metadata: Metadata = {
   title: "Digital Skills Foundation & Employability Bootcamp — FINTIGEN Academy",
@@ -14,18 +9,9 @@ export const metadata: Metadata = {
 
 export default function DigitalSkillsFoundationPage() {
   return (
-    <CourseAccessGate
+    <PremiumCourseArea
       courseSlug="digital-skills-foundation"
-      courseTitle={courseMeta.title}
-      purchaseHref="/checkout/digital-skills-foundation"
-      purchaseLabel="Enroll for ₦5,000"
-    >
-      <CoursePlayer
-        meta={courseMeta}
-        modules={courseModules}
-        storageKey="fintigen-course-digital-skills-foundation"
-        certificateId="FTG-DSF-001"
-      />
-    </CourseAccessGate>
+      courseTitle="Digital Skills Foundation & Employability Bootcamp"
+    />
   );
 }
