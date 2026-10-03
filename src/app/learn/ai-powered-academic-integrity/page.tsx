@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
-import CourseAccessGate from "@/components/course/CourseAccessGate";
-import CoursePlayer from "@/components/course/CoursePlayer";
-import { courseMeta, courseModules } from "@/lib/courses/ai-powered-academic-integrity";
+import PremiumCourseArea from "@/components/course/PremiumCourseArea";
 
 export const metadata: Metadata = {
   title: "AI-Powered Academic Integrity — Interactive Professional Course",
@@ -11,18 +9,9 @@ export const metadata: Metadata = {
 
 export default function AiPoweredAcademicIntegrityLearnPage() {
   return (
-    <CourseAccessGate
+    <PremiumCourseArea
       courseSlug="ai-powered-academic-integrity"
-      courseTitle={courseMeta.title}
-      purchaseHref="/checkout/ai-powered-academic-integrity"
-      purchaseLabel="Enroll for ₦35,000"
-    >
-      <CoursePlayer
-        meta={courseMeta}
-        modules={courseModules}
-        storageKey="fintigen-course-ai-powered-academic-integrity"
-        certificateId="FTG-AIAI-001"
-      />
-    </CourseAccessGate>
+      courseTitle="AI-Powered Academic Integrity"
+    />
   );
 }
