@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
+import { createElement, Fragment, type ReactNode, useCallback, useEffect, useState, useSyncExternalStore } from "react";
 import {
   authHeaders,
   clearAuthSession,
@@ -64,7 +64,48 @@ type ApiPayload = {
   message?: string;
 };
 
-const COURSE_SLUG = "mabrig-full-stack-founder-pro";
+const SAFE_TAGS = new Set(["p", "h2", "h3", "h4", "ul", "ol", "li", "strong", "em", "code", "pre", "br", "a", "blockquote"]);
+const DROP_TAGS = new Set(["script", "style", "iframe", "object", "embed", "svg", "math"]);
+
+function SafeCourseContent({ html }: { html: string }) {
+  const [content, setContent] = useState<ReactNode>(null);
+
+  useEffect(() => {
+    const documentNode = new DOMParser().parseFromString(html || "", "text/html");
+
+    function renderNode(node: ChildNode, key: string): ReactNode {
+      if (node.nodeType === Node.TEXT_NODE) return node.textContent;
+      if (node.nodeType !== Node.ELEMENT_NODE) return null;
+
+      const element = node as HTMLElement;
+      const tag = element.tagName.toLowerCase();
+      if (DROP_TAGS.has(tag)) return null;
+
+      const children = Array.from(element.childNodes).map((child, index) =>
+        renderNode(child, key + "-" + index),
+      );
+
+      if (!SAFE_TAGS.has(tag)) return createElement(Fragment, { key }, children);
+
+      const props: Record<string, string> & { key: string } = { key };
+      if (tag === "a") {
+        const href = element.getAttribute("href") || "";
+        if (!/^(https?:|mailto:)/i.test(href)) {
+          return createElement(Fragment, { key }, children);
+        }
+        props.href = href;
+        props.rel = "noopener noreferrer";
+        props.target = "_blank";
+      }
+
+      return createElement(tag, props, children);
+    }
+
+    setContent(Array.from(documentNode.body.childNodes).map((node, index) => renderNode(node, String(index))));
+  }, [html]);
+
+  return <div className="course-content mt-8">{content}</div>;
+}
 
 function subscribeToAuth(callback: () => void) {
   window.addEventListener("fintigen-auth-changed", callback);
@@ -79,7 +120,13 @@ function getServerAuthSnapshot() {
   return false;
 }
 
-export default function PremiumCourseArea() {
+export default function PremiumCourseArea({
+  courseSlug = "mabrig-full-stack-founder-pro",
+  courseTitle = "Mabrig Full-Stack Founder Pro",
+}: {
+  courseSlug?: string;
+  courseTitle?: string;
+}) {
   const apiBase = process.env.NEXT_PUBLIC_API_URL || "";
   const signedIn = useSyncExternalStore(
     subscribeToAuth,
@@ -147,7 +194,7 @@ export default function PremiumCourseArea() {
         }
 
         const catalog = payload.data?.catalog || payload.catalog || [];
-        const flagship = catalog.find((item) => item.slug === COURSE_SLUG) || null;
+        const flagship = catalog.find((item) => item.slug === courseSlug) || null;
         if (!flagship) {
           throw new Error("The flagship course is being prepared in the learning system. Please check again shortly.");
         }
@@ -172,7 +219,7 @@ export default function PremiumCourseArea() {
     }
 
     void loadCatalog();
-  }, [apiBase, loadModule, signedIn]);
+  }, [apiBase, courseSlug, loadModule, signedIn]);
 
   if (signedIn === false) {
     return (
@@ -194,7 +241,7 @@ export default function PremiumCourseArea() {
               Log In
             </Link>
             <Link
-              href="/courses/mabrig-full-stack-founder-pro"
+              href=`/courses/${courseSlug}`
               className="rounded-xl border border-slate-300 px-6 py-3 font-bold dark:border-slate-700"
             >
               View Course & Pricing
@@ -227,14 +274,14 @@ export default function PremiumCourseArea() {
     <main className="min-h-screen bg-slate-50 dark:bg-slate-950">
       <header className="border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
-          <Link href="/courses/mabrig-full-stack-founder-pro" className="text-sm font-semibold text-brand-600 dark:text-brand-400">
+          <Link href=`/courses/${courseSlug}` className="text-sm font-semibold text-brand-600 dark:text-brand-400">
             ← Course overview
           </Link>
           <p className="mt-5 text-xs font-bold uppercase tracking-[0.18em] text-amber-600 dark:text-amber-300">
             Premium program
           </p>
           <h1 className="mt-2 text-3xl font-black sm:text-4xl">
-            {course?.title || "Mabrig Full-Stack Founder Pro"}
+            {course?.title || courseTitle}
           </h1>
           <p className="mt-3 max-w-3xl text-slate-600 dark:text-slate-400">
             Select a module, complete the implementation work, and preserve evidence for your capstone release.
@@ -275,7 +322,7 @@ export default function PremiumCourseArea() {
               <p className="mt-3 text-sm leading-7">{error}</p>
               <div className="mt-5 flex flex-wrap gap-3">
                 <Link
-                  href="/courses/mabrig-full-stack-founder-pro"
+                  href=`/courses/${courseSlug}`
                   className="rounded-xl bg-slate-950 px-5 py-3 text-sm font-bold text-white dark:bg-white dark:text-slate-950"
                 >
                   View enrollment options
@@ -293,10 +340,7 @@ export default function PremiumCourseArea() {
                 {moduleContent.level_title}
               </p>
               <h2 className="mt-3 text-3xl font-black tracking-tight">{moduleContent.title}</h2>
-              <div
-                className="course-content mt-8"
-                dangerouslySetInnerHTML={{ __html: moduleContent.content_html }}
-              />
+              <SafeCourseContent html={moduleContent.content_html} />
 
               <div className="mt-10 grid gap-5 lg:grid-cols-2">
                 <section className="rounded-2xl border border-brand-200 bg-brand-50 p-6 dark:border-brand-900 dark:bg-brand-950/30">
