@@ -135,6 +135,16 @@ export const courseCategories: CourseCategory[] = [
     icon: "🤖",
     courses: [
       {
+        slug: "ai-powered-academic-integrity",
+        title: "AI-Powered Academic Integrity",
+        description:
+          "Master ethical, verifiable, and reproducible use of generative AI for rigorous research, scholarly writing, disclosure, privacy, and source integrity.",
+        level: "Advanced",
+        duration: "4 weeks",
+        price: "Premium",
+        href: "/courses/ai-powered-academic-integrity",
+      },
+      {
         slug: "agentic-ai",
         title: "Agentic AI & Autonomous Agents",
         description:
