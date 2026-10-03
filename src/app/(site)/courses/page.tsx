@@ -72,6 +72,7 @@ export default function CoursesPage() {
           </div>
           <div className="mt-4 grid gap-6 lg:grid-cols-2">
             {[
+              { href: "/courses/ai-powered-academic-integrity", title: "AI-Powered Academic Integrity", blurb: "Research-grade prompting, hallucination verification, source integrity, disclosure, academic voice, privacy, governance, and reproducible AI workflows.", level: "Intermediate → Advanced", weeks: "4 weeks · ₦35,000" },
               { href: "/learn/generative-ai", title: "Generative AI, Prompt Engineering & Enterprise AI Literacy", blurb: "LLMs, multimodal systems, RAG, fine-tuning, safety, and enterprise AI governance.", level: "Beginner → Intermediate", weeks: "8 modules" },
               { href: "/learn/agentic-ai", title: "Agentic AI & Autonomous Agents", blurb: "Build and orchestrate autonomous agents with LangGraph, AutoGen, CrewAI, guardrails, and evaluation.", level: "Intermediate → Advanced", weeks: "8 modules" },
               { href: "/learn/ml-engineering", title: "AI & Machine Learning Engineering", blurb: "Classical ML, deep learning, model optimization, deployment, monitoring, and MLOps.", level: "Intermediate → Advanced", weeks: "9 modules" },
