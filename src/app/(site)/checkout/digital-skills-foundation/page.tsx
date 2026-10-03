@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
+import { authHeaders, getAuthSession } from "@/lib/auth-client";
 
 const COURSE_ID = "digital-skills-foundation";
 
@@ -21,21 +22,27 @@ export default function DigitalSkillsFoundationCheckoutPage() {
     const incoming = cleanCode(params.get("ref"));
     const stored = cleanCode(localStorage.getItem("mabrig-referral-code"));
     setReferralCode(incoming || stored);
+    const session = getAuthSession();
+    setEmail(session?.user?.email || "");
   }, []);
 
   async function submit(event: FormEvent) {
     event.preventDefault();
     if (!apiBase || loading) return;
+    const session = getAuthSession();
+    if (!session) {
+      setError("Sign in to your Fintigen account before starting payment.");
+      return;
+    }
     setLoading(true);
     setError("");
 
     try {
       const response = await fetch(`${apiBase}/payments/initialize`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: authHeaders({ "Content-Type": "application/json" }),
         body: JSON.stringify({
           courseId: COURSE_ID,
-          email: email.trim(),
           referralCode: referralCode || undefined,
         }),
       });
@@ -95,12 +102,17 @@ export default function DigitalSkillsFoundationCheckoutPage() {
                 type="email"
                 required
                 value={email}
-                onChange={(event) => setEmail(event.target.value)}
+                readOnly
                 className="mt-2 w-full rounded-xl border border-white/15 bg-white/10 px-4 py-3 text-white outline-none"
                 placeholder="you@example.com"
               />
             </label>
 
+            {!email && (
+              <Link href={"/login?next=" + encodeURIComponent(window.location.pathname + window.location.search)} className="block rounded-xl border border-amber-300/30 bg-amber-400/10 px-4 py-3 text-center text-sm font-bold text-amber-200">
+                Sign in before payment
+              </Link>
+            )}
             {error && (
               <div className="rounded-xl border border-rose-300/30 bg-rose-400/10 px-4 py-3 text-sm text-rose-200">
                 {error}
@@ -108,7 +120,7 @@ export default function DigitalSkillsFoundationCheckoutPage() {
             )}
 
             <button
-              disabled={loading || !apiBase}
+              disabled={loading || !apiBase || !email}
               className="w-full rounded-xl bg-amber-400 px-5 py-3.5 font-black text-slate-950 hover:bg-amber-300 disabled:opacity-60"
             >
               {loading ? "Opening secure checkout…" : "Pay ₦5,000 & Enroll"}
@@ -116,7 +128,7 @@ export default function DigitalSkillsFoundationCheckoutPage() {
           </form>
 
           <p className="mt-5 text-xs leading-5 text-slate-400">
-            Successful payment grants access to the FINTIGEN account using this email.
+            Payment is securely bound to the signed-in FINTIGEN account shown above.
           </p>
 
           <div className="mt-6 flex flex-wrap gap-3 text-sm">
