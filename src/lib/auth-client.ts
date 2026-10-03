@@ -15,14 +15,24 @@ const STORAGE_KEY = "fintigen-auth";
 
 export function saveAuthSession(token: string, user: AuthUser) {
   if (typeof window === "undefined") return;
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ token, user }));
+  window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify({ token, user }));
+  window.sessionStorage.removeItem(STORAGE_KEY);
+  window.localStorage.removeItem(STORAGE_KEY);
   window.dispatchEvent(new Event("fintigen-auth-changed"));
 }
 
 export function getAuthSession(): StoredAuth | null {
   if (typeof window === "undefined") return null;
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
+    let raw = window.sessionStorage.getItem(STORAGE_KEY);
+    if (!raw) {
+      const legacy = window.localStorage.getItem(STORAGE_KEY);
+      if (legacy) {
+        window.sessionStorage.setItem(STORAGE_KEY, legacy);
+        window.localStorage.removeItem(STORAGE_KEY);
+        raw = legacy;
+      }
+    }
     if (!raw) return null;
     const parsed = JSON.parse(raw) as StoredAuth;
     if (!parsed?.token || !parsed?.user?.id) return null;
