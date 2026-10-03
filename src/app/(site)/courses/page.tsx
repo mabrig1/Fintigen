@@ -6,7 +6,7 @@ import { courseCategories } from "@/lib/data";
 export const metadata: Metadata = {
   title: "Courses",
   description:
-    "Start free with FINTIGEN Digital Skills Foundation, then advance through paid specialist courses in programming, AI, data, design, digital business, and career skills.",
+    "Explore FINTIGEN's paid professional courses in digital foundations, programming, AI, data, design, digital business, and career skills.",
 };
 
 const levelStyles: Record<string, string> = {
@@ -20,8 +20,8 @@ export default function CoursesPage() {
     <div>
       <PageHeader
         eyebrow="Courses"
-        title="Start Free. Build a Foundation. Advance with Paid Specialist Training."
-        description="Digital Skills Foundation is FINTIGEN's free entry program. Every specialist and advanced course is a paid program."
+        title="Build Your Foundation. Advance with Paid Specialist Training."
+        description="Every FINTIGEN course requires paid enrollment, from Digital Skills Foundation through specialist and advanced professional programmes."
       />
 
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
@@ -29,7 +29,7 @@ export default function CoursesPage() {
           <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
             <div>
               <div className="flex flex-wrap gap-2">
-                <span className="rounded-full bg-emerald-600 px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-white">100% Free Foundation Program</span>
+                <span className="rounded-full bg-emerald-600 px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-white">Paid Foundation Program</span>
                 <span className="rounded-full border border-emerald-300 px-3 py-1 text-xs font-bold text-emerald-800 dark:border-emerald-800 dark:text-emerald-300">8 weeks · Beginner friendly</span>
               </div>
               <h2 className="mt-5 text-3xl font-black sm:text-4xl">Digital Skills Foundation & Employability Bootcamp</h2>
@@ -37,11 +37,11 @@ export default function CoursesPage() {
                 Build essential digital literacy, productivity, online safety, professional communication, content creation, responsible AI use, portfolio skills, and employability confidence before choosing a paid specialization.
               </p>
               <div className="mt-5 flex flex-wrap gap-2 text-sm text-slate-600 dark:text-slate-400">
-                <span>✓ No tuition fee</span><span>✓ Mobile friendly</span><span>✓ Practical labs</span><span>✓ Progress tracking</span><span>✓ Portfolio capstone</span>
+                <span>✓ ₦5,000 one-time</span><span>✓ Mobile friendly</span><span>✓ Practical labs</span><span>✓ Progress tracking</span><span>✓ Portfolio capstone</span>
               </div>
             </div>
-            <Link href="/learn/digital-skills-foundation" className="rounded-2xl bg-emerald-600 px-7 py-4 text-center font-black text-white transition hover:bg-emerald-700">
-              Start Free Foundation →
+            <Link href="/checkout/digital-skills-foundation" className="rounded-2xl bg-emerald-600 px-7 py-4 text-center font-black text-white transition hover:bg-emerald-700">
+              Enroll for ₦5,000 →
             </Link>
           </div>
         </section>
