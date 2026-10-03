@@ -46,18 +46,18 @@ export default function Home() {
             </p>
             <p className="mt-3 text-sm text-brand-100">{brand.ownership}</p>
             <h1 className="mt-6 text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
-              Start With Free Digital Foundations. Grow Into{" "}
+              Start With Practical Digital Foundations. Grow Into{" "}
               <span className="text-brand-300">High-Value Specialist Skills</span>
             </h1>
             <p className="mt-5 max-w-xl text-lg text-brand-100/90">
-              Begin with our free Digital Skills Foundation & Employability Bootcamp, then advance into paid specialist programs in AI, software, data, design, digital business, and future skills.
+              Begin with Digital Skills Foundation & Employability Bootcamp, then advance into specialist programs in AI, software, data, design, digital business, and future skills. All FINTIGEN courses require paid enrollment.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
-                href="/learn/digital-skills-foundation"
+                href="/checkout/digital-skills-foundation"
                 className="rounded-lg bg-accent-500 px-6 py-3 font-semibold text-slate-900 transition hover:bg-accent-400"
               >
-                Start Free Foundation
+                Enroll in Foundation
               </Link>
               <Link
                 href="/courses"
@@ -104,12 +104,12 @@ export default function Home() {
 
       <section className="mx-auto max-w-7xl px-4 pt-10 sm:px-6">
         <Link
-          href="/learn/digital-skills-foundation"
+          href="/checkout/digital-skills-foundation"
           className="group grid gap-7 overflow-hidden rounded-3xl border border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-brand-50 p-7 shadow-sm transition hover:-translate-y-0.5 hover:shadow-xl dark:border-emerald-900/50 dark:from-emerald-950/30 dark:via-slate-950 dark:to-brand-950/20 sm:p-9 lg:grid-cols-[1fr_auto] lg:items-center"
         >
           <div>
             <div className="flex flex-wrap gap-2 text-xs font-bold uppercase tracking-[0.14em]">
-              <span className="rounded-full bg-emerald-600 px-3 py-1.5 text-white">100% Free Program</span>
+              <span className="rounded-full bg-emerald-600 px-3 py-1.5 text-white">Paid Entry Program</span>
               <span className="rounded-full border border-emerald-300 px-3 py-1.5 text-emerald-800 dark:border-emerald-800 dark:text-emerald-300">8 weeks · No coding required</span>
             </div>
             <h2 className="mt-5 text-2xl font-black sm:text-4xl">Digital Skills Foundation &amp; Employability Bootcamp</h2>
@@ -120,8 +120,8 @@ export default function Home() {
           </div>
           <div className="rounded-2xl bg-emerald-600 p-5 text-center text-white lg:min-w-64">
             <p className="text-sm font-bold uppercase tracking-wide text-emerald-100">Tuition</p>
-            <p className="mt-1 text-4xl font-black">FREE</p>
-            <span className="mt-5 inline-block font-bold">Start learning →</span>
+            <p className="mt-1 text-4xl font-black">₦5,000</p>
+            <span className="mt-5 inline-block font-bold">Enroll now →</span>
           </div>
         </Link>
       </section>
@@ -182,9 +182,9 @@ export default function Home() {
       </section>
 
       <section className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6">
-        <h2 className="text-3xl font-bold tracking-tight">One Free Foundation. Multiple Professional Pathways.</h2>
+        <h2 className="text-3xl font-bold tracking-tight">Paid Learning Paths for Every Stage.</h2>
         <p className="mt-4 text-lg text-slate-600 dark:text-slate-400">
-          FINTIGEN gives every learner a strong starting point at no cost. After the Foundation program, choose the paid specialization that matches your career, business, or technology goals.
+          Start with the ₦5,000 Digital Skills Foundation programme, then choose the paid specialization that matches your career, business, or technology goals.
         </p>
       </section>
 
@@ -247,12 +247,12 @@ export default function Home() {
 
       <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
         <div className="rounded-3xl bg-gradient-to-r from-brand-700 to-brand-600 px-8 py-12 text-center text-white">
-          <h2 className="text-3xl font-bold tracking-tight">Build the Foundation Free. Invest in the Skill That Changes Your Future.</h2>
+          <h2 className="text-3xl font-bold tracking-tight">Invest in the Foundation. Build the Skill That Changes Your Future.</h2>
           <p className="mx-auto mt-3 max-w-2xl text-brand-100">
-            Digital Skills Foundation is free for every learner. All specialist courses are paid, with scholarships and admin-approved access available where applicable.
+            Every FINTIGEN course requires paid enrollment. Scholarships and admin-approved access may still be granted where applicable.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-4">
-            <Link href="/learn/digital-skills-foundation" className="rounded-lg bg-white px-6 py-3 font-semibold text-brand-700 transition hover:bg-brand-50">Start Free Foundation</Link>
+            <Link href="/checkout/digital-skills-foundation" className="rounded-lg bg-white px-6 py-3 font-semibold text-brand-700 transition hover:bg-brand-50">Enroll in Foundation</Link>
             <Link href="/pricing" className="rounded-lg border border-white/40 px-6 py-3 font-semibold transition hover:bg-white/10">See Paid Plans</Link>
           </div>
         </div>
