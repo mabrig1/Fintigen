@@ -5,15 +5,15 @@ import PageHeader from "@/components/PageHeader";
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "FINTIGEN Academy pricing — Digital Skills Foundation is free; specialist courses are paid, with premium and corporate options.",
+    "FINTIGEN Academy pricing — all courses require paid enrollment, with Foundation, Premium, professional certificate, flagship, and corporate options.",
 };
 
 const plans = [
   {
     name: "Foundation",
-    price: "₦0",
-    period: "free",
-    description: "One complete free entry program for learners building essential digital confidence.",
+    price: "₦5,000",
+    period: "one-time",
+    description: "A complete paid entry program for learners building essential digital confidence."
     features: [
       "Digital Skills Foundation & Employability Bootcamp",
       "8 weeks of practical beginner training",
@@ -22,8 +22,8 @@ const plans = [
       "Practical labs and progress tracking",
       "Digital portfolio capstone",
     ],
-    cta: "Start Foundation Free",
-    href: "/learn/digital-skills-foundation",
+    cta: "Enroll in Foundation",
+    href: "/checkout/digital-skills-foundation",
     highlighted: false,
   },
   {
@@ -68,8 +68,8 @@ export default function PricingPage() {
     <div>
       <PageHeader
         eyebrow="Pricing"
-        title="One Free Foundation. Paid Professional Advancement."
-        description="Digital Skills Foundation is free. Every specialist course is paid, with scholarship and admin-approved access available where applicable."
+        title="Paid Learning From Foundation to Professional Mastery."
+        description="Every FINTIGEN course requires paid enrollment, with scholarship and admin-approved access available where applicable."
       />
 
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
