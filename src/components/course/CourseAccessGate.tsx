@@ -9,7 +9,7 @@ import { authHeaders, clearAuthSession, getAuthSession } from "@/lib/auth-client
 type AccessPayload = {
   data?: {
     allowed?: boolean;
-    access?: "free" | "premium";
+    access?: "premium";
     reason?: string;
   };
   error?: string;
