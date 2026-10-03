@@ -16,7 +16,6 @@ const STORAGE_KEY = "fintigen-auth";
 export function saveAuthSession(token: string, user: AuthUser) {
   if (typeof window === "undefined") return;
   window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify({ token, user }));
-  window.sessionStorage.removeItem(STORAGE_KEY);
   window.localStorage.removeItem(STORAGE_KEY);
   window.dispatchEvent(new Event("fintigen-auth-changed"));
 }
@@ -48,6 +47,7 @@ export function getAuthToken() {
 
 export function clearAuthSession() {
   if (typeof window === "undefined") return;
+  window.sessionStorage.removeItem(STORAGE_KEY);
   window.localStorage.removeItem(STORAGE_KEY);
   window.dispatchEvent(new Event("fintigen-auth-changed"));
 }
