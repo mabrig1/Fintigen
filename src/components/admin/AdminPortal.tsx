@@ -118,7 +118,6 @@ function unwrap<T>(payload: ApiEnvelope<T>): T {
 
 export default function AdminPortal() {
   const apiBase = process.env.NEXT_PUBLIC_API_URL || "";
-  const healthUrl = apiBase.replace(/\/api\/v1\/?$/, "") + "/health";
 
   const [session, setSession] = useState<Session | null>(null);
   const [checkingSession, setCheckingSession] = useState(true);
@@ -181,10 +180,7 @@ export default function AdminPortal() {
           if (!response.ok) throw new Error(payload.error || "Could not load the course catalog.");
           return unwrap(payload);
         }),
-        fetch(healthUrl).then(async (response) => {
-          if (!response.ok) throw new Error("Health check failed.");
-          return (await response.json()) as Health;
-        }).catch(() => null),
+        authenticatedFetch<Health>("/admin/health").catch(() => null),
       ]);
 
       setMetrics(dashboardData.metrics || {});
@@ -209,7 +205,7 @@ export default function AdminPortal() {
     } finally {
       setLoading(false);
     }
-  }, [apiBase, authenticatedFetch, healthUrl, session]);
+  }, [apiBase, authenticatedFetch, session]);
 
   useEffect(() => {
     if (session?.user?.role === "admin") void loadData();
