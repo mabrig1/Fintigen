@@ -39,7 +39,7 @@ export interface Course {
   description: string;
   level: "Beginner" | "Intermediate" | "Advanced";
   duration: string;
-  price: "Free" | "Premium";
+  price: "Premium";
   /** Route to an interactive course player, when the course is live. */
   href?: string;
 }
@@ -72,7 +72,7 @@ export const courseCategories: CourseCategory[] = [
           "Build modern, responsive websites with HTML, CSS, and JavaScript from the ground up.",
         level: "Beginner",
         duration: "12 weeks",
-        price: "Free",
+        price: "Premium",
       },
       {
         slug: "mobile-app-development",
@@ -90,7 +90,7 @@ export const courseCategories: CourseCategory[] = [
           "Master Python fundamentals, automation, and scripting for real-world projects.",
         level: "Beginner",
         duration: "10 weeks",
-        price: "Free",
+        price: "Premium",
       },
       {
         slug: "javascript",
@@ -99,7 +99,7 @@ export const courseCategories: CourseCategory[] = [
           "Go deep into the language of the web — from fundamentals to advanced patterns.",
         level: "Beginner",
         duration: "10 weeks",
-        price: "Free",
+        price: "Premium",
       },
       {
         slug: "nextjs",
@@ -151,7 +151,7 @@ export const courseCategories: CourseCategory[] = [
           "Build and orchestrate AI agents that perform complex tasks independently — beyond simple chatbots. Master LangGraph, AutoGen, and CrewAI.",
         level: "Advanced",
         duration: "8 weeks",
-        price: "Free",
+        price: "Premium",
         href: "/learn/agentic-ai",
       },
       {
@@ -161,7 +161,7 @@ export const courseCategories: CourseCategory[] = [
           "Master advanced LLMs, multimodal systems, fine-tuning, and AI governance — from Transformers to enterprise policy.",
         level: "Beginner",
         duration: "8 weeks",
-        price: "Free",
+        price: "Premium",
         href: "/learn/generative-ai",
       },
       {
@@ -171,7 +171,7 @@ export const courseCategories: CourseCategory[] = [
           "Learn to communicate with AI models effectively and get reliable, high-quality results.",
         level: "Beginner",
         duration: "4 weeks",
-        price: "Free",
+        price: "Premium",
         href: "/learn/generative-ai",
       },
       {
@@ -181,7 +181,7 @@ export const courseCategories: CourseCategory[] = [
           "A practical tour of today's most powerful AI tools for work, study, and business.",
         level: "Beginner",
         duration: "6 weeks",
-        price: "Free",
+        price: "Premium",
       },
       {
         slug: "ml-engineering",
@@ -190,7 +190,7 @@ export const courseCategories: CourseCategory[] = [
           "Design, train, optimize, deploy, monitor, and scale production ML systems — classical ML, deep learning, and the full MLOps lifecycle.",
         level: "Advanced",
         duration: "9 modules",
-        price: "Free",
+        price: "Premium",
         href: "/learn/ml-engineering",
       },
       {
@@ -210,7 +210,7 @@ export const courseCategories: CourseCategory[] = [
           "Use AI assistants to write, research, plan, and automate your daily work.",
         level: "Beginner",
         duration: "3 weeks",
-        price: "Free",
+        price: "Premium",
       },
     ],
   },
@@ -234,7 +234,7 @@ export const courseCategories: CourseCategory[] = [
           "From formulas to pivot tables and dashboards — become the Excel expert on any team.",
         level: "Beginner",
         duration: "6 weeks",
-        price: "Free",
+        price: "Premium",
       },
       {
         slug: "power-bi",
@@ -261,7 +261,7 @@ export const courseCategories: CourseCategory[] = [
           "SQL, Python wrangling, big data pipelines with Spark and Databricks/Delta Lake, and executive dashboards in Power BI and Tableau.",
         level: "Beginner",
         duration: "8 modules",
-        price: "Free",
+        price: "Premium",
         href: "/learn/data-science-analytics-engineering",
       },
     ],
@@ -319,7 +319,7 @@ export const courseCategories: CourseCategory[] = [
           "Plan, create, and manage social content that builds audiences and drives sales.",
         level: "Beginner",
         duration: "6 weeks",
-        price: "Free",
+        price: "Premium",
       },
       {
         slug: "freelancing",
@@ -328,7 +328,7 @@ export const courseCategories: CourseCategory[] = [
           "Win clients on global platforms and build a sustainable freelance career.",
         level: "Beginner",
         duration: "6 weeks",
-        price: "Free",
+        price: "Premium",
       },
       {
         slug: "e-commerce",
@@ -352,7 +352,7 @@ export const courseCategories: CourseCategory[] = [
           "Craft a CV that gets past screening systems and impresses recruiters.",
         level: "Beginner",
         duration: "2 weeks",
-        price: "Free",
+        price: "Premium",
       },
       {
         slug: "interview-preparation",
@@ -361,7 +361,7 @@ export const courseCategories: CourseCategory[] = [
           "Practice technical and behavioral interviews with proven frameworks.",
         level: "Beginner",
         duration: "3 weeks",
-        price: "Free",
+        price: "Premium",
       },
       {
         slug: "linkedin-optimization",
@@ -370,7 +370,7 @@ export const courseCategories: CourseCategory[] = [
           "Turn your LinkedIn profile into a magnet for recruiters and opportunities.",
         level: "Beginner",
         duration: "2 weeks",
-        price: "Free",
+        price: "Premium",
       },
       {
         slug: "remote-job-skills",
@@ -379,7 +379,7 @@ export const courseCategories: CourseCategory[] = [
           "Communication, tools, and habits that make you excel in remote and global teams.",
         level: "Beginner",
         duration: "4 weeks",
-        price: "Free",
+        price: "Premium",
       },
     ],
   },
@@ -523,17 +523,18 @@ export interface PricingPlan {
 
 export const pricingPlans: PricingPlan[] = [
   {
-    name: "Free",
-    price: "₦0",
-    period: "forever",
-    description: "Start learning today with our free course library.",
+    name: "Foundation",
+    price: "₦5,000",
+    period: "one-time",
+    description: "Start with the complete Digital Skills Foundation & Employability Bootcamp.",
     features: [
-      "Access to all free courses",
-      "Community forum access",
-      "Course completion badges",
+      "8-week Digital Skills Foundation course",
+      "Practical labs and quizzes",
+      "Digital portfolio capstone",
+      "Certificate eligibility",
       "Mobile-friendly learning",
     ],
-    cta: "Start for Free",
+    cta: "Enroll in Foundation",
     highlighted: false,
   },
   {
@@ -542,7 +543,7 @@ export const pricingPlans: PricingPlan[] = [
     period: "per month",
     description: "Unlock every course, certificate, and career service.",
     features: [
-      "Everything in Free",
+      "Foundation-level learning support",
       "All premium courses",
       "Verified certificates",
       "Assignments & quizzes with feedback",
