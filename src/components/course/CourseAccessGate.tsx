@@ -19,10 +19,14 @@ type AccessPayload = {
 export default function CourseAccessGate({
   courseSlug,
   courseTitle,
+  purchaseHref = "/pricing",
+  purchaseLabel = "View Paid Plans",
   children,
 }: {
   courseSlug: string;
   courseTitle: string;
+  purchaseHref?: string;
+  purchaseLabel?: string;
   children: ReactNode;
 }) {
   const apiBase = process.env.NEXT_PUBLIC_API_URL || "";
@@ -99,7 +103,7 @@ export default function CourseAccessGate({
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link href={`/login?next=/learn/${courseSlug}`} className="rounded-xl bg-brand-600 px-6 py-3 font-bold text-white hover:bg-brand-700">Log In</Link>
-            <Link href="/pricing" className="rounded-xl border border-slate-300 px-6 py-3 font-bold dark:border-slate-700">View Pricing</Link>
+            <Link href={purchaseHref} className="rounded-xl border border-slate-300 px-6 py-3 font-bold dark:border-slate-700">{purchaseLabel}</Link>
           </div>
         </div>
       </main>
@@ -117,7 +121,7 @@ export default function CourseAccessGate({
             This course is paid. Purchase premium access or contact FINTIGEN if you have been approved for a scholarship or manual enrollment.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link href="/pricing" className="rounded-xl bg-brand-600 px-6 py-3 font-bold text-white hover:bg-brand-700">View Paid Plans</Link>
+            <Link href={purchaseHref} className="rounded-xl bg-brand-600 px-6 py-3 font-bold text-white hover:bg-brand-700">{purchaseLabel}</Link>
             <a href={brand.whatsappUrl} className="rounded-xl border border-slate-300 px-6 py-3 font-bold dark:border-slate-700">WhatsApp Support</a>
           </div>
         </div>
