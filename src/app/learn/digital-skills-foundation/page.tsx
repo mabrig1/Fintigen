@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import CourseAccessGate from "@/components/course/CourseAccessGate";
 import CoursePlayer from "@/components/course/CoursePlayer";
 import {
   courseMeta,
@@ -13,11 +14,18 @@ export const metadata: Metadata = {
 
 export default function DigitalSkillsFoundationPage() {
   return (
-    <CoursePlayer
-      meta={courseMeta}
-      modules={courseModules}
-      storageKey="fintigen-course-digital-skills-foundation"
-      certificateId="FTG-DSF-001"
-    />
+    <CourseAccessGate
+      courseSlug="digital-skills-foundation"
+      courseTitle={courseMeta.title}
+      purchaseHref="/checkout/digital-skills-foundation"
+      purchaseLabel="Enroll for ₦5,000"
+    >
+      <CoursePlayer
+        meta={courseMeta}
+        modules={courseModules}
+        storageKey="fintigen-course-digital-skills-foundation"
+        certificateId="FTG-DSF-001"
+      />
+    </CourseAccessGate>
   );
 }
