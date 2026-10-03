@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function MabrigFullStackFounderProLearnPage() {
-  return <PremiumCourseArea />;
+  return <PremiumCourseArea courseSlug="mabrig-full-stack-founder-pro" courseTitle="Mabrig Full-Stack Founder Pro" />;
 }
