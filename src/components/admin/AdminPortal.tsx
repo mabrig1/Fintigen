@@ -85,7 +85,7 @@ type ApiEnvelope<T> = {
   message?: string;
 };
 
-const ADMIN_EMAIL = "victoryonline1@gmail.com";
+const ADMIN_EMAIL = "";
 const WHATSAPP = brand.whatsappUrl;
 
 function formatMoney(amount: number, currency = "NGN") {
@@ -323,7 +323,7 @@ export default function AdminPortal() {
                 <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400">Fintigen Admin</p>
               </div>
               <h2 className="mt-5 text-3xl font-bold">Administrator sign in</h2>
-              <p className="mt-2 text-sm leading-6 text-slate-400">Use the Fintigen administrator account. The initial owner email has been prefilled and can be changed later.</p>
+              <p className="mt-2 text-sm leading-6 text-slate-400">Use the Fintigen administrator account. Use an account whose administrator role was granted through the server-side admin promotion process.</p>
 
               <form onSubmit={login} className="mt-8 space-y-5">
                 <label className="block">
