@@ -63,6 +63,7 @@ export default function TrainingEnrollmentsPortal() {
   const [checking, setChecking] = useState(true);
   const [rows, setRows] = useState<TrainingEnrollment[]>([]);
   const [metrics, setMetrics] = useState<Metrics>({});
+  const [integrationConfigured, setIntegrationConfigured] = useState<boolean | null>(null);
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState("");
   const [plan, setPlan] = useState("");
@@ -96,6 +97,7 @@ export default function TrainingEnrollmentsPortal() {
       const payload = (await response.json().catch(() => ({}))) as ApiEnvelope<{
         enrollments: TrainingEnrollment[];
         metrics: Metrics;
+        integrationConfigured?: boolean;
       }>;
 
       if (response.status === 401 || response.status === 403) {
@@ -109,6 +111,7 @@ export default function TrainingEnrollmentsPortal() {
 
       setRows(payload.data.enrollments || []);
       setMetrics(payload.data.metrics || {});
+      setIntegrationConfigured(Boolean(payload.data.integrationConfigured));
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Could not load training enrollments.");
     } finally {
@@ -123,6 +126,39 @@ export default function TrainingEnrollmentsPortal() {
   async function search(event: FormEvent) {
     event.preventDefault();
     await load();
+  }
+
+  async function syncExistingLearners() {
+    if (!session?.token || !apiBase) return;
+    setBusy("sync-existing");
+    setMessage("Importing and refreshing Full-Stack learner records…");
+    try {
+      const response = await fetch(apiBase + "/admin/training-enrollments/sync", {
+        method: "POST",
+        headers: { Authorization: "Bearer " + session.token },
+      });
+      const payload = (await response.json().catch(() => ({}))) as ApiEnvelope<{
+        scanned?: number;
+        synced?: number;
+        failed?: number;
+      }>;
+      if (!response.ok || !payload.data) {
+        throw new Error(payload.error || payload.message || "Learner synchronization failed.");
+      }
+      setMessage(
+        "Synchronization complete: " +
+          String(payload.data.synced || 0) +
+          " of " +
+          String(payload.data.scanned || 0) +
+          " learners synchronized" +
+          (payload.data.failed ? "; " + String(payload.data.failed) + " need retry." : "."),
+      );
+      await load();
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Learner synchronization failed.");
+    } finally {
+      setBusy("");
+    }
   }
 
   async function setAccess(enrollment: TrainingEnrollment, nextPlan: "free" | "masterclass") {
@@ -207,6 +243,13 @@ export default function TrainingEnrollmentsPortal() {
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => void syncExistingLearners()}
+              disabled={Boolean(busy) || integrationConfigured === false}
+              className="rounded-xl bg-blue-500 px-4 py-2 text-sm font-black text-white disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {busy === "sync-existing" ? "Synchronizing…" : "Sync Full-Stack learners"}
+            </button>
             <Link href="/admin" className="rounded-xl border border-slate-700 px-4 py-2 text-sm font-bold hover:bg-slate-900">
               ← Admin home
             </Link>
@@ -223,6 +266,15 @@ export default function TrainingEnrollmentsPortal() {
       </header>
 
       <div className="mx-auto max-w-7xl space-y-6 p-4 sm:p-6 lg:p-8">
+        {integrationConfigured === false && (
+          <section className="rounded-2xl border border-amber-300 bg-amber-50 p-5 text-amber-950">
+            <strong>Enrollment connection needs deployment configuration.</strong>
+            <p className="mt-2 text-sm">
+              The dashboard is deployed, but the shared Full-Stack integration secret must be configured on both server projects before learner synchronization and access changes can run.
+            </p>
+          </section>
+        )}
+
         <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {cardData.map(([label, value, note]) => (
             <article key={String(label)} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
