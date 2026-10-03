@@ -74,6 +74,26 @@ export default function PricingPage() {
 
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <Link
+          href="/courses/ai-powered-academic-integrity"
+          className="mb-8 block rounded-3xl border border-sky-200 bg-gradient-to-br from-sky-50 via-white to-emerald-50 p-8 shadow-sm transition hover:shadow-xl dark:border-sky-900/50 dark:from-sky-950/30 dark:via-slate-950 dark:to-emerald-950/20 sm:p-10"
+        >
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-sky-700 dark:text-sky-300">Professional research certificate</p>
+              <h2 className="mt-3 text-3xl font-black">AI-Powered Academic Integrity</h2>
+              <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600 dark:text-slate-300">
+                A four-week portfolio-based programme for researchers, postgraduates, and academic leaders covering verifiable prompting, source integrity, disclosure, privacy, governance, and reproducible AI-assisted research.
+              </p>
+            </div>
+            <div className="shrink-0 rounded-2xl border border-slate-200 bg-white/80 p-5 dark:border-slate-800 dark:bg-slate-950/60">
+              <p className="text-2xl font-black">₦35,000 <span className="text-xs font-semibold text-slate-500">NG</span></p>
+              <p className="mt-1 text-2xl font-black">$79 <span className="text-xs font-semibold text-slate-500">International</span></p>
+              <p className="mt-3 text-sm font-bold text-sky-700 dark:text-sky-300">View professional course →</p>
+            </div>
+          </div>
+        </Link>
+
+        <Link
           href="/courses/mabrig-full-stack-founder-pro"
           className="mb-12 block rounded-3xl bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-900 p-8 text-white shadow-xl transition hover:shadow-2xl sm:p-10"
         >
