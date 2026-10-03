@@ -85,7 +85,7 @@ export default function AcademicIntegrityCheckoutPage() {
               <input type="email" required value={email} readOnly className="mt-2 w-full rounded-xl border border-white/15 bg-white/10 px-4 py-3 text-white outline-none" placeholder="you@example.com" />
             </label>
             {!email && (
-              <Link href={"/login?next=" + encodeURIComponent(window.location.pathname + window.location.search)} className="block rounded-xl border border-amber-300/30 bg-amber-400/10 px-4 py-3 text-center text-sm font-bold text-amber-200">
+              <Link href="/login?next=/checkout/ai-powered-academic-integrity" className="block rounded-xl border border-amber-300/30 bg-amber-400/10 px-4 py-3 text-center text-sm font-bold text-amber-200">
                 Sign in before payment
               </Link>
             )}
