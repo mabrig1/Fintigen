@@ -27,3 +27,11 @@ jobs:
           security-graph: auto
           control-plane: auto
           legal-compliance: advisory
+
+      - name: Print safe DevShield finding summary
+        if: always()
+        shell: bash
+        run: |
+          if [ -f .devshield/devshield-report.json ]; then
+            node -e 'const r=require("./.devshield/devshield-report.json"); for (const f of r.findings||[]) console.log(JSON.stringify({rule:f.rule,severity:f.severity,file:f.file,line:f.line,message:f.message}))'
+          fi
