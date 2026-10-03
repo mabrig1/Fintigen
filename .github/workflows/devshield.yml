@@ -1,0 +1,29 @@
+name: DevShield Security
+
+on:
+  pull_request:
+  push:
+    branches:
+      - fix/security-hardening-2026-10-03
+
+permissions:
+  contents: read
+
+jobs:
+  devshield:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+      - name: Run DevShield v2.10 Web Attack Shield
+        uses: mabrig1/mabrig-devshield-ai@a67f922cc83a61bf4f7539a5fd6d88c1edd38d77
+        with:
+          fail-on: critical
+          comment: false
+          scan-scope: repository
+          dependency-review: auto
+          dependency-agentic: auto
+          security-graph: auto
+          control-plane: auto
+          legal-compliance: advisory
