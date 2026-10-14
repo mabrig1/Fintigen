@@ -84,6 +84,8 @@ export default function Home() {
         </div>
       </section>
 
+      <section aria-label="Quick navigation" className="mx-auto max-w-7xl px-4 pt-8 sm:px-6"><div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{[{title:"Start Learning",detail:"Foundation · ₦20,000",href:"/checkout/digital-skills-foundation",icon:"🎯"},{title:"Browse Courses",detail:"Choose your specialist pathway",href:"/courses",icon:"📚"},{title:"Learner Dashboard",detail:"Continue your progress",href:"/dashboard",icon:"📊"},{title:"Referral Programme",detail:"Earn on eligible referrals",href:"/referral",icon:"🤝"}].map(item=><Link key={item.href} href={item.href} className="fintigen-lift group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 dark:border-slate-800 dark:bg-slate-900"><span aria-hidden="true" className="text-2xl">{item.icon}</span><h2 className="mt-2 font-extrabold text-slate-900 dark:text-white">{item.title} <span className="text-brand-600 group-hover:translate-x-1 inline-block transition-transform">→</span></h2><p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{item.detail}</p></Link>)}</div></section>
+
       <section className="mx-auto max-w-7xl px-4 pt-8 sm:px-6">
         <Link
           href="/referral"
@@ -110,7 +112,7 @@ export default function Home() {
           <div>
             <div className="flex flex-wrap gap-2 text-xs font-bold uppercase tracking-[0.14em]">
               <span className="rounded-full bg-emerald-600 px-3 py-1.5 text-white">Paid Entry Program</span>
-              <span className="rounded-full border border-emerald-300 px-3 py-1.5 text-emerald-800 dark:border-emerald-800 dark:text-emerald-300">8 weeks · No coding required</span>
+              <span className="rounded-full border border-emerald-300 px-3 py-1.5 text-emerald-800 dark:border-emerald-800 dark:text-emerald-300">8 weeks · Hands-on labs · No coding required</span>
             </div>
             <h2 className="mt-5 text-2xl font-black sm:text-4xl">Digital Skills Foundation &amp; Employability Bootcamp</h2>
             <p className="mt-2 text-lg font-semibold text-emerald-700 dark:text-emerald-300">Your gateway into the digital economy</p>
@@ -120,7 +122,7 @@ export default function Home() {
           </div>
           <div className="rounded-2xl bg-emerald-600 p-5 text-center text-white lg:min-w-64">
             <p className="text-sm font-bold uppercase tracking-wide text-emerald-100">Tuition</p>
-            <p className="mt-1 text-4xl font-black">₦5,000</p>
+            <p className="mt-1 text-4xl font-black">₦20,000</p>
             <span className="mt-5 inline-block font-bold">Enroll now →</span>
           </div>
         </Link>
