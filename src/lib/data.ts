@@ -545,13 +545,16 @@ export interface PricingPlan {
 export const pricingPlans: PricingPlan[] = [
   {
     name: "Foundation",
-    price: "₦5,000",
+    price: "₦20,000",
     period: "one-time",
     description: "Start with the complete Digital Skills Foundation & Employability Bootcamp.",
     features: [
-      "8-week Digital Skills Foundation course",
-      "Practical labs and quizzes",
-      "Digital portfolio capstone",
+      "Enhanced 8-week digital skills programme",
+      "Interactive weekly labs, simulations and knowledge checks",
+      "AI literacy, cybersecurity and responsible online work",
+      "Spreadsheet, document and presentation projects",
+      "Freelancing, CV, interviews and client communication",
+      "Portfolio capstone with real-world deliverables",
       "Certificate eligibility",
       "Mobile-friendly learning",
     ],
