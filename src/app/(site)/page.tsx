@@ -21,7 +21,7 @@ const features = [
   {
     icon: "🤝",
     title: "Mentorship & Community",
-    text: "Learn alongside thousands of students with mentors guiding you at every step.",
+    text: "Learn with practical exercises, peer support, and guidance as available.",
   },
   {
     icon: "💼",
@@ -186,7 +186,7 @@ export default function Home() {
       <section className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6">
         <h2 className="text-3xl font-bold tracking-tight">Paid Learning Paths for Every Stage.</h2>
         <p className="mt-4 text-lg text-slate-600 dark:text-slate-400">
-          Start with the ₦5,000 Digital Skills Foundation programme, then choose the paid specialization that matches your career, business, or technology goals.
+          Start with the ₦20,000 Digital Skills Foundation programme, then choose the paid specialization that matches your career, business, or technology goals.
         </p>
       </section>
 
