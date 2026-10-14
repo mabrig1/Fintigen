@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useMemo, useState, useSyncExternalStore } from "react";
 import ThemeToggle from "@/components/ThemeToggle";
 import AnalyticsWorkbench from "@/components/course/AnalyticsWorkbench";
+import CourseTrial from "@/components/course/CourseTrial";
 import type {
   CourseMeta,
   CourseModule,
@@ -19,6 +20,8 @@ export interface CoursePlayerProps {
   storageKey: string;
   /** Verification ID shown on the completion certificate. */
   certificateId: string;
+  /** Enable only for authenticated learners without a verified paid entitlement. */
+  trialMode?: boolean;
 }
 
 type ItemKind = "lesson" | "lab" | "quiz";
@@ -73,6 +76,7 @@ export default function CoursePlayer({
   modules,
   storageKey,
   certificateId,
+  trialMode = false,
 }: CoursePlayerProps) {
   const items = useMemo(() => buildItems(modules), [modules]);
   // The store touches localStorage only lazily on the client.
@@ -317,7 +321,7 @@ export default function CoursePlayer({
             )}
 
             {view.type === "item" && (
-              <ItemView
+              trialMode ? <CourseTrial course={meta.slug}><ItemView
                 item={items[view.itemIndex]}
                 itemIndex={view.itemIndex}
                 totalItems={items.length}
@@ -331,6 +335,14 @@ export default function CoursePlayer({
                 onCompleteAndContinue={() =>
                   completeAndContinue(view.itemIndex)
                 }
+              /></CourseTrial> : <ItemView
+                item={items[view.itemIndex]}
+                itemIndex={view.itemIndex}
+                totalItems={items.length}
+                module={modules[items[view.itemIndex].moduleIndex]}
+                isCompleted={completed.has(items[view.itemIndex].key)}
+                onPrev={view.itemIndex > 0 ? () => goToItem(view.itemIndex - 1) : undefined}
+                onCompleteAndContinue={() => completeAndContinue(view.itemIndex)}
               />
             )}
 
