@@ -220,12 +220,13 @@ export const courseCategories: CourseCategory[] = [
     courses: [
       {
         slug: "data-analysis",
-        title: "Data Analysis",
+        title: "Complete Data Analysis: Excel, SQL, Python, Statistics & Power BI",
         description:
-          "Turn raw data into insights and decisions with modern analysis workflows.",
+          "A comprehensive 12-week practical course covering data cleaning, Excel, SQL, Python, statistics, dashboards, forecasting and portfolio projects.",
         level: "Beginner",
-        duration: "10 weeks",
+        duration: "12 weeks",
         price: "Premium",
+        href: "/learn/data-analysis",
       },
       {
         slug: "excel",
