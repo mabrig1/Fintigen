@@ -46,6 +46,56 @@ export const courseMeta: CourseMeta = {
 
 export const courseModules: CourseModule[] = [
   {
+    id: "foundation-skills-diagnostic",
+    week: 0,
+    title: "Orientation and Interactive Skills Diagnostic",
+    objective: "Establish a starting skill baseline, practise safe digital habits, and select a personal learning goal.",
+    lessons: [
+      {
+        id: "foundation-diagnostic-1",
+        title: "Your First Five Minutes: Solve a Real Digital Problem",
+        content: [
+          "Scenario: a local business has sent a spreadsheet containing weekly sales. Your task is to decide which metric matters, identify one suspicious value, and explain what you would check before advising the owner.",
+          "Try the scenario before reading the explanation. Record your confidence from 1 to 5, then compare your answer with this checklist: business question, data source, calculation, data quality and privacy.",
+          "A good analyst does not guess from one chart. Ask what period is covered, whether returns are included, and whether the figures are complete. This introductory challenge uses fictional information only."
+        ],
+        bullets: [
+          "Choose the best first question: How much did sales change, compared with which baseline?",
+          "Spot the quality issue: a negative sale might be a refund, not an error.",
+          "Write a two-sentence recommendation that distinguishes evidence from assumptions."
+        ]
+      },
+      {
+        id: "foundation-diagnostic-2",
+        title: "Set Your Personal Learning Baseline",
+        content: [
+          "Rate your confidence in file management, spreadsheets, email, online safety, AI tools and digital communication on a scale from 1 (new) to 5 (confident).",
+          "Choose one practical goal: produce a professional document, clean a small dataset, prepare a presentation, or build a digital portfolio. Save a baseline artifact so you can compare it with your capstone."
+        ],
+        bullets: [
+          "Select a goal that can be demonstrated in eight weeks.",
+          "Plan three 30-minute practice sessions each week.",
+          "Never upload passwords, account credentials or private customer data into exercises."
+        ]
+      }
+    ],
+    lab: {
+      title: "Baseline Challenge: Help a Local Shop",
+      description: "Use a fictional mini-dataset to calculate a sales total and write a safe recommendation.",
+      steps: [
+        "Create a sheet with Monday 12000, Tuesday 15000, Wednesday 13000, Thursday 17000 and Friday 14000 naira in fictional sales.",
+        "Calculate total sales (₦71,000) and the five-day average (₦14,200).",
+        "Explain why a five-day average cannot establish monthly profitability.",
+        "Write a short customer-friendly summary and save it as your baseline artifact."
+      ]
+    },
+    quiz: [
+      {question:"What is the five-day sales total for ₦12,000, ₦15,000, ₦13,000, ₦17,000 and ₦14,000?",options:["₦61,000","₦71,000","₦81,000","₦14,200"],answerIndex:1,explanation:"Add the five values to obtain ₦71,000."},
+      {question:"Which claim is justified by five days of sales figures alone?",options:["The shop made a profit","The shop will grow next month","The five-day sales total is ₦71,000","Every transaction is accurate"],answerIndex:2,explanation:"Revenue totals do not establish profit, future performance or data validity."}
+    ]
+  },
+
+  {
     id: "digital-foundations",
     week: 1,
     title: "Digital Foundations: Devices, Files, Browsers & Search",
