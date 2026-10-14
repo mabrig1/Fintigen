@@ -14,10 +14,14 @@ export const courseMeta: CourseMeta = {
     "Willingness to complete practical weekly tasks",
   ],
   overview: [
+    "Enhanced pathway: each week includes a guided real-world scenario, an interactive skills challenge, a reflection checklist, and a portfolio-ready deliverable.",
     "This course is a practical entry point into the modern digital economy. It is designed for students, job seekers, entrepreneurs, small-business owners, and first-time technology learners who need useful skills they can apply immediately.",
     "The programme is optimized for mobile and low-bandwidth learning. Every module combines short lessons, a practical lab, and a quiz. Learners finish with a digital portfolio, a professional online presence, safer internet habits, stronger productivity skills, and a clear pathway into deeper FINTIGEN courses.",
   ],
   objectives: [
+    "Build a personal learning dashboard and track measurable weekly skill improvements.",
+    "Complete a realistic client brief from discovery to digital deliverable and professional handoff.",
+    "Evaluate AI-generated content for accuracy, privacy risks, bias and proper attribution.",
     "Use computers, smartphones, browsers, files, cloud storage, and search engines confidently.",
     "Create professional documents, spreadsheets, presentations, and collaborative workspaces.",
     "Communicate professionally through email, messaging, video meetings, and remote-work tools.",
