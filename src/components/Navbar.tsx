@@ -19,7 +19,9 @@ export default function Navbar() {
   const businessLink = { label: "Business Operations", href: "/business-operations" };
   const ictServicesLink = { label: "ICT Services", href: "/ict-services" };
   const referralStudioLink = { label: "Referral Studio", href: "/referral/workstation" };
-  const links = [...navLinks, digitalSkillsLink, futureSkillsLink, aiLabLink, businessLink, ictServicesLink, ...(authUser ? [referralStudioLink] : [])];
+  const primaryLinks = navLinks.filter((link) => !["/digital-skills", "/future-skills", "/ai-lab", "/business-operations", "/ict-services"].includes(link.href));
+  const exploreLinks = [digitalSkillsLink, futureSkillsLink, aiLabLink, businessLink, ictServicesLink, ...(authUser ? [referralStudioLink] : [])];
+  const links = [...primaryLinks, ...exploreLinks];
 
   useEffect(() => {
     const refresh = () => setAuthUser(getAuthSession()?.user || null);
@@ -27,6 +29,8 @@ export default function Navbar() {
     window.addEventListener("fintigen-auth-changed", refresh);
     return () => window.removeEventListener("fintigen-auth-changed", refresh);
   }, []);
+
+  useEffect(() => { setMenuOpen(false); }, [pathname]);
 
   function logout() {
     clearAuthSession();
@@ -37,7 +41,7 @@ export default function Navbar() {
 
   function linkClass(href: string, mobile = false) {
     const base = mobile ? "block rounded-md px-3 py-2 text-sm font-medium" : "rounded-md px-3 py-2 text-sm font-medium transition";
-    if (pathname === href) return `${base} bg-brand-50 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300`;
+    if (pathname === href || (href !== "/" && pathname.startsWith(`${href}/`))) return `${base} bg-brand-50 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300`;
     if (href === digitalSkillsLink.href) return `${base} bg-indigo-50 text-indigo-700 hover:bg-indigo-100 dark:bg-indigo-950/40 dark:text-indigo-300`;
     if (href === futureSkillsLink.href) return `${base} bg-violet-50 text-violet-700 hover:bg-violet-100 dark:bg-violet-950/40 dark:text-violet-300`;
     if (href === aiLabLink.href) return `${base} bg-fuchsia-50 text-fuchsia-700 hover:bg-fuchsia-100 dark:bg-fuchsia-950/40 dark:text-fuchsia-300`;
@@ -47,18 +51,19 @@ export default function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">
+    <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/95 shadow-sm backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/95">
       <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <Link href="/" className="flex shrink-0 items-center gap-2 font-bold">
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600 text-white">F</span>
-          <span className="text-lg tracking-tight">{brand.domain}</span>
+        <Link href="/" className="flex shrink-0 items-center gap-2 rounded-xl font-bold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-600">
+          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 text-white shadow-md">F</span>
+          <span className="hidden text-lg tracking-tight sm:inline">{brand.domain}</span>
         </Link>
         <ul className="hidden items-center gap-1 lg:flex">
-          {links.map((link) => (
+          {primaryLinks.map((link) => (
             <li key={link.href}>
               <Link href={link.href} className={linkClass(link.href)}>{link.label}</Link>
             </li>
           ))}
+          <li className="relative group"><button type="button" className="rounded-xl px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 dark:text-slate-200 dark:hover:bg-slate-800" aria-haspopup="true">Explore ▾</button><ul className="invisible absolute right-0 top-full z-50 min-w-60 translate-y-1 rounded-2xl border border-slate-200 bg-white p-2 opacity-0 shadow-2xl transition group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 dark:border-slate-700 dark:bg-slate-900">{exploreLinks.map(link => <li key={link.href}><Link href={link.href} className={`block rounded-xl px-4 py-3 ${linkClass(link.href)}`}>{link.label}</Link></li>)}</ul></li>
         </ul>
         <div className="flex items-center gap-2">
           <ThemeToggle />

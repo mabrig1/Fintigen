@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useMemo, useState, useSyncExternalStore } from "react";
 import ThemeToggle from "@/components/ThemeToggle";
+import AnalyticsWorkbench from "@/components/course/AnalyticsWorkbench";
+import CourseTrial from "@/components/course/CourseTrial";
 import type {
   CourseMeta,
   CourseModule,
@@ -18,6 +20,8 @@ export interface CoursePlayerProps {
   storageKey: string;
   /** Verification ID shown on the completion certificate. */
   certificateId: string;
+  /** Enable only for authenticated learners without a verified paid entitlement. */
+  trialMode?: boolean;
 }
 
 type ItemKind = "lesson" | "lab" | "quiz";
@@ -72,6 +76,7 @@ export default function CoursePlayer({
   modules,
   storageKey,
   certificateId,
+  trialMode = false,
 }: CoursePlayerProps) {
   const items = useMemo(() => buildItems(modules), [modules]);
   // The store touches localStorage only lazily on the client.
@@ -316,7 +321,7 @@ export default function CoursePlayer({
             )}
 
             {view.type === "item" && (
-              <ItemView
+              trialMode ? <CourseTrial course={meta.slug}><ItemView
                 item={items[view.itemIndex]}
                 itemIndex={view.itemIndex}
                 totalItems={items.length}
@@ -330,6 +335,14 @@ export default function CoursePlayer({
                 onCompleteAndContinue={() =>
                   completeAndContinue(view.itemIndex)
                 }
+              /></CourseTrial> : <ItemView
+                item={items[view.itemIndex]}
+                itemIndex={view.itemIndex}
+                totalItems={items.length}
+                module={modules[items[view.itemIndex].moduleIndex]}
+                isCompleted={completed.has(items[view.itemIndex].key)}
+                onPrev={view.itemIndex > 0 ? () => goToItem(view.itemIndex - 1) : undefined}
+                onCompleteAndContinue={() => completeAndContinue(view.itemIndex)}
               />
             )}
 
@@ -516,6 +529,7 @@ function ItemView({
   onCompleteAndContinue: () => void;
 }) {
   const isLast = itemIndex === totalItems - 1;
+  const [labConfirmed, setLabConfirmed] = useState(false);
 
   return (
     <div>
@@ -528,7 +542,7 @@ function ItemView({
           lesson={module.lessons.find((lesson) => lesson.id === item.key)!}
         />
       )}
-      {item.kind === "lab" && <LabView module={module} />}
+      {item.kind === "lab" && <LabView module={module} confirmed={labConfirmed} onConfirmed={setLabConfirmed} />}
       {item.kind === "quiz" && (
         <QuizView
           key={item.key}
@@ -556,7 +570,8 @@ function ItemView({
           <button
             type="button"
             onClick={onCompleteAndContinue}
-            className="rounded-lg bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-700"
+            disabled={item.kind === "lab" && !labConfirmed && !isCompleted}
+            className="rounded-lg bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-40"
           >
             {isCompleted
               ? "Continue →"
@@ -614,7 +629,7 @@ function LessonView({ lesson }: { lesson: Lesson }) {
   );
 }
 
-function LabView({ module }: { module: CourseModule }) {
+function LabView({ module, confirmed, onConfirmed }: { module: CourseModule; confirmed: boolean; onConfirmed: (value: boolean) => void }) {
   return (
     <article>
       <h1 className="mt-2 text-2xl font-bold sm:text-3xl">
@@ -638,6 +653,8 @@ function LabView({ module }: { module: CourseModule }) {
           ))}
         </ol>
       </div>
+      <AnalyticsWorkbench />
+      <label className="mt-5 flex items-start gap-3 rounded-xl border border-brand-200 p-4 text-sm dark:border-brand-800"><input type="checkbox" className="mt-1" checked={confirmed} onChange={(event) => onConfirmed(event.target.checked)} /><span>I completed the practical steps, checked my results and documented limitations. This is a self-declaration, not an independently graded submission.</span></label>
       <p className="mt-4 text-sm text-slate-500">
         💡 Complete the lab in your own environment, then mark it complete to
         continue. Labs count toward 40% of your final grade in the full
@@ -669,7 +686,8 @@ function QuizView({
   const score = answers.filter(
     (answer, index) => answer === questions[index].answerIndex
   ).length;
-  const passed = score === questions.length;
+  const passMark = Math.ceil(questions.length * 0.8);
+  const passed = questions.length > 0 && score >= passMark;
 
   function retry() {
     setAnswers(questions.map(() => null));
@@ -681,8 +699,7 @@ function QuizView({
     <div>
       <h1 className="mt-2 text-2xl font-bold sm:text-3xl">❓ Module Quiz</h1>
       <p className="mt-2 text-sm text-slate-500">
-        Answer all {questions.length} questions correctly to complete this
-        module.
+        Answer all {questions.length} questions. A score of at least 80% is required to complete this module.
         {alreadyPassed && " You've already passed this quiz — review freely."}
       </p>
 
@@ -772,12 +789,12 @@ function QuizView({
             }`}
           >
             <p className="text-lg font-bold">
-              {passed ? "🎉 Perfect score!" : `You scored ${score}/${questions.length}`}
+              {passed ? `🎉 Passed: ${score}/${questions.length}` : `You scored ${score}/${questions.length}`}
             </p>
             <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
               {passed
                 ? "You've mastered this module. Keep going!"
-                : "Review the explanations above and try again — you need all answers correct to pass."}
+                : "Review the explanations above and try again — you need at least 80% correct to pass."}
             </p>
             <div className="mt-4 flex flex-wrap gap-3">
               {passed || alreadyPassed ? (
