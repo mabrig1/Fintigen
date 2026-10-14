@@ -39,7 +39,7 @@ export interface Course {
   description: string;
   level: "Beginner" | "Intermediate" | "Advanced";
   duration: string;
-  price: "Premium";
+  price: string;
   /** Route to an interactive course player, when the course is live. */
   href?: string;
 }
@@ -225,7 +225,7 @@ export const courseCategories: CourseCategory[] = [
           "A comprehensive 12-week practical course covering data cleaning, Excel, SQL, Python, statistics, dashboards, forecasting and portfolio projects.",
         level: "Beginner",
         duration: "12 weeks",
-        price: "Premium",
+        price: "₦40,000",
         href: "/learn/data-analysis",
       },
       {
@@ -235,7 +235,7 @@ export const courseCategories: CourseCategory[] = [
           "From formulas to pivot tables and dashboards — become the Excel expert on any team.",
         level: "Beginner",
         duration: "6 weeks",
-        price: "Premium",
+        price: "₦40,000",
       },
     ],
   },
@@ -243,14 +243,14 @@ export const courseCategories: CourseCategory[] = [
       name: "Intermediate Data Analytics",
     icon: "📘",
     courses: [
-      { slug: "business-analytics", title: "Business Analytics & Business Intelligence", description: "Sales, finance, customer retention, KPIs, Power BI, forecasting and executive reporting. Includes applied projects and ethical data handling.", level: "Intermediate", duration: "12 weeks", price: "Premium", href: "/learn/business-analytics" },
-      { slug: "academic-research-data-analysis", title: "Academic Research Data Analysis", description: "Research design, questionnaire coding, SPSS, R, hypotheses, regression, APA tables and reproducibility. Includes applied projects and ethical data handling.", level: "Intermediate", duration: "12 weeks", price: "Premium", href: "/learn/academic-research-data-analysis" },
-      { slug: "healthcare-data-analytics", title: "Healthcare & Public Health Analytics", description: "Clinical data governance, epidemiology, patient outcomes and public-health dashboards. Includes applied projects and ethical data handling.", level: "Intermediate", duration: "10 weeks", price: "Premium", href: "/learn/healthcare-data-analytics" },
-      { slug: "financial-data-analytics", title: "Financial & Banking Analytics", description: "Budgeting, financial statements, risk, fraud signals and time-series reporting. Includes applied projects and ethical data handling.", level: "Intermediate", duration: "10 weeks", price: "Premium", href: "/learn/financial-data-analytics" },
-      { slug: "marketing-data-analytics", title: "Marketing & Social Media Analytics", description: "Campaign attribution, funnels, engagement, experimentation and ROI reporting. Includes applied projects and ethical data handling.", level: "Intermediate", duration: "8 weeks", price: "Premium", href: "/learn/marketing-data-analytics" },
-      { slug: "agricultural-data-analytics", title: "Agricultural & Food Systems Analytics", description: "Crop yields, market prices, postharvest losses, geospatial trends and supply chains. Includes applied projects and ethical data handling.", level: "Intermediate", duration: "10 weeks", price: "Premium", href: "/learn/agricultural-data-analytics" },
-      { slug: "education-data-analytics", title: "Education & Learning Analytics", description: "Assessment quality, attendance, learning outcomes, retention and institutional dashboards. Includes applied projects and ethical data handling.", level: "Intermediate", duration: "8 weeks", price: "Premium", href: "/learn/education-data-analytics" },
-      { slug: "government-policy-analytics", title: "Government, Policy & Development Analytics", description: "Surveys, public budgets, programme evaluation, census indicators and policy briefs. Includes applied projects and ethical data handling.", level: "Intermediate", duration: "10 weeks", price: "Premium", href: "/learn/government-policy-analytics" },
+      { slug: "business-analytics", title: "Business Analytics & Business Intelligence", description: "Sales, finance, customer retention, KPIs, Power BI, forecasting and executive reporting. Includes applied projects and ethical data handling.", level: "Intermediate", duration: "12 weeks", price: "₦70,000", href: "/learn/business-analytics" },
+      { slug: "academic-research-data-analysis", title: "Academic Research Data Analysis", description: "Research design, questionnaire coding, SPSS, R, hypotheses, regression, APA tables and reproducibility. Includes applied projects and ethical data handling.", level: "Intermediate", duration: "12 weeks", price: "₦70,000", href: "/learn/academic-research-data-analysis" },
+      { slug: "healthcare-data-analytics", title: "Healthcare & Public Health Analytics", description: "Clinical data governance, epidemiology, patient outcomes and public-health dashboards. Includes applied projects and ethical data handling.", level: "Intermediate", duration: "10 weeks", price: "₦70,000", href: "/learn/healthcare-data-analytics" },
+      { slug: "financial-data-analytics", title: "Financial & Banking Analytics", description: "Budgeting, financial statements, risk, fraud signals and time-series reporting. Includes applied projects and ethical data handling.", level: "Intermediate", duration: "10 weeks", price: "₦70,000", href: "/learn/financial-data-analytics" },
+      { slug: "marketing-data-analytics", title: "Marketing & Social Media Analytics", description: "Campaign attribution, funnels, engagement, experimentation and ROI reporting. Includes applied projects and ethical data handling.", level: "Intermediate", duration: "8 weeks", price: "₦70,000", href: "/learn/marketing-data-analytics" },
+      { slug: "agricultural-data-analytics", title: "Agricultural & Food Systems Analytics", description: "Crop yields, market prices, postharvest losses, geospatial trends and supply chains. Includes applied projects and ethical data handling.", level: "Intermediate", duration: "10 weeks", price: "₦70,000", href: "/learn/agricultural-data-analytics" },
+      { slug: "education-data-analytics", title: "Education & Learning Analytics", description: "Assessment quality, attendance, learning outcomes, retention and institutional dashboards. Includes applied projects and ethical data handling.", level: "Intermediate", duration: "8 weeks", price: "₦70,000", href: "/learn/education-data-analytics" },
+      { slug: "government-policy-analytics", title: "Government, Policy & Development Analytics", description: "Surveys, public budgets, programme evaluation, census indicators and policy briefs. Includes applied projects and ethical data handling.", level: "Intermediate", duration: "10 weeks", price: "₦70,000", href: "/learn/government-policy-analytics" },
       {
         slug: "power-bi",
         title: "Power BI",
@@ -258,7 +258,7 @@ export const courseCategories: CourseCategory[] = [
           "Build interactive business dashboards and reports with Microsoft Power BI.",
         level: "Intermediate",
         duration: "8 weeks",
-        price: "Premium",
+        price: "₦70,000",
       },
     ],
   },
@@ -273,7 +273,7 @@ export const courseCategories: CourseCategory[] = [
           "Statistics, Python, and machine learning combined into a complete data science path.",
         level: "Advanced",
         duration: "20 weeks",
-        price: "Premium",
+        price: "₦100,000",
       },
       {
         slug: "data-science-analytics-engineering",
@@ -282,7 +282,7 @@ export const courseCategories: CourseCategory[] = [
           "SQL, Python wrangling, big data pipelines with Spark and Databricks/Delta Lake, and executive dashboards in Power BI and Tableau.",
         level: "Advanced",
         duration: "8 modules",
-        price: "Premium",
+        price: "₦100,000",
         href: "/learn/data-science-analytics-engineering",
       },
     ],
