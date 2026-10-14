@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState, useSyncExternalStore } from "react";
 import ThemeToggle from "@/components/ThemeToggle";
+import AnalyticsWorkbench from "@/components/course/AnalyticsWorkbench";
 import type {
   CourseMeta,
   CourseModule,
@@ -640,6 +641,7 @@ function LabView({ module, confirmed, onConfirmed }: { module: CourseModule; con
           ))}
         </ol>
       </div>
+      <AnalyticsWorkbench />
       <label className="mt-5 flex items-start gap-3 rounded-xl border border-brand-200 p-4 text-sm dark:border-brand-800"><input type="checkbox" className="mt-1" checked={confirmed} onChange={(event) => onConfirmed(event.target.checked)} /><span>I completed the practical steps, checked my results and documented limitations. This is a self-declaration, not an independently graded submission.</span></label>
       <p className="mt-4 text-sm text-slate-500">
         💡 Complete the lab in your own environment, then mark it complete to
