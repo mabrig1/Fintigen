@@ -37,11 +37,11 @@ export default function CoursesPage() {
                 Build essential digital literacy, productivity, online safety, professional communication, content creation, responsible AI use, portfolio skills, and employability confidence before choosing a paid specialization.
               </p>
               <div className="mt-5 flex flex-wrap gap-2 text-sm text-slate-600 dark:text-slate-400">
-                <span>✓ ₦5,000 one-time</span><span>✓ Mobile friendly</span><span>✓ Practical labs</span><span>✓ Progress tracking</span><span>✓ Portfolio capstone</span>
+                <span>✓ ₦20,000 one-time</span><span>✓ Mobile friendly</span><span>✓ Practical labs</span><span>✓ Progress tracking</span><span>✓ Portfolio capstone</span>
               </div>
             </div>
             <Link href="/checkout/digital-skills-foundation" className="rounded-2xl bg-emerald-600 px-7 py-4 text-center font-black text-white transition hover:bg-emerald-700">
-              Enroll for ₦5,000 →
+              Enroll for ₦20,000 →
             </Link>
           </div>
         </section>
@@ -115,7 +115,7 @@ export default function CoursesPage() {
                   <h3 className="mt-3 text-lg font-semibold">{course.title}</h3>
                   <p className="mt-2 flex-1 text-sm text-slate-600 dark:text-slate-400">{course.description}</p>
                   <div className="mt-4 flex items-center justify-between gap-3">
-                    <span className="text-sm text-slate-500">⏱ {course.duration}</span>
+                    <span className="text-sm text-slate-500">⏱ {course.duration} · {course.price}</span>
                     <Link href={course.href ?? "/pricing"} className="text-sm font-semibold text-brand-600 hover:text-brand-700 dark:text-brand-400">View Paid Course →</Link>
                   </div>
                 </div>
